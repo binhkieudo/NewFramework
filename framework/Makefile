@@ -14,7 +14,7 @@ sim_name := none
 #########################################################################################
 # include shared variables
 #########################################################################################
-SUB_PROJECT ?= vcu118_rocketsmall
+SUB_PROJECT ?= arty100t_sha3rocket
 
 #########################################################################################
 # My configuration
@@ -61,6 +61,24 @@ ifeq ($(SUB_PROJECT),vcu118_rocketsmall)
 	BOARD             ?= vcu118
 	FPGA_BRAND        ?= xilinx
 endif
+
+# Featured configurations
+ifeq ($(SUB_PROJECT),arty100t_sha3rocket)
+	# TODO: Fix with Arty
+	SBT_PROJECT       ?= framework
+	MODEL             ?= Arty100THarness
+	VLOG_MODEL        ?= Arty100THarness
+	MODEL_PACKAGE     ?= framework.fpga.arty100t
+	CONFIG            ?= SmallSha3RocketArty100TConfig
+	CONFIG_PACKAGE    ?= framework.fpga.arty100t
+	GENERATOR_PACKAGE ?= chipyard
+	TB                ?= none # unused
+	TOP               ?= ChipTop
+	BOARD             ?= arty_a7_100
+	FPGA_BRAND        ?= xilinx
+endif
+
+
 ################### End my configurations #################################################
 
 include $(base_dir)/variables.mk
