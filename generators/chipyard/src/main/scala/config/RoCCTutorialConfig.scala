@@ -9,5 +9,6 @@ class Tutorial1RocketConfig extends Config(
 
 class Tutorial2RocketConfig extends Config(
   new tut_2.WithTut02RoccAccel ++
+  new freechips.rocketchip.subsystem.WithL1DCacheWays (2) ++
   new freechips.rocketchip.subsystem.WithNSmallCores(1) ++         // single rocket-core
   new chipyard.config.AbstractConfig)
