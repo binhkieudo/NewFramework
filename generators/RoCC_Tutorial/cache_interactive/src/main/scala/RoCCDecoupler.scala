@@ -36,11 +36,11 @@ class RoCCDecoupler (xLen: Int = 64)(implicit p: Parameters) extends Module {
 
   // Cache request
   io.rocc_io.mem.req.valid          := mem_vld && io.controller_io.mem_resp_valid
-  io.rocc_io.mem.req.bits.addr      := "h80000000".U
-  io.rocc_io.mem.req.bits.tag       := 1.U
+  io.rocc_io.mem.req.bits.addr      := "h00800044D8".U
+  io.rocc_io.mem.req.bits.tag       := "h0B".U
   io.rocc_io.mem.req.bits.cmd       := M_XRD
   io.rocc_io.mem.req.bits.size      := "b11".U
-  io.rocc_io.mem.req.bits.data      := io.controller_io.mem_resp_data
+  io.rocc_io.mem.req.bits.data      := 0.U
   io.rocc_io.mem.req.bits.mask      := 0.U
   // Cache response
   io.controller_io.mem_req_wrdata  := io.rocc_io.mem.resp.bits.data
@@ -49,7 +49,7 @@ class RoCCDecoupler (xLen: Int = 64)(implicit p: Parameters) extends Module {
 
   // Disable specific request features
   io.rocc_io.mem.req.bits.signed    := false.B
-  io.rocc_io.mem.req.bits.dprv      := 0.U
+  io.rocc_io.mem.req.bits.dprv      := "b11".U
   io.rocc_io.mem.req.bits.dv        := false.B
   io.rocc_io.mem.req.bits.phys      := false.B
   io.rocc_io.mem.req.bits.no_alloc  := false.B
@@ -59,7 +59,7 @@ class RoCCDecoupler (xLen: Int = 64)(implicit p: Parameters) extends Module {
   io.rocc_io.mem.s1_data.data       := 0.U
   io.rocc_io.mem.s1_data.mask       := 0.U
   io.rocc_io.mem.s2_kill            := false.B
-  io.rocc_io.mem.keep_clock_enabled := true.B
+  io.rocc_io.mem.keep_clock_enabled := false.B
 
   // Set the other flags
   io.rocc_io.busy       := false.B
