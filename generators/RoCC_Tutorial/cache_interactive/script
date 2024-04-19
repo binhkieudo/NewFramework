@@ -1,0 +1,5 @@
+
+lazy val tut_2 = (project in file("generators/RoCC_Tutorial/cache_interactive"))
+  .dependsOn(rocketchip, midasTargetUtils)
+  .settings(libraryDependencies ++= rocketLibDeps.value)
+  .settings(commonSettings)

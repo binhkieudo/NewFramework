@@ -227,7 +227,7 @@ $(output_dir)/%.vpd: $(output_dir)/% $(sim_debug)
 .PHONY: clean clean-sim clean-sim-debug
 clean:
 	rm -rf ./output
-	rm *.riscv
+	rm -f *.riscv
 	rm -f ../../.classpath_cache/*
 	rm -rf $(CLASSPATH_CACHE) $(gen_dir) $(sim_prefix)-*
 

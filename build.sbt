@@ -151,7 +151,7 @@ lazy val testchipip = (project in file("generators/testchipip"))
 lazy val chipyard = (project in file("generators/chipyard"))
   .dependsOn(testchipip, rocketchip, boom, hwacha, sifive_blocks, sifive_cache, iocell,
     sha3,
-		tut_1, // On separate line to allow for cleaner tutorial-setup patches
+		tut_1, tut_2, // On separate line to allow for cleaner tutorial-setup patches
     dsptools, `rocket-dsp-utils`,
     gemmini, icenet, tracegen, cva6, nvdla, sodor, ibex, fft_generator,
     constellation, mempress, barf, shuttle)
@@ -314,6 +314,11 @@ lazy val framework = (project in file("./framework"))
   .settings(commonSettings)
 
 lazy val tut_1 = (project in file("generators/RoCC_Tutorial/simple-example"))
+  .dependsOn(rocketchip, midasTargetUtils)
+  .settings(libraryDependencies ++= rocketLibDeps.value)
+  .settings(commonSettings)
+
+lazy val tut_2 = (project in file("generators/RoCC_Tutorial/cache_interactive"))
   .dependsOn(rocketchip, midasTargetUtils)
   .settings(libraryDependencies ++= rocketLibDeps.value)
   .settings(commonSettings)
