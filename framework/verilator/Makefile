@@ -5,6 +5,10 @@ ifeq ($(shell which verilator),)
 $(error Did not find Verilator in PATH. Make sure all requirements are installed)
 endif
 
+CONFIG ?= SmallRocketCacheConfig
+BINARY ?= cache.riscv
+LOADMEM ?= 1
+
 #########################################################################################
 # general path variables
 #########################################################################################
@@ -221,11 +225,30 @@ $(output_dir)/%.vpd: $(output_dir)/% $(sim_debug)
 	vcd2vpd $@.vcd $@ > /dev/null &
 	(set -o pipefail && $(NUMA_PREFIX) $(sim_debug) $(PERMISSIVE_ON) $(SIM_FLAGS) $(EXTRA_SIM_FLAGS) $(SEED_FLAG) $(VERBOSE_FLAGS) -v$@.vcd $(PERMISSIVE_OFF) $< </dev/null 2> >(spike-dasm > $<.out) | tee $<.log)
 
+VCD_FILES := $(wildcard $(output_dir)/*.vcd)
+WLF_FILES := $(patsubst $(output_dir)/%.vcd,$(output_dir)/%.wlf,$(VCD_FILES))
+DO_FILES := $(patsubst $(output_dir)/%.vcd,%.do,$(VCD_FILES))
+
+gen-wlf: $(WLF_FILES)
+$(output_dir)/%.wlf: $(output_dir)/%.vcd
+	vcd2wlf $< $@
+
+gen-do: $(DO_FILES)
+$(DO_FILES):
+	if [ ! -f $@ ]; then echo "add wave *; run -all;" > $@; fi
+
+qsim-open:
+	vsim -view $(WLF_FILES) -do "do $(DO_FILES);"
+
+.PHONY: msim-debug
+msim-debug: gen-wlf qsim-open
+
 #########################################################################################
 # general cleanup rules
 #########################################################################################
 .PHONY: clean clean-sim clean-sim-debug
 clean:
+	rm -rf ./transcript
 	rm -rf ./output
 	rm -f ../../.classpath_cache/*
 	rm -rf $(CLASSPATH_CACHE) $(gen_dir) $(sim_prefix)-*

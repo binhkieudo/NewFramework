@@ -1,0 +1,477 @@
+/*
+
+Xilinx Vivado v2022.2 (64-bit) [Major: 2022, Minor: 2]
+SW Build: 3671981 on Fri Oct 14 04:59:54 MDT 2022
+IP Build: 3669848 on Fri Oct 14 08:30:02 MDT 2022
+
+Process ID (PID): 263378
+License: Customer
+Mode: GUI Mode
+
+Current time: 	Fri May 03 01:59:53 JST 2024
+Time zone: 	Japan Standard Time (Asia/Tokyo)
+
+OS: Ubuntu
+OS Version: 5.15.0-105-generic
+OS Architecture: amd64
+Available processors (cores): 16
+
+Display: 0
+Screen size: 2560x1440
+Screen resolution (DPI): 100
+Available screens: 1
+Default font: family=Dialog,name=Dialog,style=plain,size=12
+Scale size: 12
+
+Java version: 	11.0.11 64-bit
+Java home: 	/home/binhkieudo/Software/Xilinx/Vivado/2022.2/tps/lnx64/jre11.0.11_9
+Java executable: 	/home/binhkieudo/Software/Xilinx/Vivado/2022.2/tps/lnx64/jre11.0.11_9/bin/java
+Java arguments: 	[-Dsun.java2d.pmoffscreen=false, -Dhttps.protocols=TLSv1,TLSv1.1,TLSv1.2, -Dsun.java2d.xrender=false, -Djdk.gtk.version=2, -Dsun.java2d.uiScale.enabled=false, -Xverify:none, -Dswing.aatext=true, -XX:-UsePerfData, -Djdk.map.althashing.threshold=512, -XX:StringTableSize=4072, --add-opens=java.desktop/com.sun.awt=ALL-UNNAMED, --add-opens=java.desktop/javax.swing.plaf.synth=ALL-UNNAMED, --add-opens=java.base/java.nio=ALL-UNNAMED, --add-opens=java.desktop/sun.swing=ALL-UNNAMED, --add-opens=java.desktop/javax.swing=ALL-UNNAMED, --add-opens=java.desktop/javax.swing.tree=ALL-UNNAMED, --add-opens=java.desktop/javax.swing.plaf.basic=ALL-UNNAMED, --add-opens=java.desktop/javax.swing.plaf.synth=ALL-UNNAMED, --add-opens=java.desktop/javax.swing.plaf.basic=ALL-UNNAMED, --add-opens=java.desktop/javax.swing=ALL-UNNAMED, --add-opens=java.desktop/javax.swing.tree=ALL-UNNAMED, --add-opens=java.desktop/java.awt.event=ALL-UNNAMED, --add-exports=java.desktop/javax.swing.plaf.synth=ALL-UNNAMED, --add-exports=java.base/java.nio=ALL-UNNAMED, --add-exports=java.desktop/sun.swing=ALL-UNNAMED, --add-exports=java.desktop/javax.swing=ALL-UNNAMED, --add-exports=java.desktop/javax.swing.tree=ALL-UNNAMED, --add-exports=java.desktop/javax.swing.plaf.basic=ALL-UNNAMED, --add-exports=java.desktop/sun.swing=ALL-UNNAMED, --add-exports=java.desktop/sun.swing.table=ALL-UNNAMED, --add-exports=java.desktop/sun.swing.plaf.synth=ALL-UNNAMED, --add-exports=java.desktop/sun.awt.shell=ALL-UNNAMED, --add-exports=java.base/sun.security.action=ALL-UNNAMED, --add-exports=java.desktop/sun.font=ALL-UNNAMED, --add-opens=java.desktop/sun.awt.X11=ALL-UNNAMED, -XX:NewSize=60m, -XX:MaxNewSize=60m, -Xms256m, -Xmx3072m, -Xss5m, -Xrs]
+Java initial memory (-Xms): 	256 MB
+Java maximum memory (-Xmx):	 3 GB
+
+
+User name: 	binhkieudo
+User home directory: /home/binhkieudo
+User working directory: /home/binhkieudo/Workspace/RISC-V/NewFramework/framework/tmp/lru
+User country: 	US
+User language: 	en
+User locale: 	en_US
+
+RDI_BASEROOT: /home/binhkieudo/Software/Xilinx/Vivado
+HDI_APPROOT: /home/binhkieudo/Software/Xilinx/Vivado/2022.2
+RDI_DATADIR: /home/binhkieudo/Software/Xilinx/Vivado/2022.2/data
+RDI_BINDIR: /home/binhkieudo/Software/Xilinx/Vivado/2022.2/bin
+
+Vivado preferences file: /home/binhkieudo/.Xilinx/Vivado/2022.2/vivado.xml
+Vivado preferences directory: /home/binhkieudo/.Xilinx/Vivado/2022.2/
+Vivado layouts directory: /home/binhkieudo/.Xilinx/Vivado/2022.2/data/layouts
+PlanAhead jar file: 	/home/binhkieudo/Software/Xilinx/Vivado/2022.2/lib/classes/planAhead.jar
+Vivado log file: 	
+Vivado journal file: 	
+Engine tmp dir: 	./.Xil/Vivado-263378-binhkieudo-ASUS
+
+Xilinx Environment Variables
+----------------------------
+RDI_APPROOT: /home/binhkieudo/Software/Xilinx/Vivado/2022.2
+RDI_BASEROOT: /home/binhkieudo/Software/Xilinx/Vivado
+RDI_BINROOT: /home/binhkieudo/Software/Xilinx/Vivado/2022.2/bin
+RDI_BUILD: yes
+RDI_DATADIR: /home/binhkieudo/Software/Xilinx/Vivado/2022.2/data
+RDI_INSTALLROOT: /home/binhkieudo/Software/Xilinx
+RDI_INSTALLVER: 2022.2
+RDI_JAVA_PLATFORM: 
+RDI_JAVA_VERSION: 11.0.11_9
+RDI_LIBDIR: /home/binhkieudo/Software/Xilinx/Vivado/2022.2/lib/lnx64.o/Ubuntu/20:/home/binhkieudo/Software/Xilinx/Vivado/2022.2/lib/lnx64.o/Ubuntu:/home/binhkieudo/Software/Xilinx/Vivado/2022.2/lib/lnx64.o
+RDI_OPT_EXT: .o
+RDI_PATCHROOT: 
+RDI_PLATFORM: lnx64
+RDI_PREPEND_PATH: /home/binhkieudo/Software/Xilinx/Vivado/2022.2/ids_lite/ISE/bin/lin64
+RDI_PROG: /home/binhkieudo/Software/Xilinx/Vivado/2022.2/bin/unwrapped/lnx64.o/vivado
+RDI_TPS_ROOT: /home/binhkieudo/Software/Xilinx/Vivado/2022.2/tps/lnx64
+RDI_USE_JDK11: True
+XILINX: /home/binhkieudo/Software/Xilinx/Vivado/2022.2/ids_lite/ISE
+XILINX_DSP: /home/binhkieudo/Software/Xilinx/Vivado/2022.2/ids_lite/ISE
+XILINX_HLS: /home/binhkieudo/Software/Xilinx/Vitis_HLS/2022.2
+XILINX_PLANAHEAD: /home/binhkieudo/Software/Xilinx/Vivado/2022.2
+XILINX_VITIS: 
+XILINX_VIVADO: /home/binhkieudo/Software/Xilinx/Vivado/2022.2
+XILINX_VIVADO_HLS: /home/binhkieudo/Software/Xilinx/Vivado/2022.2
+
+
+GUI allocated memory:	256 MB
+GUI max memory:		3,072 MB
+Engine allocated memory: 1,130 MB
+
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+
+*/
+
+// TclEventType: START_GUI
+// Tcl Message: start_gui 
+// TclEventType: PROJECT_OPEN_DIALOG
+// [GUI Memory]: 108 MB (+110704kb) [00:00:06]
+// [Engine Memory]: 1,049 MB (+948222kb) [00:00:06]
+// Opening Vivado Project: Arty100THarness.xpr. Version: Vivado v2022.2 
+// TclEventType: DEBUG_PROBE_SET_CHANGE
+// TclEventType: FLOW_ADDED
+// Tcl Message: open_project Arty100THarness.xpr 
+// HMemoryUtils.trashcanNow. Engine heap size: 1,201 MB. GUI used memory: 64 MB. Current time: 5/3/24, 1:59:54 AM JST
+// TclEventType: MSGMGR_MOVEMSG
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: FILE_SET_NEW
+// TclEventType: RUN_CURRENT
+// TclEventType: PROJECT_DASHBOARD_NEW
+// TclEventType: PROJECT_DASHBOARD_GADGET_NEW
+// TclEventType: PROJECT_DASHBOARD_GADGET_CHANGE
+// TclEventType: PROJECT_DASHBOARD_GADGET_NEW
+// TclEventType: PROJECT_DASHBOARD_GADGET_CHANGE
+// TclEventType: PROJECT_DASHBOARD_GADGET_NEW
+// TclEventType: PROJECT_DASHBOARD_GADGET_CHANGE
+// TclEventType: PROJECT_DASHBOARD_GADGET_NEW
+// TclEventType: PROJECT_DASHBOARD_GADGET_CHANGE
+// TclEventType: PROJECT_DASHBOARD_GADGET_NEW
+// TclEventType: PROJECT_DASHBOARD_GADGET_CHANGE
+// TclEventType: PROJECT_DASHBOARD_GADGET_NEW
+// TclEventType: PROJECT_DASHBOARD_GADGET_CHANGE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: PROJECT_NEW
+// [Engine Memory]: 1,340 MB (+250271kb) [00:00:15]
+// [GUI Memory]: 114 MB (+450kb) [00:00:16]
+// [GUI Memory]: 121 MB (+1348kb) [00:00:16]
+// WARNING: HEventQueue.dispatchEvent() is taking  2198 ms.
+// Tcl Message: open_project Arty100THarness.xpr 
+// Tcl Message: INFO: [Project 1-313] Project file moved from '/home/binhkieudo/Workspace/RISC-V/NewFramework/framework/generated-src/framework.fpga.arty100t.Arty100THarness.SmallRocketArty100TConfig' since last save. INFO: [filemgmt 56-3] Default IP Output Path : Could not find the directory '/home/binhkieudo/Workspace/RISC-V/NewFramework/framework/tmp/lru/Arty100THarness.gen/sources_1'. 
+// Tcl Message: Scanning sources... Finished scanning sources 
+// Tcl Message: INFO: [IP_Flow 19-234] Refreshing IP repositories INFO: [IP_Flow 19-1700] Loaded user IP repository '/home/binhkieudo/Workspace/RISC-V/NewFramework/framework/tmp/lru/obj/ip'. INFO: [IP_Flow 19-2313] Loaded Vivado IP repository '/home/binhkieudo/Software/Xilinx/Vivado/2022.2/data/ip'. 
+// Project name: Arty100THarness; location: /home/binhkieudo/Workspace/RISC-V/NewFramework/framework/tmp/lru; part: xc7a100tcsg324-1
+// Tcl Message: open_project: Time (s): cpu = 00:00:25 ; elapsed = 00:00:10 . Memory (MB): peak = 6651.324 ; gain = 314.055 ; free physical = 2291 ; free virtual = 46571 
+dismissDialog("Open Project"); // bq
+// [Engine Memory]: 1,417 MB (+10444kb) [00:00:19]
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// Tcl Message: update_compile_order -fileset sources_1 
+expandTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, Arty100THarness (Arty100THarness.sv)]", 2); // D
+expandTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, Arty100THarness (Arty100THarness.sv), mig : XilinxArty100TMIG (XilinxArty100TMIG.sv)]", 6); // D
+collapseTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, Arty100THarness (Arty100THarness.sv), mig : XilinxArty100TMIG (XilinxArty100TMIG.sv)]", 6); // D
+// [GUI Memory]: 129 MB (+2283kb) [00:00:24]
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: DG_GRAPH_STALE
+expandTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, Arty100THarness (Arty100THarness.sv), chiptop0 : ChipTop (ChipTop.sv)]", 16); // D
+expandTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, Arty100THarness (Arty100THarness.sv), chiptop0 : ChipTop (ChipTop.sv), system : DigitalTop (DigitalTop.sv)]", 17); // D
+// HMemoryUtils.trashcanNow. Engine heap size: 1,467 MB. GUI used memory: 71 MB. Current time: 5/3/24, 2:00:14 AM JST
+expandTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, Arty100THarness (Arty100THarness.sv), chiptop0 : ChipTop (ChipTop.sv), system : DigitalTop (DigitalTop.sv), prci_ctrl_domain : ClockSinkDomain_3 (ClockSinkDomain_3.sv)]", 40); // D
+// Elapsed time: 10 seconds
+collapseTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, Arty100THarness (Arty100THarness.sv), chiptop0 : ChipTop (ChipTop.sv), system : DigitalTop (DigitalTop.sv), prci_ctrl_domain : ClockSinkDomain_3 (ClockSinkDomain_3.sv)]", 40); // D
+expandTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, Arty100THarness (Arty100THarness.sv), chiptop0 : ChipTop (ChipTop.sv), system : DigitalTop (DigitalTop.sv), prci_ctrl_domain : ClockSinkDomain_3 (ClockSinkDomain_3.sv)]", 40); // D
+collapseTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, Arty100THarness (Arty100THarness.sv), chiptop0 : ChipTop (ChipTop.sv), system : DigitalTop (DigitalTop.sv), prci_ctrl_domain : ClockSinkDomain_3 (ClockSinkDomain_3.sv)]", 40); // D
+// Elapsed time: 10 seconds
+expandTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, Arty100THarness (Arty100THarness.sv), chiptop0 : ChipTop (ChipTop.sv), system : DigitalTop (DigitalTop.sv), tile_prci_domain : TilePRCIDomain (TilePRCIDomain.sv)]", 24); // D
+expandTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, Arty100THarness (Arty100THarness.sv), chiptop0 : ChipTop (ChipTop.sv), system : DigitalTop (DigitalTop.sv), tile_prci_domain : TilePRCIDomain (TilePRCIDomain.sv), tile_reset_domain_tile : RocketTile (RocketTile.sv)]", 25); // D
+expandTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, Arty100THarness (Arty100THarness.sv), chiptop0 : ChipTop (ChipTop.sv), system : DigitalTop (DigitalTop.sv), tile_prci_domain : TilePRCIDomain (TilePRCIDomain.sv), tile_reset_domain_tile : RocketTile (RocketTile.sv), dcache : DCache (DCache.sv)]", 28); // D
+collapseTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, Arty100THarness (Arty100THarness.sv), chiptop0 : ChipTop (ChipTop.sv), system : DigitalTop (DigitalTop.sv), tile_prci_domain : TilePRCIDomain (TilePRCIDomain.sv), tile_reset_domain_tile : RocketTile (RocketTile.sv), dcache : DCache (DCache.sv)]", 28); // D
+expandTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, Arty100THarness (Arty100THarness.sv), chiptop0 : ChipTop (ChipTop.sv), system : DigitalTop (DigitalTop.sv), tile_prci_domain : TilePRCIDomain (TilePRCIDomain.sv), tile_reset_domain_tile : RocketTile (RocketTile.sv), core : Rocket (Rocket.sv)]", 32); // D
+collapseTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, Arty100THarness (Arty100THarness.sv), chiptop0 : ChipTop (ChipTop.sv), system : DigitalTop (DigitalTop.sv), tile_prci_domain : TilePRCIDomain (TilePRCIDomain.sv), tile_reset_domain_tile : RocketTile (RocketTile.sv), core : Rocket (Rocket.sv)]", 32); // D
+expandTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, Arty100THarness (Arty100THarness.sv), chiptop0 : ChipTop (ChipTop.sv), system : DigitalTop (DigitalTop.sv), tile_prci_domain : TilePRCIDomain (TilePRCIDomain.sv), tile_reset_domain_tile : RocketTile (RocketTile.sv), dcache : DCache (DCache.sv)]", 28); // D
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, Arty100THarness (Arty100THarness.sv), chiptop0 : ChipTop (ChipTop.sv), system : DigitalTop (DigitalTop.sv), tile_prci_domain : TilePRCIDomain (TilePRCIDomain.sv), tile_reset_domain_tile : RocketTile (RocketTile.sv), dcache : DCache (DCache.sv), s1_victim_way_repl_array_ext : s1_victim_way_repl_array_combMem (s1_victim_way_repl_array_combMem.sv)]", 47, false); // D
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, Arty100THarness (Arty100THarness.sv), chiptop0 : ChipTop (ChipTop.sv), system : DigitalTop (DigitalTop.sv), tile_prci_domain : TilePRCIDomain (TilePRCIDomain.sv), tile_reset_domain_tile : RocketTile (RocketTile.sv), dcache : DCache (DCache.sv), s1_victim_way_repl_array_ext : s1_victim_way_repl_array_combMem (s1_victim_way_repl_array_combMem.sv)]", 47, false); // D
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, Arty100THarness (Arty100THarness.sv), chiptop0 : ChipTop (ChipTop.sv), system : DigitalTop (DigitalTop.sv), tile_prci_domain : TilePRCIDomain (TilePRCIDomain.sv), tile_reset_domain_tile : RocketTile (RocketTile.sv), dcache : DCache (DCache.sv), s1_victim_way_repl_array_ext : s1_victim_way_repl_array_combMem (s1_victim_way_repl_array_combMem.sv)]", 47, false, false, false, false, false, true); // D - Double Click
+// Elapsed time: 10 seconds
+selectCodeEditor("s1_victim_way_repl_array_combMem.sv", 640, 258); // ac
+selectCodeEditor("s1_victim_way_repl_array_combMem.sv", 640, 258, false, false, false, false, true); // ac - Double Click
+// Elapsed time: 157 seconds
+expandTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, Arty100THarness (Arty100THarness.sv), chiptop0 : ChipTop (ChipTop.sv), system : DigitalTop (DigitalTop.sv), tile_prci_domain : TilePRCIDomain (TilePRCIDomain.sv), tile_reset_domain_tile : RocketTile (RocketTile.sv), dcache : DCache (DCache.sv), data : DCacheDataArray (DCacheDataArray.sv)]", 46); // D
+collapseTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, Arty100THarness (Arty100THarness.sv), chiptop0 : ChipTop (ChipTop.sv), system : DigitalTop (DigitalTop.sv), tile_prci_domain : TilePRCIDomain (TilePRCIDomain.sv), tile_reset_domain_tile : RocketTile (RocketTile.sv), dcache : DCache (DCache.sv), data : DCacheDataArray (DCacheDataArray.sv)]", 46); // D
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, Arty100THarness (Arty100THarness.sv), chiptop0 : ChipTop (ChipTop.sv), system : DigitalTop (DigitalTop.sv), tile_prci_domain : TilePRCIDomain (TilePRCIDomain.sv), tile_reset_domain_tile : RocketTile (RocketTile.sv), dcache : DCache (DCache.sv)]", 28, true); // D - Node
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, Arty100THarness (Arty100THarness.sv), chiptop0 : ChipTop (ChipTop.sv), system : DigitalTop (DigitalTop.sv), tile_prci_domain : TilePRCIDomain (TilePRCIDomain.sv), tile_reset_domain_tile : RocketTile (RocketTile.sv), dcache : DCache (DCache.sv)]", 28, true, false, false, false, false, true); // D - Double Click - Node
+selectCodeEditor("DCache.sv", 603, 385); // ac
+// HMemoryUtils.trashcanNow. Engine heap size: 1,487 MB. GUI used memory: 76 MB. Current time: 5/3/24, 2:04:24 AM JST
+setText(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "756", true); // d.c
+// Elapsed time: 47 seconds
+selectCodeEditor("DCache.sv", 617, 555); // ac
+// Elapsed time: 13 seconds
+setText(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "Replacement"); // d.c
+selectCodeEditor("DCache.sv", 188, 318); // ac
+// [Engine Memory]: 1,489 MB (+1558kb) [00:05:51]
+selectCodeEditor("DCache.sv", 509, 373); // ac
+selectCodeEditor("DCache.sv", 509, 373, false, false, false, false, true); // ac - Double Click
+typeControlKey((HResource) null, "DCache.sv", 'c'); // ac
+selectCodeEditor("DCache.sv", 272, 373); // ac
+selectCodeEditor("DCache.sv", 263, 199); // ac
+// Elapsed time: 24 seconds
+selectCodeEditor("DCache.sv", 263, 392); // ac
+selectCodeEditor("DCache.sv", 263, 392, false, false, false, false, true); // ac - Double Click
+selectCodeEditor("DCache.sv", 464, 442); // ac
+setText(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "replace", true); // d.c
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "replace"); // d.c
+// Elapsed time: 51 seconds
+setText(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "replace"); // d.c
+selectCodeEditor("DCache.sv", 349, 451); // ac
+selectCodeEditor("DCache.sv", 349, 451, false, false, false, false, true); // ac - Double Click
+// Elapsed time: 33 seconds
+selectCodeEditor("DCache.sv", 199, 379); // ac
+selectCodeEditor("DCache.sv", 199, 379, false, false, false, false, true); // ac - Double Click
+expandTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, Arty100THarness (Arty100THarness.sv), chiptop0 : ChipTop (ChipTop.sv), system : DigitalTop (DigitalTop.sv), tile_prci_domain : TilePRCIDomain (TilePRCIDomain.sv), tile_reset_domain_tile : RocketTile (RocketTile.sv), dcache : DCache (DCache.sv)]", 28); // D
+collapseTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, Arty100THarness (Arty100THarness.sv), chiptop0 : ChipTop (ChipTop.sv), system : DigitalTop (DigitalTop.sv), tile_prci_domain : TilePRCIDomain (TilePRCIDomain.sv), tile_reset_domain_tile : RocketTile (RocketTile.sv), dcache : DCache (DCache.sv)]", 28); // D
+// Elapsed time: 21 seconds
+expandTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, Arty100THarness (Arty100THarness.sv), chiptop0 : ChipTop (ChipTop.sv), system : DigitalTop (DigitalTop.sv), tile_prci_domain : TilePRCIDomain (TilePRCIDomain.sv), tile_reset_domain_tile : RocketTile (RocketTile.sv), dcache : DCache (DCache.sv)]", 28); // D
+expandTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, Arty100THarness (Arty100THarness.sv), chiptop0 : ChipTop (ChipTop.sv), system : DigitalTop (DigitalTop.sv), tile_prci_domain : TilePRCIDomain (TilePRCIDomain.sv), tile_reset_domain_tile : RocketTile (RocketTile.sv), dcache : DCache (DCache.sv), data : DCacheDataArray (DCacheDataArray.sv)]", 46); // D
+expandTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, Arty100THarness (Arty100THarness.sv), chiptop0 : ChipTop (ChipTop.sv), system : DigitalTop (DigitalTop.sv), tile_prci_domain : TilePRCIDomain (TilePRCIDomain.sv), tile_reset_domain_tile : RocketTile (RocketTile.sv), dcache : DCache (DCache.sv), data : DCacheDataArray (DCacheDataArray.sv), data_arrays_0 : data_arrays_0 (data_arrays_0.sv), data_arrays_0_ext : data_arrays_0_ext (framework.fpga.arty100t.Arty100THarness.SmallRocketArty100TConfig.top.mems.v)]", 48); // D
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, Arty100THarness (Arty100THarness.sv), chiptop0 : ChipTop (ChipTop.sv), system : DigitalTop (DigitalTop.sv), tile_prci_domain : TilePRCIDomain (TilePRCIDomain.sv), tile_reset_domain_tile : RocketTile (RocketTile.sv), dcache : DCache (DCache.sv), data : DCacheDataArray (DCacheDataArray.sv), data_arrays_0 : data_arrays_0 (data_arrays_0.sv), data_arrays_0_ext : data_arrays_0_ext (framework.fpga.arty100t.Arty100THarness.SmallRocketArty100TConfig.top.mems.v), mem_0_0 : split_data_arrays_0_ext (framework.fpga.arty100t.Arty100THarness.SmallRocketArty100TConfig.top.mems.v)]", 49, false); // D
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, Arty100THarness (Arty100THarness.sv), chiptop0 : ChipTop (ChipTop.sv), system : DigitalTop (DigitalTop.sv), tile_prci_domain : TilePRCIDomain (TilePRCIDomain.sv), tile_reset_domain_tile : RocketTile (RocketTile.sv), dcache : DCache (DCache.sv), data : DCacheDataArray (DCacheDataArray.sv), data_arrays_0 : data_arrays_0 (data_arrays_0.sv), data_arrays_0_ext : data_arrays_0_ext (framework.fpga.arty100t.Arty100THarness.SmallRocketArty100TConfig.top.mems.v), mem_0_1 : split_data_arrays_0_ext (framework.fpga.arty100t.Arty100THarness.SmallRocketArty100TConfig.top.mems.v)]", 50, false); // D
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, Arty100THarness (Arty100THarness.sv), chiptop0 : ChipTop (ChipTop.sv), system : DigitalTop (DigitalTop.sv), tile_prci_domain : TilePRCIDomain (TilePRCIDomain.sv), tile_reset_domain_tile : RocketTile (RocketTile.sv), dcache : DCache (DCache.sv), data : DCacheDataArray (DCacheDataArray.sv), data_arrays_0 : data_arrays_0 (data_arrays_0.sv), data_arrays_0_ext : data_arrays_0_ext (framework.fpga.arty100t.Arty100THarness.SmallRocketArty100TConfig.top.mems.v), mem_0_2 : split_data_arrays_0_ext (framework.fpga.arty100t.Arty100THarness.SmallRocketArty100TConfig.top.mems.v)]", 51, false); // D
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, Arty100THarness (Arty100THarness.sv), chiptop0 : ChipTop (ChipTop.sv), system : DigitalTop (DigitalTop.sv), tile_prci_domain : TilePRCIDomain (TilePRCIDomain.sv), tile_reset_domain_tile : RocketTile (RocketTile.sv), dcache : DCache (DCache.sv), data : DCacheDataArray (DCacheDataArray.sv), data_arrays_0 : data_arrays_0 (data_arrays_0.sv), data_arrays_0_ext : data_arrays_0_ext (framework.fpga.arty100t.Arty100THarness.SmallRocketArty100TConfig.top.mems.v), mem_0_3 : split_data_arrays_0_ext (framework.fpga.arty100t.Arty100THarness.SmallRocketArty100TConfig.top.mems.v)]", 52, false); // D
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, Arty100THarness (Arty100THarness.sv), chiptop0 : ChipTop (ChipTop.sv), system : DigitalTop (DigitalTop.sv), tile_prci_domain : TilePRCIDomain (TilePRCIDomain.sv), tile_reset_domain_tile : RocketTile (RocketTile.sv), dcache : DCache (DCache.sv), data : DCacheDataArray (DCacheDataArray.sv), data_arrays_0 : data_arrays_0 (data_arrays_0.sv), data_arrays_0_ext : data_arrays_0_ext (framework.fpga.arty100t.Arty100THarness.SmallRocketArty100TConfig.top.mems.v), mem_0_4 : split_data_arrays_0_ext (framework.fpga.arty100t.Arty100THarness.SmallRocketArty100TConfig.top.mems.v)]", 53, false); // D
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, Arty100THarness (Arty100THarness.sv), chiptop0 : ChipTop (ChipTop.sv), system : DigitalTop (DigitalTop.sv), tile_prci_domain : TilePRCIDomain (TilePRCIDomain.sv), tile_reset_domain_tile : RocketTile (RocketTile.sv), dcache : DCache (DCache.sv), data : DCacheDataArray (DCacheDataArray.sv), data_arrays_0 : data_arrays_0 (data_arrays_0.sv), data_arrays_0_ext : data_arrays_0_ext (framework.fpga.arty100t.Arty100THarness.SmallRocketArty100TConfig.top.mems.v), mem_0_5 : split_data_arrays_0_ext (framework.fpga.arty100t.Arty100THarness.SmallRocketArty100TConfig.top.mems.v)]", 54, false); // D
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, Arty100THarness (Arty100THarness.sv), chiptop0 : ChipTop (ChipTop.sv), system : DigitalTop (DigitalTop.sv), tile_prci_domain : TilePRCIDomain (TilePRCIDomain.sv), tile_reset_domain_tile : RocketTile (RocketTile.sv), dcache : DCache (DCache.sv), data : DCacheDataArray (DCacheDataArray.sv), data_arrays_0 : data_arrays_0 (data_arrays_0.sv), data_arrays_0_ext : data_arrays_0_ext (framework.fpga.arty100t.Arty100THarness.SmallRocketArty100TConfig.top.mems.v), mem_0_6 : split_data_arrays_0_ext (framework.fpga.arty100t.Arty100THarness.SmallRocketArty100TConfig.top.mems.v)]", 55, false); // D
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, Arty100THarness (Arty100THarness.sv), chiptop0 : ChipTop (ChipTop.sv), system : DigitalTop (DigitalTop.sv), tile_prci_domain : TilePRCIDomain (TilePRCIDomain.sv), tile_reset_domain_tile : RocketTile (RocketTile.sv), dcache : DCache (DCache.sv), data : DCacheDataArray (DCacheDataArray.sv), data_arrays_0 : data_arrays_0 (data_arrays_0.sv), data_arrays_0_ext : data_arrays_0_ext (framework.fpga.arty100t.Arty100THarness.SmallRocketArty100TConfig.top.mems.v), mem_0_7 : split_data_arrays_0_ext (framework.fpga.arty100t.Arty100THarness.SmallRocketArty100TConfig.top.mems.v)]", 56, false); // D
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, Arty100THarness (Arty100THarness.sv), chiptop0 : ChipTop (ChipTop.sv), system : DigitalTop (DigitalTop.sv), tile_prci_domain : TilePRCIDomain (TilePRCIDomain.sv), tile_reset_domain_tile : RocketTile (RocketTile.sv), dcache : DCache (DCache.sv), data : DCacheDataArray (DCacheDataArray.sv), data_arrays_0 : data_arrays_0 (data_arrays_0.sv), data_arrays_0_ext : data_arrays_0_ext (framework.fpga.arty100t.Arty100THarness.SmallRocketArty100TConfig.top.mems.v), mem_0_8 : split_data_arrays_0_ext (framework.fpga.arty100t.Arty100THarness.SmallRocketArty100TConfig.top.mems.v)]", 57, false); // D
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, Arty100THarness (Arty100THarness.sv), chiptop0 : ChipTop (ChipTop.sv), system : DigitalTop (DigitalTop.sv), tile_prci_domain : TilePRCIDomain (TilePRCIDomain.sv), tile_reset_domain_tile : RocketTile (RocketTile.sv), dcache : DCache (DCache.sv), data : DCacheDataArray (DCacheDataArray.sv), data_arrays_0 : data_arrays_0 (data_arrays_0.sv), data_arrays_0_ext : data_arrays_0_ext (framework.fpga.arty100t.Arty100THarness.SmallRocketArty100TConfig.top.mems.v), mem_0_9 : split_data_arrays_0_ext (framework.fpga.arty100t.Arty100THarness.SmallRocketArty100TConfig.top.mems.v)]", 58, false); // D
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, Arty100THarness (Arty100THarness.sv), chiptop0 : ChipTop (ChipTop.sv), system : DigitalTop (DigitalTop.sv), tile_prci_domain : TilePRCIDomain (TilePRCIDomain.sv), tile_reset_domain_tile : RocketTile (RocketTile.sv), dcache : DCache (DCache.sv), data : DCacheDataArray (DCacheDataArray.sv), data_arrays_0 : data_arrays_0 (data_arrays_0.sv), data_arrays_0_ext : data_arrays_0_ext (framework.fpga.arty100t.Arty100THarness.SmallRocketArty100TConfig.top.mems.v), mem_0_10 : split_data_arrays_0_ext (framework.fpga.arty100t.Arty100THarness.SmallRocketArty100TConfig.top.mems.v)]", 59, false); // D
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, Arty100THarness (Arty100THarness.sv), chiptop0 : ChipTop (ChipTop.sv), system : DigitalTop (DigitalTop.sv), tile_prci_domain : TilePRCIDomain (TilePRCIDomain.sv), tile_reset_domain_tile : RocketTile (RocketTile.sv), dcache : DCache (DCache.sv), data : DCacheDataArray (DCacheDataArray.sv), data_arrays_0 : data_arrays_0 (data_arrays_0.sv), data_arrays_0_ext : data_arrays_0_ext (framework.fpga.arty100t.Arty100THarness.SmallRocketArty100TConfig.top.mems.v), mem_0_11 : split_data_arrays_0_ext (framework.fpga.arty100t.Arty100THarness.SmallRocketArty100TConfig.top.mems.v)]", 60, false); // D
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, Arty100THarness (Arty100THarness.sv), chiptop0 : ChipTop (ChipTop.sv), system : DigitalTop (DigitalTop.sv), tile_prci_domain : TilePRCIDomain (TilePRCIDomain.sv), tile_reset_domain_tile : RocketTile (RocketTile.sv), dcache : DCache (DCache.sv), data : DCacheDataArray (DCacheDataArray.sv), data_arrays_0 : data_arrays_0 (data_arrays_0.sv), data_arrays_0_ext : data_arrays_0_ext (framework.fpga.arty100t.Arty100THarness.SmallRocketArty100TConfig.top.mems.v), mem_0_12 : split_data_arrays_0_ext (framework.fpga.arty100t.Arty100THarness.SmallRocketArty100TConfig.top.mems.v)]", 61, false); // D
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, Arty100THarness (Arty100THarness.sv), chiptop0 : ChipTop (ChipTop.sv), system : DigitalTop (DigitalTop.sv), tile_prci_domain : TilePRCIDomain (TilePRCIDomain.sv), tile_reset_domain_tile : RocketTile (RocketTile.sv), dcache : DCache (DCache.sv), data : DCacheDataArray (DCacheDataArray.sv), data_arrays_0 : data_arrays_0 (data_arrays_0.sv), data_arrays_0_ext : data_arrays_0_ext (framework.fpga.arty100t.Arty100THarness.SmallRocketArty100TConfig.top.mems.v), mem_0_13 : split_data_arrays_0_ext (framework.fpga.arty100t.Arty100THarness.SmallRocketArty100TConfig.top.mems.v)]", 62, false); // D
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, Arty100THarness (Arty100THarness.sv), chiptop0 : ChipTop (ChipTop.sv), system : DigitalTop (DigitalTop.sv), tile_prci_domain : TilePRCIDomain (TilePRCIDomain.sv), tile_reset_domain_tile : RocketTile (RocketTile.sv), dcache : DCache (DCache.sv), data : DCacheDataArray (DCacheDataArray.sv), data_arrays_0 : data_arrays_0 (data_arrays_0.sv), data_arrays_0_ext : data_arrays_0_ext (framework.fpga.arty100t.Arty100THarness.SmallRocketArty100TConfig.top.mems.v), mem_0_14 : split_data_arrays_0_ext (framework.fpga.arty100t.Arty100THarness.SmallRocketArty100TConfig.top.mems.v)]", 63, false); // D
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, Arty100THarness (Arty100THarness.sv), chiptop0 : ChipTop (ChipTop.sv), system : DigitalTop (DigitalTop.sv), tile_prci_domain : TilePRCIDomain (TilePRCIDomain.sv), tile_reset_domain_tile : RocketTile (RocketTile.sv), dcache : DCache (DCache.sv), data : DCacheDataArray (DCacheDataArray.sv), data_arrays_0 : data_arrays_0 (data_arrays_0.sv), data_arrays_0_ext : data_arrays_0_ext (framework.fpga.arty100t.Arty100THarness.SmallRocketArty100TConfig.top.mems.v), mem_0_15 : split_data_arrays_0_ext (framework.fpga.arty100t.Arty100THarness.SmallRocketArty100TConfig.top.mems.v)]", 64, false); // D
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, Arty100THarness (Arty100THarness.sv), chiptop0 : ChipTop (ChipTop.sv), system : DigitalTop (DigitalTop.sv), tile_prci_domain : TilePRCIDomain (TilePRCIDomain.sv), tile_reset_domain_tile : RocketTile (RocketTile.sv), dcache : DCache (DCache.sv), s1_victim_way_repl_array_ext : s1_victim_way_repl_array_combMem (s1_victim_way_repl_array_combMem.sv)]", 65, false); // D
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, Arty100THarness (Arty100THarness.sv), chiptop0 : ChipTop (ChipTop.sv), system : DigitalTop (DigitalTop.sv), tile_prci_domain : TilePRCIDomain (TilePRCIDomain.sv), tile_reset_domain_tile : RocketTile (RocketTile.sv), dcache : DCache (DCache.sv), amoalus_0 : AMOALU (AMOALU.sv)]", 66, false); // D
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, Arty100THarness (Arty100THarness.sv), chiptop0 : ChipTop (ChipTop.sv), system : DigitalTop (DigitalTop.sv), tile_prci_domain : TilePRCIDomain (TilePRCIDomain.sv), tile_reset_domain_tile : RocketTile (RocketTile.sv), frontend : Frontend (Frontend.sv)]", 67, true); // D - Node
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, Arty100THarness (Arty100THarness.sv), chiptop0 : ChipTop (ChipTop.sv), system : DigitalTop (DigitalTop.sv), tile_prci_domain : TilePRCIDomain (TilePRCIDomain.sv), tile_reset_domain_tile : RocketTile (RocketTile.sv), dcache : DCache (DCache.sv), amoalus_0 : AMOALU (AMOALU.sv)]", 66, false); // D
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, Arty100THarness (Arty100THarness.sv), chiptop0 : ChipTop (ChipTop.sv), system : DigitalTop (DigitalTop.sv), tile_prci_domain : TilePRCIDomain (TilePRCIDomain.sv), tile_reset_domain_tile : RocketTile (RocketTile.sv), dcache : DCache (DCache.sv), s1_victim_way_repl_array_ext : s1_victim_way_repl_array_combMem (s1_victim_way_repl_array_combMem.sv)]", 65, false); // D
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, Arty100THarness (Arty100THarness.sv), chiptop0 : ChipTop (ChipTop.sv), system : DigitalTop (DigitalTop.sv), tile_prci_domain : TilePRCIDomain (TilePRCIDomain.sv), tile_reset_domain_tile : RocketTile (RocketTile.sv), dcache : DCache (DCache.sv), data : DCacheDataArray (DCacheDataArray.sv), data_arrays_0 : data_arrays_0 (data_arrays_0.sv), data_arrays_0_ext : data_arrays_0_ext (framework.fpga.arty100t.Arty100THarness.SmallRocketArty100TConfig.top.mems.v), mem_0_15 : split_data_arrays_0_ext (framework.fpga.arty100t.Arty100THarness.SmallRocketArty100TConfig.top.mems.v)]", 64, false); // D
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, Arty100THarness (Arty100THarness.sv), chiptop0 : ChipTop (ChipTop.sv), system : DigitalTop (DigitalTop.sv), tile_prci_domain : TilePRCIDomain (TilePRCIDomain.sv), tile_reset_domain_tile : RocketTile (RocketTile.sv), dcache : DCache (DCache.sv), data : DCacheDataArray (DCacheDataArray.sv), data_arrays_0 : data_arrays_0 (data_arrays_0.sv), data_arrays_0_ext : data_arrays_0_ext (framework.fpga.arty100t.Arty100THarness.SmallRocketArty100TConfig.top.mems.v)]", 48, true); // D - Node
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, Arty100THarness (Arty100THarness.sv), chiptop0 : ChipTop (ChipTop.sv), system : DigitalTop (DigitalTop.sv), tile_prci_domain : TilePRCIDomain (TilePRCIDomain.sv), tile_reset_domain_tile : RocketTile (RocketTile.sv), dcache : DCache (DCache.sv), data : DCacheDataArray (DCacheDataArray.sv), data_arrays_0 : data_arrays_0 (data_arrays_0.sv), data_arrays_0_ext : data_arrays_0_ext (framework.fpga.arty100t.Arty100THarness.SmallRocketArty100TConfig.top.mems.v)]", 48, true, false, false, false, false, true); // D - Double Click - Node
+selectCodeEditor("framework.fpga.arty100t.Arty100THarness.SmallRocketArty100TConfig.top.mems.v", 209, 317); // ac
+selectCodeEditor("framework.fpga.arty100t.Arty100THarness.SmallRocketArty100TConfig.top.mems.v", 209, 317, false, false, false, false, true); // ac - Double Click
+expandTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, Arty100THarness (Arty100THarness.sv), chiptop0 : ChipTop (ChipTop.sv), system : DigitalTop (DigitalTop.sv), tile_prci_domain : TilePRCIDomain (TilePRCIDomain.sv), tile_reset_domain_tile : RocketTile (RocketTile.sv), dcache : DCache (DCache.sv), data : DCacheDataArray (DCacheDataArray.sv), data_arrays_0 : data_arrays_0 (data_arrays_0.sv), data_arrays_0_ext : data_arrays_0_ext (framework.fpga.arty100t.Arty100THarness.SmallRocketArty100TConfig.top.mems.v)]", 48); // D
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, Arty100THarness (Arty100THarness.sv), chiptop0 : ChipTop (ChipTop.sv), system : DigitalTop (DigitalTop.sv), tile_prci_domain : TilePRCIDomain (TilePRCIDomain.sv), tile_reset_domain_tile : RocketTile (RocketTile.sv), dcache : DCache (DCache.sv), data : DCacheDataArray (DCacheDataArray.sv), data_arrays_0 : data_arrays_0 (data_arrays_0.sv), data_arrays_0_ext : data_arrays_0_ext (framework.fpga.arty100t.Arty100THarness.SmallRocketArty100TConfig.top.mems.v), mem_0_0 : split_data_arrays_0_ext (framework.fpga.arty100t.Arty100THarness.SmallRocketArty100TConfig.top.mems.v)]", 49, false); // D
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, Arty100THarness (Arty100THarness.sv), chiptop0 : ChipTop (ChipTop.sv), system : DigitalTop (DigitalTop.sv), tile_prci_domain : TilePRCIDomain (TilePRCIDomain.sv), tile_reset_domain_tile : RocketTile (RocketTile.sv), dcache : DCache (DCache.sv), data : DCacheDataArray (DCacheDataArray.sv), data_arrays_0 : data_arrays_0 (data_arrays_0.sv), data_arrays_0_ext : data_arrays_0_ext (framework.fpga.arty100t.Arty100THarness.SmallRocketArty100TConfig.top.mems.v), mem_0_0 : split_data_arrays_0_ext (framework.fpga.arty100t.Arty100THarness.SmallRocketArty100TConfig.top.mems.v)]", 49, false, false, false, false, false, true); // D - Double Click
+// Elapsed time: 171 seconds
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, Arty100THarness (Arty100THarness.sv), chiptop0 : ChipTop (ChipTop.sv), system : DigitalTop (DigitalTop.sv), tile_prci_domain : TilePRCIDomain (TilePRCIDomain.sv), tile_reset_domain_tile : RocketTile (RocketTile.sv), dcache : DCache (DCache.sv), data : DCacheDataArray (DCacheDataArray.sv), data_arrays_0 : data_arrays_0 (data_arrays_0.sv)]", 47, true); // D - Node
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, Arty100THarness (Arty100THarness.sv), chiptop0 : ChipTop (ChipTop.sv), system : DigitalTop (DigitalTop.sv), tile_prci_domain : TilePRCIDomain (TilePRCIDomain.sv), tile_reset_domain_tile : RocketTile (RocketTile.sv), dcache : DCache (DCache.sv), data : DCacheDataArray (DCacheDataArray.sv), data_arrays_0 : data_arrays_0 (data_arrays_0.sv)]", 47, true, false, false, false, false, true); // D - Double Click - Node
+// HMemoryUtils.trashcanNow. Engine heap size: 1,512 MB. GUI used memory: 77 MB. Current time: 5/3/24, 2:11:54 AM JST
+// Elapsed time: 347 seconds
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, Arty100THarness (Arty100THarness.sv), chiptop0 : ChipTop (ChipTop.sv), system : DigitalTop (DigitalTop.sv), tile_prci_domain : TilePRCIDomain (TilePRCIDomain.sv), tile_reset_domain_tile : RocketTile (RocketTile.sv), dcache : DCache (DCache.sv), data : DCacheDataArray (DCacheDataArray.sv)]", 46, true); // D - Node
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, Arty100THarness (Arty100THarness.sv), chiptop0 : ChipTop (ChipTop.sv), system : DigitalTop (DigitalTop.sv), tile_prci_domain : TilePRCIDomain (TilePRCIDomain.sv), tile_reset_domain_tile : RocketTile (RocketTile.sv), dcache : DCache (DCache.sv), data : DCacheDataArray (DCacheDataArray.sv)]", 46, true, false, false, false, false, true); // D - Double Click - Node
+selectCodeEditor("DCacheDataArray.sv", 236, 710); // ac
+selectCodeEditor("DCacheDataArray.sv", 237, 710, false, false, false, false, true); // ac - Double Click
+selectCodeEditor("DCacheDataArray.sv", 306, 443); // ac
+selectCodeEditor("DCacheDataArray.sv", 344, 428); // ac
+selectCodeEditor("DCacheDataArray.sv", 344, 428, false, false, false, false, true); // ac - Double Click
+// Elapsed time: 220 seconds
+selectCodeEditor("DCacheDataArray.sv", 292, 742); // ac
+selectCodeEditor("DCacheDataArray.sv", 292, 742, false, false, false, false, true); // ac - Double Click
+selectCodeEditor("DCacheDataArray.sv", 207, 446); // ac
+selectCodeEditor("DCacheDataArray.sv", 207, 446, false, false, false, false, true); // ac - Double Click
+typeControlKey((HResource) null, "DCacheDataArray.sv", 'c'); // ac
+selectCodeEditor("DCacheDataArray.sv", 389, 788); // ac
+selectCodeEditor("DCacheDataArray.sv", 389, 788, false, false, false, false, true); // ac - Double Click
+// Elapsed time: 514 seconds
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, Arty100THarness (Arty100THarness.sv), chiptop0 : ChipTop (ChipTop.sv), system : DigitalTop (DigitalTop.sv), tile_prci_domain : TilePRCIDomain (TilePRCIDomain.sv), tile_reset_domain_tile : RocketTile (RocketTile.sv), dcache : DCache (DCache.sv)]", 28, true); // D - Node
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, Arty100THarness (Arty100THarness.sv), chiptop0 : ChipTop (ChipTop.sv), system : DigitalTop (DigitalTop.sv), tile_prci_domain : TilePRCIDomain (TilePRCIDomain.sv), tile_reset_domain_tile : RocketTile (RocketTile.sv), dcache : DCache (DCache.sv)]", 28, true, false, false, false, false, true); // D - Double Click - Node
+// Elapsed time: 125 seconds
+selectCodeEditor("DCache.sv", 386, 472); // ac
+// Elapsed time: 28 seconds
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "framework.fpga.arty100t.Arty100THarness.SmallRocketArty100TConfig.top.mems.v", 3); // o
+closeView(PAResourceOtoP.PAViews_CODE, "Code"); // E
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "DCache.sv", 2); // o
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "s1_victim_way_repl_array_combMem.sv", 1); // o
+// [GUI Memory]: 137 MB (+1268kb) [00:34:11]
+// Elapsed time: 72 seconds
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "DCache.sv", 2); // o
+// Elapsed time: 111 seconds
+selectCodeEditor("DCache.sv", 523, 260); // ac
+selectCodeEditor("DCache.sv", 523, 260, false, false, false, false, true); // ac - Double Click
+selectCodeEditor("DCache.sv", 756, 433); // ac
+selectCodeEditor("DCache.sv", 670, 259); // ac
+selectCodeEditor("DCache.sv", 670, 259, false, false, false, false, true); // ac - Double Click
+selectCodeEditor("DCache.sv", 876, 264); // ac
+selectCodeEditor("DCache.sv", 876, 264, false, false, false, false, true); // ac - Double Click
+selectCodeEditor("DCache.sv", 1102, 256); // ac
+selectCodeEditor("DCache.sv", 1102, 256, false, false, false, false, true); // ac - Double Click
+selectCodeEditor("DCache.sv", 713, 258); // ac
+selectCodeEditor("DCache.sv", 713, 258, false, false, false, false, true); // ac - Double Click
+selectCodeEditor("DCache.sv", 1453, 257); // ac
+selectCodeEditor("DCache.sv", 1453, 257, false, false, false, false, true); // ac - Double Click
+selectCodeEditor("DCache.sv", 1659, 258); // ac
+selectCodeEditor("DCache.sv", 1659, 258, false, false, false, false, true); // ac - Double Click
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "DCacheDataArray.sv", 4); // o
+selectCodeEditor("DCacheDataArray.sv", 234, 353); // ac
+selectCodeEditor("DCacheDataArray.sv", 234, 353, false, false, false, false, true); // ac - Double Click
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "data_arrays_0.sv", 3); // o
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "DCache.sv", 2); // o
+selectCodeEditor("DCache.sv", 730, 257); // ac
+selectCodeEditor("DCache.sv", 731, 257, false, false, false, false, true); // ac - Double Click
+// Elapsed time: 33 seconds
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "data_arrays_0.sv", 3); // o
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "DCache.sv", 2); // o
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "data_arrays_0.sv", 3); // o
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "DCacheDataArray.sv", 4); // o
+selectCodeEditor("DCacheDataArray.sv", 285, 370); // ac
+selectCodeEditor("DCacheDataArray.sv", 285, 370, false, false, false, false, true); // ac - Double Click
+// Elapsed time: 16 seconds
+selectCodeEditor("DCacheDataArray.sv", 273, 578); // ac
+selectCodeEditor("DCacheDataArray.sv", 273, 577, false, false, false, false, true); // ac - Double Click
+selectCodeEditor("DCacheDataArray.sv", 337, 663); // ac
+selectCodeEditor("DCacheDataArray.sv", 337, 663, false, false, false, false, true); // ac - Double Click
+// Elapsed time: 23 seconds
+selectCodeEditor("DCacheDataArray.sv", 634, 576); // ac
+selectCodeEditor("DCacheDataArray.sv", 634, 576, false, false, false, false, true); // ac - Double Click
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "data_arrays_0.sv", 3); // o
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "DCache.sv", 2); // o
+selectCodeEditor("DCache.sv", 429, 253); // ac
+selectCodeEditor("DCache.sv", 429, 253, false, false, false, false, true); // ac - Double Click
+selectCodeEditor("DCache.sv", 435, 280); // ac
+selectCodeEditor("DCache.sv", 435, 280, false, false, false, false, true); // ac - Double Click
+selectCodeEditor("DCache.sv", 897, 278); // ac
+selectCodeEditor("DCache.sv", 897, 278, false, false, false, false, true); // ac - Double Click
+selectCodeEditor("DCache.sv", 381, 273); // ac
+selectCodeEditor("DCache.sv", 381, 273, false, false, false, false, true); // ac - Double Click
+selectCodeEditor("DCache.sv", 378, 293); // ac
+selectCodeEditor("DCache.sv", 378, 293, false, false, false, false, true); // ac - Double Click
+selectCodeEditor("DCache.sv", 706, 300); // ac
+selectCodeEditor("DCache.sv", 706, 300, false, false, false, false, true); // ac - Double Click
+selectCodeEditor("DCache.sv", 443, 278); // ac
+selectCodeEditor("DCache.sv", 443, 278, false, false, false, false, true); // ac - Double Click
+selectCodeEditor("DCache.sv", 1675, 242); // ac
+selectCodeEditor("DCache.sv", 1675, 246); // ac
+selectCodeEditor("DCache.sv", 1669, 247); // ac
+selectCodeEditor("DCache.sv", 1669, 247, false, false, false, false, true); // ac - Double Click
+// Elapsed time: 25 seconds
+selectCodeEditor("DCache.sv", 437, 356); // ac
+selectCodeEditor("DCache.sv", 437, 356, false, false, false, false, true); // ac - Double Click
+selectCodeEditor("DCache.sv", 578, 376); // ac
+selectCodeEditor("DCache.sv", 578, 376, false, false, false, false, true); // ac - Double Click
+selectCodeEditor("DCache.sv", 238, 366); // ac
+selectCodeEditor("DCache.sv", 238, 366, false, false, false, false, true); // ac - Double Click
+selectCodeEditor("DCache.sv", 293, 405); // ac
+selectCodeEditor("DCache.sv", 239, 378); // ac
+selectCodeEditor("DCache.sv", 239, 378, false, false, false, false, true); // ac - Double Click
+// Elapsed time: 16 seconds
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "s1_victim_way_repl_array_combMem.sv", 1); // o
+selectCodeEditor("s1_victim_way_repl_array_combMem.sv", 194, 331); // ac
+selectCodeEditor("s1_victim_way_repl_array_combMem.sv", 194, 331, false, false, false, false, true); // ac - Double Click
+// Elapsed time: 13 seconds
+selectCodeEditor("s1_victim_way_repl_array_combMem.sv", 148, 480); // ac
+selectCodeEditor("s1_victim_way_repl_array_combMem.sv", 148, 480, false, false, false, false, true); // ac - Double Click
+selectCodeEditor("s1_victim_way_repl_array_combMem.sv", 104, 484); // ac
+selectCodeEditor("s1_victim_way_repl_array_combMem.sv", 104, 484, false, false, false, false, true); // ac - Double Click
+selectCodeEditor("s1_victim_way_repl_array_combMem.sv", 152, 484); // ac
+selectCodeEditor("s1_victim_way_repl_array_combMem.sv", 152, 484, false, false, false, false, true); // ac - Double Click
+selectCodeEditor("s1_victim_way_repl_array_combMem.sv", 265, 485); // ac
+selectCodeEditor("s1_victim_way_repl_array_combMem.sv", 265, 485, false, false, false, false, true); // ac - Double Click
+selectCodeEditor("s1_victim_way_repl_array_combMem.sv", 186, 482); // ac
+selectCodeEditor("s1_victim_way_repl_array_combMem.sv", 186, 482, false, false, false, false, true); // ac - Double Click
+selectCodeEditor("s1_victim_way_repl_array_combMem.sv", 82, 482); // ac
+selectCodeEditor("s1_victim_way_repl_array_combMem.sv", 82, 482, false, false, false, false, true); // ac - Double Click
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "DCache.sv", 2); // o
+selectCodeEditor("DCache.sv", 202, 484); // ac
+selectCodeEditor("DCache.sv", 202, 484, false, false, false, false, true); // ac - Double Click
+selectCodeEditor("DCache.sv", 255, 552); // ac
+selectCodeEditor("DCache.sv", 213, 490); // ac
+selectCodeEditor("DCache.sv", 213, 490, false, false, false, false, true); // ac - Double Click
+selectCodeEditor("DCache.sv", 230, 534); // ac
+selectCodeEditor("DCache.sv", 222, 485); // ac
+selectCodeEditor("DCache.sv", 222, 485, false, false, false, false, true); // ac - Double Click
+selectCodeEditor("DCache.sv", 259, 537); // ac
+selectCodeEditor("DCache.sv", 370, 485); // ac
+selectCodeEditor("DCache.sv", 370, 485, false, false, false, false, true); // ac - Double Click
+// Elapsed time: 11 seconds
+typeControlKey((HResource) null, "DCache.sv", 'c'); // ac
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "s1_victim_way_s2_new_repl_state"); // d.c
+// Elapsed time: 91 seconds
+selectCodeEditor("DCache.sv", 191, 849); // ac
+selectCodeEditor("DCache.sv", 825, 323); // ac
+// HMemoryUtils.trashcanNow. Engine heap size: 1,528 MB. GUI used memory: 78 MB. Current time: 5/3/24, 2:41:54 AM JST
+// Elapsed time: 20 seconds
+setText(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "s1_victim_way_s2_new_repl_state"); // d.c
+selectCodeEditor("DCache.sv", 1678, 219); // ac
+selectCodeEditor("DCache.sv", 930, 219); // ac
+// HMemoryUtils.trashcanNow. Engine heap size: 1,528 MB. GUI used memory: 70 MB. Current time: 5/3/24, 3:11:54 AM JST
+// HMemoryUtils.trashcanNow. Engine heap size: 1,528 MB. GUI used memory: 68 MB. Current time: 5/3/24, 3:41:54 AM JST
+// HMemoryUtils.trashcanNow. Engine heap size: 1,528 MB. GUI used memory: 68 MB. Current time: 5/3/24, 4:11:54 AM JST
+// HMemoryUtils.trashcanNow. Engine heap size: 1,528 MB. GUI used memory: 68 MB. Current time: 5/3/24, 4:41:54 AM JST
+// HMemoryUtils.trashcanNow. Engine heap size: 1,528 MB. GUI used memory: 68 MB. Current time: 5/3/24, 5:11:54 AM JST
+// HMemoryUtils.trashcanNow. Engine heap size: 1,528 MB. GUI used memory: 68 MB. Current time: 5/3/24, 5:41:54 AM JST
+// HMemoryUtils.trashcanNow. Engine heap size: 1,528 MB. GUI used memory: 68 MB. Current time: 5/3/24, 6:11:54 AM JST
+// HMemoryUtils.trashcanNow. Engine heap size: 1,528 MB. GUI used memory: 68 MB. Current time: 5/3/24, 6:41:55 AM JST
+// HMemoryUtils.trashcanNow. Engine heap size: 1,528 MB. GUI used memory: 68 MB. Current time: 5/3/24, 7:11:55 AM JST
+// HMemoryUtils.trashcanNow. Engine heap size: 1,528 MB. GUI used memory: 68 MB. Current time: 5/3/24, 7:41:55 AM JST
+// HMemoryUtils.trashcanNow. Engine heap size: 1,528 MB. GUI used memory: 68 MB. Current time: 5/3/24, 8:11:55 AM JST
+// HMemoryUtils.trashcanNow. Engine heap size: 1,528 MB. GUI used memory: 68 MB. Current time: 5/3/24, 8:41:55 AM JST
+// HMemoryUtils.trashcanNow. Engine heap size: 1,528 MB. GUI used memory: 68 MB. Current time: 5/3/24, 9:11:55 AM JST
+// HMemoryUtils.trashcanNow. Engine heap size: 1,528 MB. GUI used memory: 68 MB. Current time: 5/3/24, 9:41:55 AM JST
+// HMemoryUtils.trashcanNow. Engine heap size: 1,528 MB. GUI used memory: 68 MB. Current time: 5/3/24, 10:11:55 AM JST
+// HMemoryUtils.trashcanNow. Engine heap size: 1,528 MB. GUI used memory: 68 MB. Current time: 5/3/24, 10:41:55 AM JST
+// HMemoryUtils.trashcanNow. Engine heap size: 1,528 MB. GUI used memory: 68 MB. Current time: 5/3/24, 11:11:55 AM JST
+// Elapsed time: 32276 seconds
+selectCodeEditor("DCache.sv", 458, 302); // ac
+selectCodeEditor("DCache.sv", 608, 319); // ac
+selectCodeEditor("DCache.sv", 505, 328); // ac
+selectCodeEditor("DCache.sv", 517, 295); // ac
+selectCodeEditor("DCache.sv", 711, 331); // ac
+selectCodeEditor("DCache.sv", 1452, 336); // ac
+typeControlKey((HResource) null, "DCache.sv", 'c'); // ac
+// HMemoryUtils.trashcanNow. Engine heap size: 1,528 MB. GUI used memory: 68 MB. Current time: 5/3/24, 11:41:55 AM JST
+// Elapsed time: 470 seconds
+selectCodeEditor("DCache.sv", 523, 271); // ac
+selectCodeEditor("DCache.sv", 381, 283); // ac
+selectCodeEditor("DCache.sv", 381, 283, false, false, false, false, true); // ac - Double Click
+selectCodeEditor("DCache.sv", 370, 311); // ac
+selectCodeEditor("DCache.sv", 469, 293); // ac
+typeControlKey((HResource) null, "DCache.sv", 'c'); // ac
+// Elapsed time: 72 seconds
+selectCodeEditor("DCache.sv", 431, 335); // ac
+selectCodeEditor("DCache.sv", 516, 310); // ac
+selectCodeEditor("DCache.sv", 516, 310, false, false, false, false, true); // ac - Double Click
+selectCodeEditor("DCache.sv", 1423, 361); // ac
+selectCodeEditor("DCache.sv", 1153, 313); // ac
+typeControlKey((HResource) null, "DCache.sv", 'c'); // ac
+// Elapsed time: 11 seconds
+selectCodeEditor("DCache.sv", 1318, 353); // ac
+selectCodeEditor("DCache.sv", 1490, 252); // ac
+// Elapsed time: 55 seconds
+selectCodeEditor("DCache.sv", 637, 516); // ac
+selectCodeEditor("DCache.sv", 440, 265); // ac
+selectCodeEditor("DCache.sv", 434, 238); // ac
+selectCodeEditor("DCache.sv", 401, 253); // ac
+selectCodeEditor("DCache.sv", 441, 262); // ac
+selectCodeEditor("DCache.sv", 441, 262, false, false, false, false, true); // ac - Double Click
+selectCodeEditor("DCache.sv", 419, 247); // ac
+selectCodeEditor("DCache.sv", 441, 237); // ac
+selectCodeEditor("DCache.sv", 441, 237, false, false, false, false, true); // ac - Double Click
+// HMemoryUtils.trashcanNow. Engine heap size: 1,529 MB. GUI used memory: 68 MB. Current time: 5/3/24, 12:11:55 PM JST
+// HMemoryUtils.trashcanNow. Engine heap size: 1,529 MB. GUI used memory: 68 MB. Current time: 5/3/24, 12:41:55 PM JST
+// Elapsed time: 4795 seconds
+selectCodeEditor("DCache.sv", 389, 600); // ac
+selectButton(PAResourceCommand.PACommandNames_TOGGLE_VIEW_NAV, (String) null); // B
+// Run Command: PAResourceCommand.PACommandNames_TOGGLE_VIEW_NAV
+// HMemoryUtils.trashcanNow. Engine heap size: 1,529 MB. GUI used memory: 68 MB. Current time: 5/3/24, 1:11:55 PM JST
+// Elapsed time: 122 seconds
+selectCodeEditor("DCache.sv", 127, 159); // ac
+selectCodeEditor("DCache.sv", 118, 104); // ac
+// Elapsed time: 10 seconds
+setText(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "s1_victim_way"); // d.c
+selectCodeEditor("DCache.sv", 288, 65); // ac
+selectCodeEditor("DCache.sv", 288, 65, false, false, false, false, true); // ac - Double Click
+selectCodeEditor("DCache.sv", 395, 169); // ac
+selectCodeEditor("DCache.sv", 461, 66); // ac
+// Elapsed time: 43 seconds
+selectCodeEditor("DCache.sv", 534, 248); // ac
+setText(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "s1_repl_idx", true); // d.c
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "s1_repl_idx"); // d.c
+selectCodeEditor("DCache.sv", 407, 193); // ac
+setText(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "s2_repl_idx", true); // d.c
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "s2_repl_idx"); // d.c
+// Elapsed time: 25 seconds
+selectCodeEditor("DCache.sv", 519, 225); // ac
+// Elapsed time: 179 seconds
+setText(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "s1_repl_state"); // d.c
+selectCodeEditor("DCache.sv", 436, 237); // ac
+setText(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "s1_repl_state", true); // d.c
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "s1_repl_state"); // d.c
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "s1_repl_state"); // d.c
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "s1_repl_state"); // d.c
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "s1_repl_state"); // d.c
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "s1_repl_state"); // d.c
+// Elapsed time: 19 seconds
+selectCodeEditor("DCache.sv", 474, 148); // ac
+setText(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "s1_repl_state", true); // d.c
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "s1_repl_state"); // d.c
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "s1_repl_state"); // d.c
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "s1_repl_state"); // d.c
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "s1_repl_state"); // d.c
+// Elapsed time: 184 seconds
+selectCodeEditor("DCache.sv", 454, 199); // ac
+setText(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "s2_repl_state", true); // d.c
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "s2_repl_state"); // d.c
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "s2_repl_state"); // d.c
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "s2_repl_state"); // d.c
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "s2_repl_state"); // d.c
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "s2_repl_state"); // d.c
+selectCodeEditor("DCache.sv", 170, 597); // ac
+selectCodeEditor("DCache.sv", 170, 597, false, false, false, false, true); // ac - Double Click
+typeControlKey((HResource) null, "DCache.sv", 'c'); // ac
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "s1_victim_way_s2_repl_state"); // d.c
+applyEnter(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "s1_victim_way_s2_repl_state"); // d.c
+// HMemoryUtils.trashcanNow. Engine heap size: 1,530 MB. GUI used memory: 69 MB. Current time: 5/3/24, 1:41:55 PM JST

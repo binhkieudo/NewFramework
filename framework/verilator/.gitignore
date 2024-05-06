@@ -1,5 +1,2 @@
-*
-!.gitignore
-!Makefile
-!verilator.mk
-!dramsim2_ini
+output
+generated-src

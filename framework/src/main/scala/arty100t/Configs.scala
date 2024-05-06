@@ -2,14 +2,14 @@
 package framework.fpga.arty100t
 
 import freechips.rocketchip.devices.debug.DebugModuleKey
+import freechips.rocketchip.devices.tilelink.BootROMLocated
 import freechips.rocketchip.diplomacy._
+import freechips.rocketchip.subsystem._
+import freechips.rocketchip.tile.XLen
 import org.chipsalliance.cde.config._
 import sifive.blocks.devices.uart.{PeripheryUARTKey, UARTParams}
 import sifive.fpgashells.shell.DesignKey
 import testchipip.SerialTLKey
-import freechips.rocketchip.devices.tilelink.BootROMLocated
-import freechips.rocketchip.subsystem._
-import freechips.rocketchip.tile.XLen
 
 import scala.sys.process._
 
@@ -83,6 +83,11 @@ class SmallRocketArty100TConfig extends Config(
   new WithArty100TTweaks ++
   new chipyard.config.WithBroadcastManager ++ // no l2
   new chipyard.SmallRocketConfig)
+
+class SmallRocketGCArty100TConfig extends Config(
+  new WithArty100TTweaks ++
+  new chipyard.config.WithBroadcastManager ++ // no l2
+  new chipyard.RocketGCConfig)
 
 class SmallSha3RocketArty100TConfig extends Config(
   new WithArty100TTweaks ++

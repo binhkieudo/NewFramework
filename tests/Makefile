@@ -17,11 +17,11 @@ SIZE = $(PREFIX)size
 #################################
 
 # SoC Settings
-ARCH = rv64imafdc
+ARCH = rv64imafd
 ABI = lp64d
 ARCHFLAGS = -march=$(ARCH) -mabi=$(ABI)
 
-CFLAGS  = -std=gnu99 -O2 -fno-common -fno-builtin-printf -Wall
+CFLAGS  = -std=gnu99 -O0 -fno-common -fno-builtin-printf -Wall -Wno-unused-but-set-variable
 CFLAGS += $(ARCHFLAGS)
 LDFLAGS = -static
 
@@ -29,7 +29,7 @@ include libgloss.mk
 
 PROGRAMS = pwm blkdev accum charcount nic-loopback big-blkdev pingd \
            streaming-passthrough streaming-fir nvdla spiflashread spiflashwrite fft gcd \
-           hello mt-hello
+           hello mt-hello cache
 
 
 .DEFAULT_GOAL := default
@@ -65,7 +65,7 @@ clean:
 	$(if $(libgloss),rm -rf $(libgloss_builddir)/)
 
 .PHONY: default
-default: $(addsuffix .riscv, $(PROGRAMS)) spiflash.img
+default: $(addsuffix .riscv, $(PROGRAMS)) $(addsuffix .dump, $(PROGRAMS))
 
 .PHONY: dumps
 dumps: $(addsuffix .dump, $(PROGRAMS))
