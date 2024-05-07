@@ -9,7 +9,7 @@ class WithL1DCacheReplacementPolicy(policy: String) extends Config((site, here, 
     case tp: RocketTileAttachParams => tp.copy(tileParams = tp.tileParams.copy(
       dcache = tp.tileParams.dcache.map(_.copy(
         replacementPolicy = policy,
-        nWays = 4
+        nWays = 2
       ))))
     case t => t
   }
