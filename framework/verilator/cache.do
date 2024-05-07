@@ -121,10 +121,18 @@ add wave -group CoreDMem -group DataArray -color blue -radix unsigned cache:/TOP
 
 add wave -group CoreDMem -group TagArray -color black cache:/TOP/TestDriver/testHarness/chiptop0/system/tile_prci_domain/tile_reset_domain_tile/dcache/tag_array/RW0_addr
 add wave -group CoreDMem -group TagArray -color black cache:/TOP/TestDriver/testHarness/chiptop0/system/tile_prci_domain/tile_reset_domain_tile/dcache/tag_array/RW0_en
-add wave -group CoreDMem -group TagArray -color black cache:/TOP/TestDriver/testHarness/chiptop0/system/tile_prci_domain/tile_reset_domain_tile/dcache/tag_array/RW0_rdata
-add wave -group CoreDMem -group TagArray -color black cache:/TOP/TestDriver/testHarness/chiptop0/system/tile_prci_domain/tile_reset_domain_tile/dcache/tag_array/RW0_wdata
+add wave -group CoreDMem -group TagArray -color black cache:/TOP/TestDriver/testHarness/chiptop0/system/tile_prci_domain/tile_reset_domain_tile/dcache/tag_array/RW0_rdata[51:50]
+add wave -group CoreDMem -group TagArray -color black cache:/TOP/TestDriver/testHarness/chiptop0/system/tile_prci_domain/tile_reset_domain_tile/dcache/tag_array/RW0_rdata[49:26]
+add wave -group CoreDMem -group TagArray -color black cache:/TOP/TestDriver/testHarness/chiptop0/system/tile_prci_domain/tile_reset_domain_tile/dcache/tag_array/RW0_rdata[25:24]
+add wave -group CoreDMem -group TagArray -color black cache:/TOP/TestDriver/testHarness/chiptop0/system/tile_prci_domain/tile_reset_domain_tile/dcache/tag_array/RW0_rdata[23:0]
+add wave -group CoreDMem -group TagArray -color black cache:/TOP/TestDriver/testHarness/chiptop0/system/tile_prci_domain/tile_reset_domain_tile/dcache/tag_array/RW0_wdata[51:26]
+add wave -group CoreDMem -group TagArray -color black cache:/TOP/TestDriver/testHarness/chiptop0/system/tile_prci_domain/tile_reset_domain_tile/dcache/tag_array/RW0_wdata[25:0]
+add wave -group CoreDMem -group TagArray -color black cache:/TOP/TestDriver/testHarness/chiptop0/system/tile_prci_domain/tile_reset_domain_tile/dcache/s1_req_addr
+add wave -group CoreDMem -group TagArray -color black cache:/TOP/TestDriver/testHarness/chiptop0/system/tile_prci_domain/tile_reset_domain_tile/dcache/s2_req_addr
+add wave -group CoreDMem -group TagArray -color black cache:/TOP/TestDriver/testHarness/chiptop0/system/tile_prci_domain/tile_reset_domain_tile/dcache/s1_tlb_req_vaddr
 add wave -group CoreDMem -group TagArray -color black cache:/TOP/TestDriver/testHarness/chiptop0/system/tile_prci_domain/tile_reset_domain_tile/dcache/tag_array/RW0_wmask
 add wave -group CoreDMem -group TagArray -color black cache:/TOP/TestDriver/testHarness/chiptop0/system/tile_prci_domain/tile_reset_domain_tile/dcache/tag_array/RW0_wmode
+
 
 ######################## Tilelink #############################################################
 add wave -group TL -group A -color black cache:/TOP/TestDriver/testHarness/chiptop0/system/tile_prci_domain/tile_reset_domain_tile/auto_buffer_out_a_bits_address 

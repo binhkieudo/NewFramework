@@ -15,3 +15,10 @@
 # /home/binhkieudo/Workspace/RISC-V/NewFramework/framework/verilator/output/chipyard.harness.TestHarness.SmallRocketCacheConfig/cache.wlf opened as dataset "cache"
 # do cache.do
 # 
+add wave -position insertpoint  \
+cache:/TOP/TestDriver/testHarness/chiptop0/system/tile_prci_domain/tile_reset_domain_tile/dcache/s1_req_addr
+add wave -position insertpoint  \
+cache:/TOP/TestDriver/testHarness/chiptop0/system/tile_prci_domain/tile_reset_domain_tile/dcache/s2_req_addr
+add wave -position insertpoint  \
+cache:/TOP/TestDriver/testHarness/chiptop0/system/tile_prci_domain/tile_reset_domain_tile/dcache/s1_tlb_req_vaddr
+do mysim.do
