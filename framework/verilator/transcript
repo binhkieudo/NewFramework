@@ -15,52 +15,16 @@
 # /home/binhkieudo/Workspace/RISC-V/NewFramework/framework/verilator/output/chipyard.harness.TestHarness.SmallRocketCacheConfig/cache.wlf opened as dataset "cache"
 # do cache.do
 # 
+add wave -position insertpoint  \
+cache:/TOP/TestDriver/testHarness/chiptop0/system/tile_prci_domain/tile_reset_domain_tile/dcache/auto_out_d_bits_sink
+add wave -position insertpoint  \
+cache:/TOP/TestDriver/testHarness/chiptop0/system/tile_prci_domain/tile_reset_domain_tile/dcache/resetting
 do mysim.do
 add wave -position insertpoint  \
-cache:/TOP/TestDriver/testHarness/chiptop0/system/tile_prci_domain/tile_reset_domain_tile/dcache/tag_array/tag_array_ext/mem_0_0/ram \
-cache:/TOP/TestDriver/testHarness/chiptop0/system/tile_prci_domain/tile_reset_domain_tile/dcache/tag_array/tag_array_ext/mem_0_0/ram \
-cache:/TOP/TestDriver/testHarness/chiptop0/system/tile_prci_domain/tile_reset_domain_tile/dcache/tag_array/tag_array_ext/mem_0_0/ram \
-cache:/TOP/TestDriver/testHarness/chiptop0/system/tile_prci_domain/tile_reset_domain_tile/dcache/tag_array/tag_array_ext/mem_0_0/ram
+cache:/TOP/TestDriver/testHarness/chiptop0/system/tile_prci_domain/tile_reset_domain_tile/dcache/data/clock
 add wave -position insertpoint  \
-cache:/TOP/TestDriver/testHarness/chiptop0/system/tile_prci_domain/tile_reset_domain_tile/dcache/tag_array/tag_array_ext/mem_0_1/ram \
-cache:/TOP/TestDriver/testHarness/chiptop0/system/tile_prci_domain/tile_reset_domain_tile/dcache/tag_array/tag_array_ext/mem_0_1/ram \
-cache:/TOP/TestDriver/testHarness/chiptop0/system/tile_prci_domain/tile_reset_domain_tile/dcache/tag_array/tag_array_ext/mem_0_1/ram \
-cache:/TOP/TestDriver/testHarness/chiptop0/system/tile_prci_domain/tile_reset_domain_tile/dcache/tag_array/tag_array_ext/mem_0_1/ram
-add wave -position insertpoint  \
-cache:/TOP/TestDriver/testHarness/chiptop0/system/tile_prci_domain/tile_reset_domain_tile/dcache/tag_array/tag_array_ext/mem_0_0/RW0_addr \
-cache:/TOP/TestDriver/testHarness/chiptop0/system/tile_prci_domain/tile_reset_domain_tile/dcache/tag_array/tag_array_ext/mem_0_0/RW0_clk \
-cache:/TOP/TestDriver/testHarness/chiptop0/system/tile_prci_domain/tile_reset_domain_tile/dcache/tag_array/tag_array_ext/mem_0_0/RW0_en \
-cache:/TOP/TestDriver/testHarness/chiptop0/system/tile_prci_domain/tile_reset_domain_tile/dcache/tag_array/tag_array_ext/mem_0_0/RW0_rdata \
-cache:/TOP/TestDriver/testHarness/chiptop0/system/tile_prci_domain/tile_reset_domain_tile/dcache/tag_array/tag_array_ext/mem_0_0/RW0_wdata \
-cache:/TOP/TestDriver/testHarness/chiptop0/system/tile_prci_domain/tile_reset_domain_tile/dcache/tag_array/tag_array_ext/mem_0_0/RW0_wmask \
-cache:/TOP/TestDriver/testHarness/chiptop0/system/tile_prci_domain/tile_reset_domain_tile/dcache/tag_array/tag_array_ext/mem_0_0/RW0_wmode
-add wave -position insertpoint  \
-cache:/TOP/TestDriver/testHarness/chiptop0/system/tile_prci_domain/tile_reset_domain_tile/dcache/tag_array/tag_array_ext/mem_0_0/ram \
-cache:/TOP/TestDriver/testHarness/chiptop0/system/tile_prci_domain/tile_reset_domain_tile/dcache/tag_array/tag_array_ext/mem_0_0/ram \
-cache:/TOP/TestDriver/testHarness/chiptop0/system/tile_prci_domain/tile_reset_domain_tile/dcache/tag_array/tag_array_ext/mem_0_0/ram \
-cache:/TOP/TestDriver/testHarness/chiptop0/system/tile_prci_domain/tile_reset_domain_tile/dcache/tag_array/tag_array_ext/mem_0_0/ram
-do mysim.do
-add wave -position insertpoint  \
-cache:/TOP/TestDriver/testHarness/chiptop0/system/tile_prci_domain/tile_reset_domain_tile/dcache/tag_array/tag_array_ext/mem_0_0/ram \
-cache:/TOP/TestDriver/testHarness/chiptop0/system/tile_prci_domain/tile_reset_domain_tile/dcache/tag_array/tag_array_ext/mem_0_0/ram \
-cache:/TOP/TestDriver/testHarness/chiptop0/system/tile_prci_domain/tile_reset_domain_tile/dcache/tag_array/tag_array_ext/mem_0_0/ram \
-cache:/TOP/TestDriver/testHarness/chiptop0/system/tile_prci_domain/tile_reset_domain_tile/dcache/tag_array/tag_array_ext/mem_0_0/ram
-do mysim.do
-add wave -position insertpoint  \
-cache:/TOP/TestDriver/testHarness/chiptop0/system/tile_prci_domain/tile_reset_domain_tile/dcache/tag_array/tag_array_ext/mem_0_0/ram \
-cache:/TOP/TestDriver/testHarness/chiptop0/system/tile_prci_domain/tile_reset_domain_tile/dcache/tag_array/tag_array_ext/mem_0_0/ram \
-cache:/TOP/TestDriver/testHarness/chiptop0/system/tile_prci_domain/tile_reset_domain_tile/dcache/tag_array/tag_array_ext/mem_0_0/ram \
-cache:/TOP/TestDriver/testHarness/chiptop0/system/tile_prci_domain/tile_reset_domain_tile/dcache/tag_array/tag_array_ext/mem_0_0/ram
-add wave -position insertpoint  \
-cache:/TOP/TestDriver/testHarness/chiptop0/system/tile_prci_domain/tile_reset_domain_tile/dcache/tag_array/tag_array_ext/mem_0_1/RW0_wdata
-add wave -position insertpoint  \
-cache:/TOP/TestDriver/testHarness/chiptop0/system/tile_prci_domain/tile_reset_domain_tile/dcache/tag_array/tag_array_ext/mem_0_1/RW0_wdata
+cache:/TOP/TestDriver/testHarness/chiptop0/system/tile_prci_domain/tile_reset_domain_tile/dcache/s2_valid
 do mysim.do
 do mysim.do
 add wave -position insertpoint  \
-cache:/TOP/TestDriver/testHarness/chiptop0/system/tile_prci_domain/tile_reset_domain_tile/dcache/s2_hit \
-cache:/TOP/TestDriver/testHarness/chiptop0/system/tile_prci_domain/tile_reset_domain_tile/dcache/s2_hit_state_state
-do mysim.do
-add wave -position insertpoint  \
-cache:/TOP/TestDriver/testHarness/chiptop0/system/tile_prci_domain/tile_reset_domain_tile/dcache/s2_req_cmd
-do mysim.do
+cache:/TOP/TestDriver/testHarness/chiptop0/system/tile_prci_domain/tile_reset_domain_tile/dcache/s2_valid

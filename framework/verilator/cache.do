@@ -127,15 +127,6 @@ add wave -group CoreDMem -group DataArray -color blue -radix unsigned cache:/TOP
 add wave -group CoreDMem -group DataArray -color blue -radix unsigned cache:/TOP/TestDriver/testHarness/chiptop0/system/tile_prci_domain/tile_reset_domain_tile/dcache/data/data_arrays_0/RW0_rdata[63:32]
 add wave -group CoreDMem -group DataArray -color blue -radix unsigned cache:/TOP/TestDriver/testHarness/chiptop0/system/tile_prci_domain/tile_reset_domain_tile/dcache/data/data_arrays_0/RW0_rdata[31:0]
 
-add wave -group CoreDMem -group TagArray -color red -radix unsigned cache:/TOP/TestDriver/testHarness/chiptop0/system/tile_prci_domain/tile_reset_domain_tile/dcache/tag_array/tag_array_ext/mem_0_0/RW0_addr
-add wave -group CoreDMem -group TagArray -color red -radix hex cache:/TOP/TestDriver/testHarness/chiptop0/system/tile_prci_domain/tile_reset_domain_tile/dcache/tag_array/tag_array_ext/mem_0_0/RW0_en
-add wave -group CoreDMem -group TagArray -color red -radix perm cache:/TOP/TestDriver/testHarness/chiptop0/system/tile_prci_domain/tile_reset_domain_tile/dcache/tag_array/tag_array_ext/mem_0_0/RW0_rdata[25:24]
-add wave -group CoreDMem -group TagArray -color red -radix hex cache:/TOP/TestDriver/testHarness/chiptop0/system/tile_prci_domain/tile_reset_domain_tile/dcache/tag_array/tag_array_ext/mem_0_0/RW0_rdata[23:0]
-add wave -group CoreDMem -group TagArray -color red -radix perm cache:/TOP/TestDriver/testHarness/chiptop0/system/tile_prci_domain/tile_reset_domain_tile/dcache/tag_array/tag_array_ext/mem_0_0/RW0_wdata[25:24]
-add wave -group CoreDMem -group TagArray -color red -radix hex cache:/TOP/TestDriver/testHarness/chiptop0/system/tile_prci_domain/tile_reset_domain_tile/dcache/tag_array/tag_array_ext/mem_0_0/RW0_wdata[23:0]
-add wave -group CoreDMem -group TagArray -color red -radix hex cache:/TOP/TestDriver/testHarness/chiptop0/system/tile_prci_domain/tile_reset_domain_tile/dcache/tag_array/tag_array_ext/mem_0_0/RW0_wmode
-add wave -group CoreDMem -group TagArray -color red -radix bin cache:/TOP/TestDriver/testHarness/chiptop0/system/tile_prci_domain/tile_reset_domain_tile/dcache/tag_array/tag_array_ext/mem_0_0/RW0_wmask
-
 add wave -group CoreDMem -group TagArray -color black -radix unsigned cache:/TOP/TestDriver/testHarness/chiptop0/system/tile_prci_domain/tile_reset_domain_tile/dcache/tag_array/tag_array_ext/mem_0_1/RW0_addr
 add wave -group CoreDMem -group TagArray -color black -radix hex cache:/TOP/TestDriver/testHarness/chiptop0/system/tile_prci_domain/tile_reset_domain_tile/dcache/tag_array/tag_array_ext/mem_0_1/RW0_en
 add wave -group CoreDMem -group TagArray -color black -radix perm cache:/TOP/TestDriver/testHarness/chiptop0/system/tile_prci_domain/tile_reset_domain_tile/dcache/tag_array/tag_array_ext/mem_0_1/RW0_rdata[25:24]
@@ -145,7 +136,17 @@ add wave -group CoreDMem -group TagArray -color black -radix hex cache:/TOP/Test
 add wave -group CoreDMem -group TagArray -color red -radix hex cache:/TOP/TestDriver/testHarness/chiptop0/system/tile_prci_domain/tile_reset_domain_tile/dcache/tag_array/tag_array_ext/mem_0_1/RW0_wmode
 add wave -group CoreDMem -group TagArray -color black -radix bin cache:/TOP/TestDriver/testHarness/chiptop0/system/tile_prci_domain/tile_reset_domain_tile/dcache/tag_array/tag_array_ext/mem_0_1/RW0_wmask
 
+add wave -group CoreDMem -group TagArray -color red -radix unsigned cache:/TOP/TestDriver/testHarness/chiptop0/system/tile_prci_domain/tile_reset_domain_tile/dcache/tag_array/tag_array_ext/mem_0_0/RW0_addr
+add wave -group CoreDMem -group TagArray -color red -radix hex cache:/TOP/TestDriver/testHarness/chiptop0/system/tile_prci_domain/tile_reset_domain_tile/dcache/tag_array/tag_array_ext/mem_0_0/RW0_en
+add wave -group CoreDMem -group TagArray -color red -radix perm cache:/TOP/TestDriver/testHarness/chiptop0/system/tile_prci_domain/tile_reset_domain_tile/dcache/tag_array/tag_array_ext/mem_0_0/RW0_rdata[25:24]
+add wave -group CoreDMem -group TagArray -color red -radix hex cache:/TOP/TestDriver/testHarness/chiptop0/system/tile_prci_domain/tile_reset_domain_tile/dcache/tag_array/tag_array_ext/mem_0_0/RW0_rdata[23:0]
+add wave -group CoreDMem -group TagArray -color red -radix perm cache:/TOP/TestDriver/testHarness/chiptop0/system/tile_prci_domain/tile_reset_domain_tile/dcache/tag_array/tag_array_ext/mem_0_0/RW0_wdata[25:24]
+add wave -group CoreDMem -group TagArray -color red -radix hex cache:/TOP/TestDriver/testHarness/chiptop0/system/tile_prci_domain/tile_reset_domain_tile/dcache/tag_array/tag_array_ext/mem_0_0/RW0_wdata[23:0]
+add wave -group CoreDMem -group TagArray -color red -radix hex cache:/TOP/TestDriver/testHarness/chiptop0/system/tile_prci_domain/tile_reset_domain_tile/dcache/tag_array/tag_array_ext/mem_0_0/RW0_wmode
+add wave -group CoreDMem -group TagArray -color red -radix bin cache:/TOP/TestDriver/testHarness/chiptop0/system/tile_prci_domain/tile_reset_domain_tile/dcache/tag_array/tag_array_ext/mem_0_0/RW0_wmask
+
 add wave -group CoreDMem -group TagArray -color black cache:/TOP/TestDriver/testHarness/chiptop0/system/tile_prci_domain/tile_reset_domain_tile/dcache/tag_array/RW0_wmode
+add wave -group CoreDMem -group TagArray -color black cache:/TOP/TestDriver/testHarness/chiptop0/system/tile_prci_domain/tile_reset_domain_tile/dcache/resetting
 add wave -group CoreDMem -group TagArray -color black cache:/TOP/TestDriver/testHarness/chiptop0/system/tile_prci_domain/tile_reset_domain_tile/dcache/s1_req_addr
 add wave -group CoreDMem -group TagArray -color black cache:/TOP/TestDriver/testHarness/chiptop0/system/tile_prci_domain/tile_reset_domain_tile/dcache/s2_req_addr
 add wave -group CoreDMem -group TagArray -color black cache:/TOP/TestDriver/testHarness/chiptop0/system/tile_prci_domain/tile_reset_domain_tile/dcache/s1_tlb_req_vaddr
