@@ -5,7 +5,7 @@ import org.chipsalliance.cde.config.Field
 import sifive.fpgashells.clocks.{ClockSinkNode, ClockSinkParameters, ClockSourceNode}
 import sifive.fpgashells.devices.xilinx.xilinxvc707mig.{XilinxVC707MIG, XilinxVC707MIGPads, XilinxVC707MIGParams}
 import sifive.fpgashells.shell.xilinx._
-import sifive.fpgashells.shell.{ClockInputDesignInput, ClockInputShellInput, ClockInputShellPlacer, DDRDesignInput, DDROverlayOutput, DDRPlacedOverlay, DDRShellInput, DDRShellPlacer, IOPin, JTAGDebugDesignInput, JTAGDebugShellInput, JTAGDebugShellPlacer, LEDDesignInput, LEDShellInput, LEDShellPlacer, UARTDesignInput, UARTShellInput, UARTShellPlacer}
+import sifive.fpgashells.shell.{ClockInputDesignInput, ClockInputShellInput, ClockInputShellPlacer, DDRDesignInput, DDROverlayOutput, DDRPlacedOverlay, DDRShellInput, DDRShellPlacer, IOPin, JTAGDebugDesignInput, JTAGDebugShellInput, JTAGDebugShellPlacer, LEDDesignInput, LEDShellInput, LEDShellPlacer, SPIDesignInput, SPIShellInput, SPIShellPlacer, UARTDesignInput, UARTShellInput, UARTShellPlacer}
 
 /* =============================================================
 ============================ Clock =============================
@@ -129,3 +129,31 @@ class JTAGDebugVC707ShellPlacer(val shell: VC707ShellCustomOverlays, val shellIn
   def place(designInput: JTAGDebugDesignInput) = new JTAGDebugVC707PlacedOverlay(shell, valName.name, designInput, shellInput)
 }
 
+/* =============================================================
+============================= SDIO =============================
+===============================================================*/
+class SDIOVC707PlacedOverlay(val shell: VC707ShellCustomOverlays, name: String, val designInput: SPIDesignInput, val shellInput: SPIShellInput)
+  extends SDIOXilinxPlacedOverlay(name, designInput, shellInput)
+{
+  shell { InModuleBody {
+    val packagePinsWithPackageIOs = Seq(("AN30", IOPin(io.spi_clk)),
+      ("AP30", IOPin(io.spi_cs)),
+      ("AR30", IOPin(io.spi_dat(0))),
+      ("AU31", IOPin(io.spi_dat(1))),
+      ("AV31", IOPin(io.spi_dat(2))),
+      ("AT30", IOPin(io.spi_dat(3))))
+
+    packagePinsWithPackageIOs foreach { case (pin, io) => {
+      shell.xdc.addPackagePin(io, pin)
+      shell.xdc.addIOStandard(io, "LVCMOS18")
+      shell.xdc.addIOB(io)
+    } }
+    packagePinsWithPackageIOs drop 1 foreach { case (pin, io) => {
+      shell.xdc.addPullup(io)
+    } }
+  } }
+}
+class SDIOVC707ShellPlacer(val shell: VC707ShellCustomOverlays, val shellInput: SPIShellInput)(implicit val valName: ValName)
+  extends SPIShellPlacer[VC707ShellCustomOverlays] {
+  def place(designInput: SPIDesignInput) = new SDIOVC707PlacedOverlay(shell, valName.name, designInput, shellInput)
+}

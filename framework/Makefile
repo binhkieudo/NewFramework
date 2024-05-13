@@ -14,7 +14,7 @@ sim_name := none
 #########################################################################################
 # include shared variables
 #########################################################################################
-SUB_PROJECT ?= arty100t_rocketsmall
+SUB_PROJECT ?= vc707_rocketsmall
 
 #########################################################################################
 # My configuration
@@ -51,10 +51,24 @@ endif
 
 ifeq ($(SUB_PROJECT),vc707_rocketsmall)
 	SBT_PROJECT       ?= framework
-	MODEL             ?= VC707Harness
-	VLOG_MODEL        ?= VC707Harness
+	MODEL             ?= VC707FPGATestHarness
+	VLOG_MODEL        ?= VC707FPGATestHarness
 	MODEL_PACKAGE     ?= framework.fpga.vc707
 	CONFIG            ?= SmallRocketVC707Config
+	CONFIG_PACKAGE    ?= framework.fpga.vc707
+	GENERATOR_PACKAGE ?= chipyard
+	TB                ?= none # unused
+	TOP               ?= ChipTop
+	BOARD             ?= vc707
+	FPGA_BRAND        ?= xilinx
+endif
+
+ifeq ($(SUB_PROJECT),vc707_rocketsmalSerialmem)
+	SBT_PROJECT       ?= framework
+	MODEL             ?= VC707woDDRHarness
+	VLOG_MODEL        ?= VC707woDDRHarness
+	MODEL_PACKAGE     ?= framework.fpga.vc707
+	CONFIG            ?= SmallRocketSerialMemVC707Config
 	CONFIG_PACKAGE    ?= framework.fpga.vc707
 	GENERATOR_PACKAGE ?= chipyard
 	TB                ?= none # unused

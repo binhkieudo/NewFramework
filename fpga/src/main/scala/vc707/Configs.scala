@@ -1,24 +1,16 @@
 package chipyard.fpga.vc707
 
-import sys.process._
-
-import org.chipsalliance.cde.config.{Config, Parameters}
-import freechips.rocketchip.subsystem.{SystemBusKey, PeripheryBusKey, ControlBusKey, ExtMem}
-import freechips.rocketchip.devices.debug.{DebugModuleKey, ExportDebug, JTAG}
-import freechips.rocketchip.devices.tilelink.{DevNullParams, BootROMLocated}
-import freechips.rocketchip.diplomacy.{DTSModel, DTSTimebase, RegionType, AddressSet}
-import freechips.rocketchip.tile.{XLen}
-
+import chipyard.harness._
+import freechips.rocketchip.devices.tilelink.BootROMLocated
+import freechips.rocketchip.diplomacy.DTSTimebase
+import freechips.rocketchip.subsystem.{ExtMem, SystemBusKey}
+import org.chipsalliance.cde.config.Config
 import sifive.blocks.devices.spi.{PeripherySPIKey, SPIParams}
 import sifive.blocks.devices.uart.{PeripheryUARTKey, UARTParams}
+import sifive.fpgashells.shell.xilinx.VC7074GDDRSize
+import testchipip.SerialTLKey
 
-import sifive.fpgashells.shell.{DesignKey}
-import sifive.fpgashells.shell.xilinx.{VC7074GDDRSize}
-
-import testchipip.{SerialTLKey}
-
-import chipyard.{BuildSystem, ExtTLMem}
-import chipyard.harness._
+import scala.sys.process._
 
 class WithDefaultPeripherals extends Config((site, here, up) => {
   case PeripheryUARTKey => List(UARTParams(address = BigInt(0x64000000L)))
@@ -45,7 +37,6 @@ class WithVC707Tweaks extends Config (
   new chipyard.config.WithMemoryBusFrequency(50.0) ++
   new chipyard.config.WithSystemBusFrequency(50.0) ++
   new chipyard.config.WithPeripheryBusFrequency(50.0) ++
-
   new chipyard.harness.WithHarnessBinderClockFreqMHz(50) ++
   new WithFPGAFrequency(50) ++ // default 50MHz freq
   // harness binders
