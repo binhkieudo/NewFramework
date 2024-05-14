@@ -3,7 +3,6 @@ package framework.fpga.vcu118
 import chipyard.ExtTLMem
 import chipyard.harness.HasHarnessInstantiators
 import chisel3._
-import chisel3.util.log2Ceil
 import freechips.rocketchip.diplomacy.{BundleBridgeSource, IdRange, LazyModule, LazyRawModuleImp}
 import freechips.rocketchip.subsystem.SystemBusKey
 import freechips.rocketchip.tilelink.{TLBlockDuringReset, TLClientNode, TLMasterParameters, TLMasterPortParameters}
@@ -12,7 +11,7 @@ import sifive.blocks.devices.spi.{PeripherySPIKey, SPIPortIO}
 import sifive.blocks.devices.uart.{PeripheryUARTKey, UARTParams, UARTPortIO}
 import sifive.fpgashells.clocks.{ClockGroup, ClockSinkNode, PLLFactoryKey, ResetWrangler}
 import sifive.fpgashells.ip.xilinx.{IBUF, PowerOnResetFPGAOnly}
-import sifive.fpgashells.shell.{ClockInputDesignInput, ClockInputOverlayKey, DDRDesignInput, DDROverlayKey, JTAGDebugDesignInput, JTAGDebugOverlayKey, LEDDesignInput, LEDOverlayKey, SPIDesignInput, SPIOverlayKey, UARTDesignInput, UARTOverlayKey}
+import sifive.fpgashells.shell.{ClockInputDesignInput, ClockInputOverlayKey, DDRDesignInput, DDROverlayKey, JTAGDebugDesignInput, JTAGDebugOverlayKey, SPIDesignInput, SPIOverlayKey, UARTDesignInput, UARTOverlayKey}
 
 //class VCU118Harness(override implicit val p: Parameters) extends VCU118CustomShell {
 //  def dp = designParameters
@@ -196,15 +195,6 @@ class VCU118woDDRHarness(override implicit val p: Parameters) extends VCU118Shel
   /*** SPI ***/
   val io_spi_bb = BundleBridgeSource(() => (new SPIPortIO(dp(PeripherySPIKey).head)))
   val sdModule = dp(SPIOverlayKey).head.place(SPIDesignInput(dp(PeripherySPIKey).head, io_spi_bb))
-
-  /*** DDR ***/
-  val ddrOverlay = dp(DDROverlayKey).head.place(DDRDesignInput(dp(ExtTLMem).get.master.base, dutWrangler.node, harnessSysPLLNode, true)).asInstanceOf[DDRVCU118PlacedOverlay]
-  val ddrClient = TLClientNode(Seq(TLMasterPortParameters.v1(Seq(TLMasterParameters.v1(
-    name = "chip_ddr",
-    sourceId = IdRange(0, 1 << dp(ExtTLMem).get.master.idBits)
-  )))))
-  val ddrBlockDuringReset = LazyModule(new TLBlockDuringReset(4))
-  ddrOverlay.overlayOutput.ddr := ddrBlockDuringReset.node := ddrClient
 
   /*** Module implementation ***/
   override lazy val module = new VCU118woDDRHarnessImp(this)
