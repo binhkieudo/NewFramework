@@ -4,8 +4,8 @@ import freechips.rocketchip.diplomacy.{AddressSet, BundleBridgeSource, InModuleB
 import org.chipsalliance.cde.config.Field
 import sifive.fpgashells.clocks.{ClockSinkNode, ClockSinkParameters, ClockSourceNode}
 import sifive.fpgashells.devices.xilinx.xilinxvcu118mig.{XilinxVCU118MIG, XilinxVCU118MIGPads, XilinxVCU118MIGParams}
-import sifive.fpgashells.shell.xilinx.{JTAGDebugXilinxPlacedOverlay, LEDXilinxPlacedOverlay, LVDSClockInputXilinxPlacedOverlay, UARTXilinxPlacedOverlay}
-import sifive.fpgashells.shell.{ClockInputDesignInput, ClockInputShellInput, ClockInputShellPlacer, DDRDesignInput, DDROverlayOutput, DDRPlacedOverlay, DDRShellInput, DDRShellPlacer, IOPin, JTAGDebugDesignInput, JTAGDebugShellInput, JTAGDebugShellPlacer, LEDDesignInput, LEDShellInput, LEDShellPlacer, UARTDesignInput, UARTShellInput, UARTShellPlacer}
+import sifive.fpgashells.shell.xilinx.{JTAGDebugXilinxPlacedOverlay, LEDXilinxPlacedOverlay, LVDSClockInputXilinxPlacedOverlay, SDIOXilinxPlacedOverlay, UARTXilinxPlacedOverlay}
+import sifive.fpgashells.shell.{ClockInputDesignInput, ClockInputShellInput, ClockInputShellPlacer, DDRDesignInput, DDROverlayOutput, DDRPlacedOverlay, DDRShellInput, DDRShellPlacer, IOPin, JTAGDebugDesignInput, JTAGDebugShellInput, JTAGDebugShellPlacer, LEDDesignInput, LEDShellInput, LEDShellPlacer, SPIDesignInput, SPIShellInput, SPIShellPlacer, UARTDesignInput, UARTShellInput, UARTShellPlacer}
 
 /* =============================================================
 ============================ Clock =============================
@@ -170,4 +170,33 @@ class JTAGDebugVCU118PlacedOverlay(val shell: VCU118ShellCustomOverlays, name: S
 class JTAGDebugVCU118ShellPlacer(shell: VCU118ShellCustomOverlays, val shellInput: JTAGDebugShellInput)(implicit val valName: ValName)
   extends JTAGDebugShellPlacer[VCU118ShellCustomOverlays] {
   def place(designInput: JTAGDebugDesignInput) = new JTAGDebugVCU118PlacedOverlay(shell, valName.name, designInput, shellInput)
+}
+
+/* =============================================================
+============================= SDIO =============================
+===============================================================*/
+class SDIOVCU118PlacedOverlay(val shell: VCU118ShellCustomOverlays, name: String, val designInput: SPIDesignInput, val shellInput: SPIShellInput)
+  extends SDIOXilinxPlacedOverlay(name, designInput, shellInput)
+{
+  shell { InModuleBody {
+    val packagePinsWithPackageIOs = Seq(("AV15", IOPin(io.spi_clk)),
+      ("AY15", IOPin(io.spi_cs)),
+      ("AW15", IOPin(io.spi_dat(0))),
+      ("AV16", IOPin(io.spi_dat(1))),
+      ("AU16", IOPin(io.spi_dat(2))),
+      ("AY14", IOPin(io.spi_dat(3))))
+
+    packagePinsWithPackageIOs foreach { case (pin, io) => {
+      shell.xdc.addPackagePin(io, pin)
+      shell.xdc.addIOStandard(io, "LVCMOS18")
+    } }
+    packagePinsWithPackageIOs drop 1 foreach { case (pin, io) => {
+      shell.xdc.addPullup(io)
+      shell.xdc.addIOB(io)
+    } }
+  } }
+}
+class SDIOVCU118ShellPlacer(shell: VCU118ShellCustomOverlays, val shellInput: SPIShellInput)(implicit val valName: ValName)
+  extends SPIShellPlacer[VCU118ShellCustomOverlays] {
+  def place(designInput: SPIDesignInput) = new SDIOVCU118PlacedOverlay(shell, valName.name, designInput, shellInput)
 }

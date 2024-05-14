@@ -14,20 +14,6 @@ import testchipip.{SerialTLKey, WithNoCustomBootPin}
 
 import scala.sys.process._
 
-// BootROOM Configuration
-class WithSimpleBootROM extends Config((site, here, up) => {
-  case BootROMLocated(x) => up(BootROMLocated(x), site).map{ p =>
-    val freqMHz = (site(SystemBusKey).dtsFrequency.get / (1000 * 1000)).toLong
-    // Make sure that the bootrom is always rebuilt
-    val clean = s"make -C framework/src/main/resources/bootROM/basic clean"
-    require (clean.! == 0, "Failed to clean")
-    // Build the bootrom
-    val make = s"make -C framework/src/main/resources/bootROM/basic XLEN=${site(XLen)} PBUS_CLK=${freqMHz}"
-    require (make.! == 0, "Failed to build bootrom")
-    p.copy(hang = 0x10000, contentFileName = s"./framework/src/main/resources/bootROM/basic/build/sdboot.bin")
-  }
-})
-
 class WithSystemModifications extends Config((site, here, up) => {
   case DTSTimebase => BigInt{(1e6).toLong}
   case BootROMLocated(x) => up(BootROMLocated(x), site).map{ p =>
@@ -62,7 +48,7 @@ class WithDDR extends Config((site, here, up) => {
 })
 
 class WithVC707Tweaks extends Config (
-  // clocking
+  // Clock configs
   new chipyard.harness.WithAllClocksFromHarnessClockInstantiator ++
     new chipyard.clocking.WithPassthroughClockGenerator ++
     new chipyard.config.WithMemoryBusFrequency(50.0) ++
@@ -71,16 +57,16 @@ class WithVC707Tweaks extends Config (
     new chipyard.harness.WithHarnessBinderClockFreqMHz(50) ++
     new chipyard.config.WithPeripheryBusFrequency(50) ++
     new chipyard.config.WithMemoryBusFrequency(50) ++
-    // harness binders
+    // Harness Binder
     new WithVC707UARTHarnessBinder ++
     new WithVC707SPISDCardHarnessBinder ++
     new WithVC707JTAGHarnessBinder ++
     new WithVC707DDRMemHarnessBinder ++
-    // io binders
+    // IO Binders
     new WithUARTIOPassthrough ++
     new WithSPIIOPassthrough ++
     new WithTLIOPassthrough ++
-    // other configuration
+    // Other configurations
     new WithDefaultPeripherals ++
     new chipyard.config.WithTLBackingMemory ++ // use TL backing memory
     new WithNoSerialTL ++
@@ -91,7 +77,7 @@ class WithVC707Tweaks extends Config (
 )
 
 class WithVC707SerialMemTweaks extends Config (
-  // clocking
+  // Clock configs
   new chipyard.harness.WithAllClocksFromHarnessClockInstantiator ++
     new chipyard.clocking.WithPassthroughClockGenerator ++
     new chipyard.config.WithMemoryBusFrequency(50.0) ++
@@ -100,15 +86,15 @@ class WithVC707SerialMemTweaks extends Config (
     new chipyard.harness.WithHarnessBinderClockFreqMHz(50) ++
     new chipyard.config.WithPeripheryBusFrequency(50) ++
     new chipyard.config.WithMemoryBusFrequency(50) ++
-    // harness binders
+    // Harness Binder
     new WithVC707UARTHarnessBinder ++
     new WithVC707SPISDCardHarnessBinder ++
     new WithVC707JTAGHarnessBinder ++
     new WithTSITieoff ++
-    // io binders
+    // IO Binders
     new WithUARTIOPassthrough ++
     new WithSPIIOPassthrough ++
-    // other configuration
+    // Other configurations
     new WithDefaultPeripherals ++
     new WithNoCustomBootPin ++
     new WithSystemModifications ++
@@ -128,5 +114,4 @@ class SmallRocketVC707Config extends Config(
 
 class SmallRocketSerialMemVC707Config extends Config(
   new WithVC707SerialMemTweaks ++
-//    new chipyard.config.WithBroadcastManager ++ // no l2
     new chipyard.SmallRocketConfig)

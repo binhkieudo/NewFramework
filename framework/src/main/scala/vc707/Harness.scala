@@ -37,18 +37,14 @@ class VC707Harness(override implicit val p: Parameters) extends VC707ShellCustom
   val dutGroup = ClockGroup()
   dutClock := dutWrangler.node := dutGroup := harnessSysPLL
 
-
   /*** JTAG ***/
   val jtagModule = dp(JTAGDebugOverlayKey).head.place(JTAGDebugDesignInput()).overlayOutput.jtag
 
   /*** UART ***/
-
-  // 1st UART goes to the VC707 dedicated UART
   val io_uart_bb = BundleBridgeSource(() => (new UARTPortIO(dp(PeripheryUARTKey).head)))
   dp(UARTOverlayKey).head.place(UARTDesignInput(io_uart_bb))
 
   /*** SPI ***/
-  // 1st SPI goes to the VC707 SDIO port
   val io_spi_bb = BundleBridgeSource(() => (new SPIPortIO(dp(PeripherySPIKey).head)))
   dp(SPIOverlayKey).head.place(SPIDesignInput(dp(PeripherySPIKey).head, io_spi_bb))
 
@@ -62,7 +58,7 @@ class VC707Harness(override implicit val p: Parameters) extends VC707ShellCustom
 
   ddrNode := ddrClient
 
-  // module implementation
+  /*** Module implementation ***/
   override lazy val module = new VC707HarnessImp(this)
 }
 

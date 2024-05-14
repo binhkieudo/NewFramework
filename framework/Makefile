@@ -14,10 +14,10 @@ sim_name := none
 #########################################################################################
 # include shared variables
 #########################################################################################
-SUB_PROJECT ?= vc707_rocketsmalSerialmem
+SUB_PROJECT ?= vcu118_rocketsmall
 
 #########################################################################################
-# My configuration
+# Arty configuration
 #########################################################################################
 ifeq ($(SUB_PROJECT),arty100t_rocketsmall)
 	# TODO: Fix with Arty
@@ -49,6 +49,25 @@ ifeq ($(SUB_PROJECT),arty100t_rocketgcsmall)
 	FPGA_BRAND        ?= xilinx
 endif
 
+# Featured configurations
+ifeq ($(SUB_PROJECT),arty100t_sha3rocket)
+	# TODO: Fix with Arty
+	SBT_PROJECT       ?= framework
+	MODEL             ?= Arty100THarness
+	VLOG_MODEL        ?= Arty100THarness
+	MODEL_PACKAGE     ?= framework.fpga.arty100t
+	CONFIG            ?= SmallSha3RocketArty100TConfig
+	CONFIG_PACKAGE    ?= framework.fpga.arty100t
+	GENERATOR_PACKAGE ?= chipyard
+	TB                ?= none # unused
+	TOP               ?= ChipTop
+	BOARD             ?= arty_a7_100
+	FPGA_BRAND        ?= xilinx
+endif
+
+#########################################################################################
+# VC707 configuration
+#########################################################################################
 ifeq ($(SUB_PROJECT),vc707_rocketsmall)
 	SBT_PROJECT       ?= framework
 	MODEL             ?= VC707Harness
@@ -77,6 +96,9 @@ ifeq ($(SUB_PROJECT),vc707_rocketsmalSerialmem)
 	FPGA_BRAND        ?= xilinx
 endif
 
+#########################################################################################
+# VCU118 configuration
+#########################################################################################
 ifeq ($(SUB_PROJECT),vcu118_rocketsmall)
 	SBT_PROJECT       ?= framework
 	MODEL             ?= VCU118Harness
@@ -91,22 +113,19 @@ ifeq ($(SUB_PROJECT),vcu118_rocketsmall)
 	FPGA_BRAND        ?= xilinx
 endif
 
-# Featured configurations
-ifeq ($(SUB_PROJECT),arty100t_sha3rocket)
-	# TODO: Fix with Arty
+ifeq ($(SUB_PROJECT),vcu118_rocketsmalSerialmem)
 	SBT_PROJECT       ?= framework
-	MODEL             ?= Arty100THarness
-	VLOG_MODEL        ?= Arty100THarness
-	MODEL_PACKAGE     ?= framework.fpga.arty100t
-	CONFIG            ?= SmallSha3RocketArty100TConfig
-	CONFIG_PACKAGE    ?= framework.fpga.arty100t
+	MODEL             ?= VCU118woDDRHarness
+	VLOG_MODEL        ?= VCU118woDDRHarness
+	MODEL_PACKAGE     ?= framework.fpga.vcu118
+	CONFIG            ?= SmallRocketSerialMemVCU118Config
+	CONFIG_PACKAGE    ?= framework.fpga.vcu118
 	GENERATOR_PACKAGE ?= chipyard
 	TB                ?= none # unused
 	TOP               ?= ChipTop
-	BOARD             ?= arty_a7_100
+	BOARD             ?= vcu118
 	FPGA_BRAND        ?= xilinx
 endif
-
 
 ################### End my configurations #################################################
 
