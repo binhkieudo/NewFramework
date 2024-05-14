@@ -10,10 +10,11 @@ import sifive.fpgashells.shell.{ClockInputDesignInput, ClockInputOverlayKey, Clo
 abstract class VC707ShellCustomOverlays()(implicit p: Parameters) extends Series7Shell
 {
   // System
+  val pllReset = InModuleBody { Wire(Bool()) }
   val sys_clock = Overlay(ClockInputOverlayKey, new SysClockVC707ShellPlacer(this, ClockInputShellInput()))
-  val ddr       = Overlay(DDROverlayKey, new DDRVC707ShellPlacer(this, DDRShellInput()))
 
   // Peripheries
+  val ddr       = Overlay(DDROverlayKey, new DDRVC707ShellPlacer(this, DDRShellInput()))
   val led       = Seq.tabulate(8)(i => Overlay(LEDOverlayKey, new LEDVC707ShellPlacer(this, LEDShellInput(color = "red", number = i))(valName = ValName(s"led_status_$i"))))
   val jtag      = Overlay(JTAGDebugOverlayKey, new JTAGDebugVC707ShellPlacer(this, JTAGDebugShellInput()))
   val uart      = Overlay(UARTOverlayKey, new UARTVC707ShellPlacer(this, UARTShellInput()))
@@ -24,7 +25,7 @@ class VC707CustomShell()(implicit p: Parameters) extends VC707ShellCustomOverlay
 {
   val resetPin = InModuleBody { Wire(Bool()) }
   // PLL reset causes
-  val pllReset = InModuleBody { Wire(Bool()) }
+//  val pllReset = InModuleBody { Wire(Bool()) }
 
   val topDesign = LazyModule(p(DesignKey)(designParameters))
 

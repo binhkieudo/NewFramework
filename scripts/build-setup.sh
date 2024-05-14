@@ -41,7 +41,7 @@ usage() {
     echo "  --verbose -v            : Verbose printout"
 
     echo "  --use-unpinned-deps -ud : Use unpinned conda environment"
-
+    echo "  --skip-marshal          : Skip firemarshal initialization (steps 8/9)"
     echo "  --skip -s N             : Skip step N in the list above. Use multiple times to skip multiple steps ('-s N -s M ...')."
 
     exit "$1"
@@ -69,6 +69,8 @@ do
             set -x ;;
         -ud | --use-unpinned-deps )
             USE_UNPINNED_DEPS=true ;;
+        --skip-marshal)
+            SKIP_LIST+=(8 9) ;;
         --skip | -s)
             shift
             SKIP_LIST+=(${1}) ;;

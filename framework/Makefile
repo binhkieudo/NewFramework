@@ -14,7 +14,7 @@ sim_name := none
 #########################################################################################
 # include shared variables
 #########################################################################################
-SUB_PROJECT ?= vc707_rocketsmall
+SUB_PROJECT ?= vc707_rocketsmalSerialmem
 
 #########################################################################################
 # My configuration
@@ -51,8 +51,8 @@ endif
 
 ifeq ($(SUB_PROJECT),vc707_rocketsmall)
 	SBT_PROJECT       ?= framework
-	MODEL             ?= VC707FPGATestHarness
-	VLOG_MODEL        ?= VC707FPGATestHarness
+	MODEL             ?= VC707Harness
+	VLOG_MODEL        ?= VC707Harness
 	MODEL_PACKAGE     ?= framework.fpga.vc707
 	CONFIG            ?= SmallRocketVC707Config
 	CONFIG_PACKAGE    ?= framework.fpga.vc707

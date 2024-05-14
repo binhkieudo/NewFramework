@@ -31,6 +31,7 @@ class WithVC707SPISDCardHarnessBinder extends OverrideHarnessBinder({
   }
 })
 
+
 /*** Experimental DDR ***/
 class WithVC707DDRMemHarnessBinder extends OverrideHarnessBinder({
   (system: CanHaveMasterTLMemPort, th: BaseModule, ports: Seq[HeterogeneousBag[TLBundle]]) => {
