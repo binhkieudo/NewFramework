@@ -115,3 +115,8 @@ class SmallRocketVCU118Config extends Config(
 class SmallRocketSerialMemVCU118Config extends Config(
   new WithVCU118SerialMemTweaks ++
     new chipyard.SmallRocketConfig)
+
+class FourCoreRocketVCU118Config extends Config(
+  new WithVCU118SerialMemTweaks ++
+    new chipyard.config.WithBroadcastManager ++ // no l2
+    new chipyard.FourCoreRocketMemConfig)
