@@ -36,6 +36,24 @@ class WithSystemModifications extends Config((site, here, up) => {
   }
 })
 
+class WithMTSystemModifications extends Config((site, here, up) => {
+  case DTSTimebase => BigInt{(1e6).toLong}
+  case BootROMLocated(x) => up(BootROMLocated(x), site).map{ p =>
+    val freqMHz = (site(SystemBusKey).dtsFrequency.get / (1000 * 1000)).toLong
+    // Make sure that the bootrom is always rebuilt
+    val clean = s"make -C framework/src/main/resources/bootROM/MTBoot clean"
+    require (clean.! == 0, "Failed to clean")
+    // Build the bootrom
+    val make = s"make -C framework/src/main/resources/bootROM/MTBoot XLEN=${site(XLen)} PBUS_CLK=${freqMHz}"
+    require (make.! == 0, "Failed to build bootrom")
+    p.copy(hang = 0x10000, contentFileName = s"./framework/src/main/resources/bootROM/MTBoot/build/sdboot.bin")
+  }
+  case DesignKey => (p: Parameters) => new SimpleLazyModule()(p)
+  case DebugModuleKey => up(DebugModuleKey).map{ debug =>
+    debug.copy(clockGate = false)
+  }
+})
+
 class WithNoSerialTL extends Config((site, here, up) => {
   case SerialTLKey => None // remove serialized tl port
 })
@@ -126,6 +144,39 @@ class WithVC707SerialMemTweaks extends Config (
     new freechips.rocketchip.subsystem.WithoutTLMonitors
 )
 
+class WithVC707MTSerialMemTweaks extends Config (
+  // Clock configs
+  new chipyard.harness.WithAllClocksFromHarnessClockInstantiator ++
+    new chipyard.clocking.WithPassthroughClockGenerator ++
+    new chipyard.config.WithMemoryBusFrequency(50.0) ++
+    new chipyard.config.WithSystemBusFrequency(50.0) ++
+    new chipyard.config.WithPeripheryBusFrequency(50.0) ++
+    new chipyard.harness.WithHarnessBinderClockFreqMHz(50) ++
+    new chipyard.config.WithPeripheryBusFrequency(50) ++
+    new chipyard.config.WithMemoryBusFrequency(50) ++
+    // Harness Binder
+    new WithVC707UARTHarnessBinder ++
+    new WithVC707SPISDCardHarnessBinder ++
+    new WithVC707JTAGHarnessBinder ++
+    new WithVC707GPIOHarnessBinder ++
+    new WithTSITieoff ++
+    // IO Binders
+    new WithUARTIOPassthrough ++
+    new WithSPIIOPassthrough ++
+    new WithGPIOIOPassthrough ++
+    // Other configurations
+    new WithDefaultPeripherals ++
+    new WithNoCustomBootPin ++
+    new WithMTSystemModifications ++
+    new testchipip.WithSerialTLWidth(8) ++
+    new testchipip.WithSerialTLMem(
+      base = BigInt(0x80000000L),
+      size = BigInt((1 << 10) * 128L),
+      isMainMemory=true) ++
+    new testchipip.WithSerialTLBackingMemory ++
+    new freechips.rocketchip.subsystem.WithoutTLMonitors
+)
+
 class WithVC707AXITweaks extends Config (
   // Clock configs
   new chipyard.harness.WithAllClocksFromHarnessClockInstantiator ++
@@ -162,6 +213,10 @@ class SmallRocketVC707Config extends Config(
 
 class SmallRocketSerialMemVC707Config extends Config(
   new WithVC707SerialMemTweaks ++
+  new chipyard.MultiRocketConfig)
+
+class SmallRocketMTSerialMemVC707Config extends Config(
+  new WithVC707MTSerialMemTweaks ++
   new chipyard.MultiRocketConfig)
 
 class SmallRocketAXIVC707Config extends Config(

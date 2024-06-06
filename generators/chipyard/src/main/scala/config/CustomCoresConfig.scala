@@ -21,7 +21,7 @@ class WithRocketDCacheScratchpad extends Config((site, here, up) => {
   case TilesLocated(InSubsystem) => up(TilesLocated(InSubsystem), site) map {
     case tp: RocketTileAttachParams => tp.copy(tileParams = tp.tileParams.copy(
       dcache = tp.tileParams.dcache.map(_.copy(nSets = 64, nWays = 1, scratch = Some(0x40000000 + tp.tileParams.hartId * 0x1000)))
-    ))
+    )) // 4-KB/each
   }
 })
 
@@ -30,7 +30,9 @@ class SmallRocketConfig extends Config(
   new chipyard.config.AbstractConfig)
 
 class MultiRocketConfig extends Config(
-  new freechips.rocketchip.subsystem.WithNSmallCores(4) ++         // single rocket-core
+  new WithRocketDCacheScratchpad ++ // 4-KB private memory
+//  new freechips.rocketchip.subsystem.WithNBanks (4) ++ // 4xbanks L2
+  new freechips.rocketchip.subsystem.WithNSmallCores(4) ++         // four rocket-core
   new chipyard.config.AbstractConfig)
 
 class WithAXI(address: BigInt, useAXI4: Boolean = false, useBlackBox: Boolean = false) extends Config((site, here, up) => {
