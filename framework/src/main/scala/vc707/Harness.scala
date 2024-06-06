@@ -13,7 +13,10 @@ import sifive.blocks.devices.uart.{PeripheryUARTKey, UARTParams, UARTPortIO}
 import sifive.fpgashells.clocks.{ClockGroup, ClockSinkNode, PLLFactoryKey, ResetWrangler}
 import sifive.fpgashells.ip.xilinx.{IBUF, PowerOnResetFPGAOnly}
 import sifive.fpgashells.shell.xilinx.{ChipLinkVC707PlacedOverlay, UARTVC707ShellPlacer, VC707Shell}
-import sifive.fpgashells.shell.{ButtonDesignInput, ButtonOverlayKey, ClockInputDesignInput, ClockInputOverlayKey, DDRDesignInput, DDROverlayKey, JTAGDebugDesignInput, JTAGDebugOverlayKey, LEDDesignInput, LEDOverlayKey, SPIDesignInput, SPIOverlayKey, SwitchDesignInput, SwitchOverlayKey, UARTDesignInput, UARTOverlayKey, UARTShellInput}
+import sifive.fpgashells.shell.{GPIOOverlayKey, ButtonDesignInput, ButtonOverlayKey, ClockInputDesignInput, ClockInputOverlayKey, DDRDesignInput, DDROverlayKey, JTAGDebugDesignInput, JTAGDebugOverlayKey, LEDDesignInput, LEDOverlayKey, SPIDesignInput, SPIOverlayKey, SwitchDesignInput, SwitchOverlayKey, UARTDesignInput, UARTOverlayKey, UARTShellInput}
+import sifive.blocks.devices.gpio.GPIOPortIO
+import sifive.blocks.devices.gpio.PeripheryGPIOKey
+import sifive.fpgashells.shell.GPIODesignInput
 
 class VC707Harness(override implicit val p: Parameters) extends VC707ShellCustomOverlays { outer =>
 
@@ -135,6 +138,12 @@ class VC707woDDRHarness(override implicit val p: Parameters) extends VC707ShellC
   // 1st SPI goes to the VC707 SDIO port
   val io_spi_bb = BundleBridgeSource(() => (new SPIPortIO(dp(PeripherySPIKey).head)))
   dp(SPIOverlayKey).head.place(SPIDesignInput(dp(PeripherySPIKey).head, io_spi_bb))
+
+  /*** GPIO ***/
+  val io_gpio_bb = dp(PeripheryGPIOKey).map(p => BundleBridgeSource(() => (new GPIOPortIO(p))))
+  (dp(GPIOOverlayKey) zip dp(PeripheryGPIOKey)).zipWithIndex.map { case ((placer, params), i) =>
+    placer.place(GPIODesignInput(params, io_gpio_bb(i)))
+  }
 
   // module implementation
   override lazy val module = new VC707woDDRHarnessImp(this)

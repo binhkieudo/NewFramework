@@ -1,0 +1,21 @@
+mm.o: \
+ /home/binhkieudo/Workspace/RISC-V/NewFramework/framework/verilator/generated-src/chipyard.harness.TestHarness.TutorialMMIOConfig/gen-collateral/mm.cc \
+ /home/binhkieudo/Workspace/RISC-V/NewFramework/framework/verilator/generated-src/chipyard.harness.TestHarness.TutorialMMIOConfig/chipyard.harness.TestHarness.TutorialMMIOConfig.plusArgs \
+ /home/binhkieudo/Workspace/RISC-V/NewFramework/framework/verilator/generated-src/chipyard.harness.TestHarness.TutorialMMIOConfig/chipyard.harness.TestHarness.TutorialMMIOConfig/VTestDriver.h \
+ /home/binhkieudo/Workspace/RISC-V/NewFramework/.conda-env/share/verilator/include/verilated.h \
+ /home/binhkieudo/Workspace/RISC-V/NewFramework/.conda-env/share/verilator/include/verilatedos.h \
+ /home/binhkieudo/Workspace/RISC-V/NewFramework/.conda-env/share/verilator/include/verilated_config.h \
+ /home/binhkieudo/Workspace/RISC-V/NewFramework/.conda-env/share/verilator/include/verilated_types.h \
+ /home/binhkieudo/Workspace/RISC-V/NewFramework/.conda-env/share/verilator/include/verilated_funcs.h \
+ /home/binhkieudo/Workspace/RISC-V/NewFramework/.conda-env/share/verilator/include/verilated_threads.h \
+ /home/binhkieudo/Workspace/RISC-V/NewFramework/.conda-env/share/verilator/include/verilated.h \
+ /home/binhkieudo/Workspace/RISC-V/NewFramework/.conda-env/share/verilator/include/vltstd/svdpi.h \
+ /home/binhkieudo/Workspace/RISC-V/NewFramework/framework/verilator/generated-src/chipyard.harness.TestHarness.TutorialMMIOConfig/gen-collateral/mm.h \
+ /home/binhkieudo/Workspace/RISC-V/NewFramework/.conda-env/riscv-tools/include/fesvr/memif.h \
+ /home/binhkieudo/Workspace/RISC-V/NewFramework/.conda-env/riscv-tools/include/fesvr/byteorder.h \
+ /home/binhkieudo/Workspace/RISC-V/NewFramework/.conda-env/riscv-tools/include/fesvr/config.h \
+ /home/binhkieudo/Workspace/RISC-V/NewFramework/.conda-env/riscv-tools/include/fesvr/../riscv/cfg.h \
+ /home/binhkieudo/Workspace/RISC-V/NewFramework/.conda-env/riscv-tools/include/fesvr/../riscv/decode.h \
+ /home/binhkieudo/Workspace/RISC-V/NewFramework/.conda-env/riscv-tools/include/fesvr/../riscv/../softfloat/softfloat_types.h \
+ /home/binhkieudo/Workspace/RISC-V/NewFramework/.conda-env/riscv-tools/include/fesvr/elfloader.h \
+ /home/binhkieudo/Workspace/RISC-V/NewFramework/.conda-env/riscv-tools/include/fesvr/elf.h

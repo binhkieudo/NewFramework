@@ -14,7 +14,7 @@ sim_name := none
 #########################################################################################
 # include shared variables
 #########################################################################################
-SUB_PROJECT ?= vcu118_fourrocketSerialmem
+SUB_PROJECT ?= vc707_rocketsmalSerialmem
 
 #########################################################################################
 # Arty configuration
@@ -88,6 +88,34 @@ ifeq ($(SUB_PROJECT),vc707_rocketsmalSerialmem)
 	VLOG_MODEL        ?= VC707woDDRHarness
 	MODEL_PACKAGE     ?= framework.fpga.vc707
 	CONFIG            ?= SmallRocketSerialMemVC707Config
+	CONFIG_PACKAGE    ?= framework.fpga.vc707
+	GENERATOR_PACKAGE ?= chipyard
+	TB                ?= none # unused
+	TOP               ?= ChipTop
+	BOARD             ?= vc707
+	FPGA_BRAND        ?= xilinx
+endif
+
+ifeq ($(SUB_PROJECT),vc707_rocketAXI)
+	SBT_PROJECT       ?= framework
+	MODEL             ?= VC707woDDRHarness
+	VLOG_MODEL        ?= VC707woDDRHarness
+	MODEL_PACKAGE     ?= framework.fpga.vc707
+	CONFIG            ?= SmallRocketAXIVC707Config
+	CONFIG_PACKAGE    ?= framework.fpga.vc707
+	GENERATOR_PACKAGE ?= chipyard
+	TB                ?= none # unused
+	TOP               ?= ChipTop
+	BOARD             ?= vc707
+	FPGA_BRAND        ?= xilinx
+endif
+
+ifeq ($(SUB_PROJECT),vc707_rocketAXITest)
+	SBT_PROJECT       ?= framework
+	MODEL             ?= VC707woDDRHarness
+	VLOG_MODEL        ?= VC707woDDRHarness
+	MODEL_PACKAGE     ?= framework.fpga.vc707
+	CONFIG            ?= SmallRocketAXITestVC707Config
 	CONFIG_PACKAGE    ?= framework.fpga.vc707
 	GENERATOR_PACKAGE ?= chipyard
 	TB                ?= none # unused

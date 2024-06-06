@@ -12,6 +12,8 @@ import freechips.rocketchip.util.HeterogeneousBag
 import sifive.blocks.devices.spi.{HasPeripherySPI, SPIPortIO}
 import sifive.blocks.devices.uart.{HasPeripheryUARTModuleImp, UARTPortIO}
 import testchipip._
+import sifive.blocks.devices.gpio.HasPeripheryGPIOModuleImp
+import sifive.blocks.devices.gpio.GPIOPortIO
 
 /*** UART ***/
 class WithVC707UARTHarnessBinder extends OverrideHarnessBinder({
@@ -54,6 +56,19 @@ class WithVC707JTAGHarnessBinder extends OverrideHarnessBinder({
           jtagIO.TCK := jtagModule.TCK
           jtagIO.TMS := jtagModule.TMS
           jtagIO.TDI := jtagModule.TDI
+        }
+      }
+    }
+  }
+})
+
+/*** GPIO ***/
+class WithVC707GPIOHarnessBinder extends OverrideHarnessBinder({
+  (system: HasPeripheryGPIOModuleImp, th: BaseModule, ports: Seq[GPIOPortIO]) => {
+    th match {
+      case th: VC707woDDRHarnessImp => {
+        (th.vc707Outer.io_gpio_bb zip ports).map{ case (gpio, port) =>
+          gpio.bundle <> port
         }
       }
     }

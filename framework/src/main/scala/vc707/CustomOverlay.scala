@@ -5,7 +5,7 @@ import org.chipsalliance.cde.config.Field
 import sifive.fpgashells.clocks.{ClockSinkNode, ClockSinkParameters, ClockSourceNode}
 import sifive.fpgashells.devices.xilinx.xilinxvc707mig.{XilinxVC707MIG, XilinxVC707MIGPads, XilinxVC707MIGParams}
 import sifive.fpgashells.shell.xilinx._
-import sifive.fpgashells.shell.{ClockInputDesignInput, ClockInputShellInput, ClockInputShellPlacer, DDRDesignInput, DDROverlayOutput, DDRPlacedOverlay, DDRShellInput, DDRShellPlacer, IOPin, JTAGDebugDesignInput, JTAGDebugShellInput, JTAGDebugShellPlacer, LEDDesignInput, LEDShellInput, LEDShellPlacer, SPIDesignInput, SPIShellInput, SPIShellPlacer, UARTDesignInput, UARTShellInput, UARTShellPlacer}
+import sifive.fpgashells.shell.{GPIODesignInput, GPIOShellInput, GPIOShellPlacer, ClockInputDesignInput, ClockInputShellInput, ClockInputShellPlacer, DDRDesignInput, DDROverlayOutput, DDRPlacedOverlay, DDRShellInput, DDRShellPlacer, IOPin, JTAGDebugDesignInput, JTAGDebugShellInput, JTAGDebugShellPlacer, LEDDesignInput, LEDShellInput, LEDShellPlacer, SPIDesignInput, SPIShellInput, SPIShellPlacer, UARTDesignInput, UARTShellInput, UARTShellPlacer}
 
 /* =============================================================
 ============================ Clock =============================
@@ -156,4 +156,32 @@ class SDIOVC707PlacedOverlay(val shell: VC707ShellCustomOverlays, name: String, 
 class SDIOVC707ShellPlacer(val shell: VC707ShellCustomOverlays, val shellInput: SPIShellInput)(implicit val valName: ValName)
   extends SPIShellPlacer[VC707ShellCustomOverlays] {
   def place(designInput: SPIDesignInput) = new SDIOVC707PlacedOverlay(shell, valName.name, designInput, shellInput)
+}
+
+/* =============================================================
+========================= GPIO =================================
+===============================================================*/
+class GPIOVC707PlacedOverlay(val shell: VC707ShellCustomOverlays,
+                               name: String,
+                               val designInput: GPIODesignInput,
+                               val shellInput: GPIOShellInput)
+  extends GPIOXilinxPlacedOverlay(name, designInput, shellInput)
+{
+  shell { InModuleBody {
+    val gpioLocations = List("AM39", "AN39", "AR37", "AT37", "AR35", "AP41", "AP42", "AU39", "AV30", "AY33", "BA31", "BA32", "AW30", "AY30", "BA30", "BB31") //J3 pins 1-16
+    val iosWithLocs = io.gpio.zip(gpioLocations)
+    val packagePinsWithPackageIOs = iosWithLocs.map { case (io, pin) => (pin, IOPin(io)) }
+    println("Placing GPIO...")
+
+    packagePinsWithPackageIOs foreach { case (pin, io) => {
+      shell.xdc.addPackagePin(io, pin)
+      shell.xdc.addIOStandard(io, "LVCMOS18")
+      shell.xdc.addIOB(io)
+    } }
+  } }
+}
+class GPIOVC707ShellPlacer(val shell: VC707ShellCustomOverlays,
+                             val shellInput: GPIOShellInput)(implicit val valName: ValName)
+  extends GPIOShellPlacer[VC707ShellCustomOverlays] {
+  def place(designInput: GPIODesignInput) = new GPIOVC707PlacedOverlay(shell, valName.name, designInput, shellInput)
 }

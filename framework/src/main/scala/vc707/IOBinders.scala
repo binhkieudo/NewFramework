@@ -10,6 +10,7 @@ import freechips.rocketchip.tilelink.TLBundle
 import freechips.rocketchip.util.HeterogeneousBag
 import sifive.blocks.devices.spi.{HasPeripherySPI, HasPeripherySPIModuleImp, MMCDevice}
 import sifive.blocks.devices.uart.HasPeripheryUARTModuleImp
+import sifive.blocks.devices.gpio.HasPeripheryGPIOModuleImp
 
 class WithUARTIOPassthrough extends OverrideIOBinder({
   (system: HasPeripheryUARTModuleImp) => {
@@ -45,5 +46,15 @@ class WithTLIOPassthrough extends OverrideIOBinder({
     val io_tl_mem_pins_temp = IO(DataMirror.internal.chiselTypeClone[HeterogeneousBag[TLBundle]](system.mem_tl)).suggestName("tl_slave")
     io_tl_mem_pins_temp <> system.mem_tl
     (Seq(io_tl_mem_pins_temp), Nil)
+  }
+})
+
+class WithGPIOIOPassthrough extends OverrideIOBinder({
+  (system: HasPeripheryGPIOModuleImp) => {
+    val io_gpio_pins_temp = system.gpio.zipWithIndex.map { case (dio, i) => IO(dio.cloneType).suggestName(s"gpio_$i") }
+    (io_gpio_pins_temp zip system.gpio).map { case (io, sysio) =>
+      io <> sysio
+    }
+    (io_gpio_pins_temp, Nil)
   }
 })

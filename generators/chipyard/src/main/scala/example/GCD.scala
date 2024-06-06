@@ -158,7 +158,7 @@ class GCDAXI4(params: GCDParams, beatBytes: Int)(implicit p: Parameters)
 
 // DOC include start: GCD lazy trait
 trait CanHavePeripheryGCD { this: BaseSubsystem =>
-  private val portName = "gcd"
+  private val portName = "axi"
 
   // Only build if we are using the TL (nonAXI4) version
   val gcd = p(GCDKey) match {

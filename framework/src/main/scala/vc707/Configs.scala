@@ -12,7 +12,11 @@ import sifive.fpgashells.shell.DesignKey
 import sifive.fpgashells.shell.xilinx.VC7074GDDRSize
 import testchipip.{SerialTLKey, WithNoCustomBootPin}
 
+import chipyard.example._
+
 import scala.sys.process._
+import sifive.blocks.devices.gpio.PeripheryGPIOKey
+import sifive.blocks.devices.gpio.GPIOParams
 
 class WithSystemModifications extends Config((site, here, up) => {
   case DTSTimebase => BigInt{(1e6).toLong}
@@ -39,6 +43,19 @@ class WithNoSerialTL extends Config((site, here, up) => {
 class WithDefaultPeripherals extends Config((site, here, up) => {
   case PeripheryUARTKey => List(UARTParams(address = BigInt(0x64000000L)))
   case PeripherySPIKey => List(SPIParams(rAddress = BigInt(0x64001000L)))
+  case PeripheryGPIOKey => List(GPIOParams(address = BigInt(0x64002000L), width = 16))
+})
+
+class WithAXIInterface extends Config((site, here, up) => {
+  case ExtMem => up(ExtMem, site).map(x => x.copy(master = x.master.copy(
+    base = BigInt(0x64000000L),
+    size = BigInt(0x6000L)))) // set extmem
+})
+
+class WithAXIPeripherals extends Config((site, here, up) => {
+  case GCDKey => List(GCDParams(
+    address= BigInt(0x64002000L),
+    useAXI4 = false))
 })
 
 class WithDDR extends Config((site, here, up) => {
@@ -90,10 +107,12 @@ class WithVC707SerialMemTweaks extends Config (
     new WithVC707UARTHarnessBinder ++
     new WithVC707SPISDCardHarnessBinder ++
     new WithVC707JTAGHarnessBinder ++
+    new WithVC707GPIOHarnessBinder ++
     new WithTSITieoff ++
     // IO Binders
     new WithUARTIOPassthrough ++
     new WithSPIIOPassthrough ++
+    new WithGPIOIOPassthrough ++
     // Other configurations
     new WithDefaultPeripherals ++
     new WithNoCustomBootPin ++
@@ -107,6 +126,35 @@ class WithVC707SerialMemTweaks extends Config (
     new freechips.rocketchip.subsystem.WithoutTLMonitors
 )
 
+class WithVC707AXITweaks extends Config (
+  // Clock configs
+  new chipyard.harness.WithAllClocksFromHarnessClockInstantiator ++
+  new chipyard.clocking.WithPassthroughClockGenerator ++
+  new chipyard.config.WithMemoryBusFrequency(50.0) ++
+  new chipyard.config.WithSystemBusFrequency(50.0) ++
+  new chipyard.config.WithPeripheryBusFrequency(50.0) ++
+  new chipyard.harness.WithHarnessBinderClockFreqMHz(50) ++
+  new chipyard.config.WithPeripheryBusFrequency(50) ++
+  new chipyard.config.WithMemoryBusFrequency(50) ++
+  // Harness Binder
+  new WithVC707UARTHarnessBinder ++
+  new WithVC707SPISDCardHarnessBinder ++
+  new WithVC707JTAGHarnessBinder ++
+  new WithVC707GPIOHarnessBinder ++
+  new WithTSITieoff ++
+  // IO Binders
+  new WithGPIOIOPassthrough ++
+  new WithUARTIOPassthrough ++
+  new WithSPIIOPassthrough ++
+  // Other configurations
+  // new WithAXIPeripherals ++
+  new WithAXIInterface ++
+  new WithDefaultPeripherals ++
+  new WithNoCustomBootPin ++
+  new WithSystemModifications ++
+  new freechips.rocketchip.subsystem.WithoutTLMonitors
+)
+
 class SmallRocketVC707Config extends Config(
   new WithVC707Tweaks ++
   new chipyard.config.WithBroadcastManager ++ // no l2
@@ -114,4 +162,14 @@ class SmallRocketVC707Config extends Config(
 
 class SmallRocketSerialMemVC707Config extends Config(
   new WithVC707SerialMemTweaks ++
-    new chipyard.SmallRocketConfig)
+  new chipyard.MultiRocketConfig)
+
+class SmallRocketAXIVC707Config extends Config(
+  new WithVC707AXITweaks ++
+  new chipyard.config.WithBroadcastManager ++ // no l2
+  new chipyard.SmallRocketAXIPortConfig)  
+
+class SmallRocketAXITestVC707Config extends Config(
+  new WithVC707AXITweaks ++
+  new chipyard.config.WithBroadcastManager ++ // no l2
+  new chipyard.SmallRocketAXITestConfig)  

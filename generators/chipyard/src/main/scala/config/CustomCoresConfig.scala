@@ -3,6 +3,8 @@ package chipyard
 import org.chipsalliance.cde.config.{Config}
 import freechips.rocketchip.subsystem._
 
+import chipyard.example._
+
 // random, lru, plru
 class WithL1DCacheReplacementPolicy(policy: String) extends Config((site, here, up) => {
   case TilesLocated(InSubsystem) => up(TilesLocated(InSubsystem), site) map {
@@ -25,6 +27,28 @@ class WithRocketDCacheScratchpad extends Config((site, here, up) => {
 
 class SmallRocketConfig extends Config(
   new freechips.rocketchip.subsystem.WithNSmallCores(1) ++         // single rocket-core
+  new chipyard.config.AbstractConfig)
+
+class MultiRocketConfig extends Config(
+  new freechips.rocketchip.subsystem.WithNSmallCores(4) ++         // single rocket-core
+  new chipyard.config.AbstractConfig)
+
+class WithAXI(address: BigInt, useAXI4: Boolean = false, useBlackBox: Boolean = false) extends Config((site, here, up) => {
+  case GCDKey => Some(GCDParams(address = address, useAXI4 = useAXI4, useBlackBox = useBlackBox))
+})
+
+class SmallRocketAXIPortConfig extends Config(
+  new WithAXI(address = 0x64002000L, useAXI4 = true) ++
+  new freechips.rocketchip.subsystem.WithIncoherentBusTopology ++ // use incoherent bus topology
+  new freechips.rocketchip.subsystem.WithNBanks(0) ++             // remove L2$
+  new freechips.rocketchip.subsystem.WithNoMemPort ++             // remove backing memory
+  new freechips.rocketchip.subsystem.With1TinyCore ++         // single rocket-core
+  new chipyard.config.AbstractConfig)
+
+class SmallRocketAXITestConfig extends Config(
+  new freechips.rocketchip.subsystem.WithL1DCacheSets(256) ++ // 16Kb scratchpad
+  new freechips.rocketchip.subsystem.WithL1DCacheWays(1) ++
+  new freechips.rocketchip.subsystem.With1TinyCore ++         // single rocket-core
   new chipyard.config.AbstractConfig)
 
 class SmallRocketCacheConfig extends Config(
