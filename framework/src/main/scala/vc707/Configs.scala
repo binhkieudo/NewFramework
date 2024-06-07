@@ -217,6 +217,7 @@ class SmallRocketSerialMemVC707Config extends Config(
 
 class SmallRocketMTSerialMemVC707Config extends Config(
   new WithVC707MTSerialMemTweaks ++
+  new chipyard.config.WithBroadcastManager ++ // no l2
   new chipyard.MultiRocketConfig)
 
 class SmallRocketAXIVC707Config extends Config(

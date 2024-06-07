@@ -8,8 +8,7 @@
   .globl _prog_start
 _prog_start:
   li s2, 0x8
-  csrw mie, s2
-  // perform boot if hart_0, otherwise sleep
+  // Check core id
   li s1, 0
   csrr s2, mhartid
   beq s1, s2, _hart0
@@ -19,28 +18,38 @@ _prog_start:
   beq s1, s2, _hart2
   j _hart3
 _hart0:
+  li sp, (PAYLOAD_DEST + 0x7f0)
   csrr a0, mhartid
   call main
-_hart1:
-  li s1, 1
-  bne s0, s1, _hart2_clear
-  // if hart 1, clear flag
+  // wake up hart1
   li t0, (CLINT_CTRL_ADDR + CLINT_MSIP1)
-  li t1, 0
+  li t1, 1
   amoswap.w t1, t1, (t0)
-  j _exit
-_hart2:
-  li s1, 2
-  bne s0, s1, _hart3_clear
-  // if hart 2, clear flag
+  j _loopback
+_hart1:
+  wfi
+  li sp, (PAYLOAD_DEST + 0x7f0)
+  csrr a0, mhartid
+  call main
+  // wake up hart2
   li t0, (CLINT_CTRL_ADDR + CLINT_MSIP2)
-  li t1, 0
+  li t1, 1
   amoswap.w t1, t1, (t0)
-  j _exit
-_hart3:
+  j _loopback
+_hart2:
+  wfi
+  li sp, (PAYLOAD_DEST + 0x7f0)
+  csrr a0, mhartid
+  call main
+  // wake up hart3
   li t0, (CLINT_CTRL_ADDR + CLINT_MSIP3)
-  li t1, 0
+  li t1, 1
   amoswap.w t1, t1, (t0)
-  j _exit
+  j _loopback
+_hart3:
+  wfi
+  li sp, (PAYLOAD_DEST + 0x7f0)
+  csrr a0, mhartid
+  call main
 _loopback:
   j _loopback
