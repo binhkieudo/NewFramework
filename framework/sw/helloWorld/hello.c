@@ -29,18 +29,6 @@ int main(int argc, char **arv) {
 
   while (1) {
     REG32(gpio, GPIO_OUTPUT_VAL) = gpio_val;
-    // if ((direction == R2L) && (gpio_val == 0x00008000))
-    //  	direction = L2R;
-    // else if ((direction == L2R) && (gpio_val == 0x00000001))
-    //  	direction = R2L;
-    // if (direction == R2L) {
-    //   gpio_val = gpio_val << 1;
-    //   //if (gpio_val == 0x00010000) gpio_val = 0x00000001;
-    // }
-    // else {
-    //   gpio_val = gpio_val >> 1;
-    //   //if (gpio_val == 0) gpio_val = 0x00008000;
-    // }
     gpio_val = gpio_val << 1;
     if (gpio_val == 0x00010000) gpio_val = 0x00000010;
     delay();

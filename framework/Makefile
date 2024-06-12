@@ -14,7 +14,7 @@ sim_name := none
 #########################################################################################
 # include shared variables
 #########################################################################################
-SUB_PROJECT ?= vc707_rocketsmalMTSerialmem
+SUB_PROJECT ?= arty100t_rockettiny
 
 #########################################################################################
 # Arty configuration
@@ -41,6 +41,21 @@ ifeq ($(SUB_PROJECT),arty100t_rocketgcsmall)
 	VLOG_MODEL        ?= Arty100THarness
 	MODEL_PACKAGE     ?= framework.fpga.arty100t
 	CONFIG            ?= SmallRocketGCArty100TConfig
+	CONFIG_PACKAGE    ?= framework.fpga.arty100t
+	GENERATOR_PACKAGE ?= chipyard
+	TB                ?= none # unused
+	TOP               ?= ChipTop
+	BOARD             ?= arty_a7_100
+	FPGA_BRAND        ?= xilinx
+endif
+
+ifeq ($(SUB_PROJECT),arty100t_rockettiny)
+	# TODO: Fix with Arty
+	SBT_PROJECT       ?= framework
+	MODEL             ?= Arty100TwoDDRHarness
+	VLOG_MODEL        ?= Arty100TwoDDRHarness
+	MODEL_PACKAGE     ?= framework.fpga.arty100t
+	CONFIG            ?= Arty100TTinyRocketConfig
 	CONFIG_PACKAGE    ?= framework.fpga.arty100t
 	GENERATOR_PACKAGE ?= chipyard
 	TB                ?= none # unused
@@ -287,6 +302,7 @@ gen_config:
 	rm -f ./config/*
 	ln -s $(base_dir)/generators/chipyard/src/main/scala/config/RoCCTutorialConfig.scala $(sim_dir)/config/
 	ln -s $(base_dir)/generators/chipyard/src/main/scala/config/CustomCoresConfig.scala $(sim_dir)/config/
+	ln -s $(base_dir)/generators/rocket-chip/src/main/scala/devices/tilelink/BootROM.scala $(sim_dir)/config/
 
 .PHONY: everything
 everything: bitstream download_bitstream

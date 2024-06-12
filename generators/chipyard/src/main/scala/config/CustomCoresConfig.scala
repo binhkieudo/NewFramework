@@ -59,6 +59,14 @@ class SmallRocketCacheConfig extends Config(
   new freechips.rocketchip.subsystem.WithNSmallCores(1) ++         // single rocket-core
   new chipyard.config.AbstractConfig)
 
+class TinyRocketConig extends Config(
+  new freechips.rocketchip.subsystem.WithIncoherentBusTopology ++ // use incoherent bus topology
+  new freechips.rocketchip.subsystem.WithNBanks(0) ++             // remove L2$
+  new freechips.rocketchip.subsystem.WithNoMemPort ++             // remove backing memory
+  new freechips.rocketchip.subsystem.With1TinyCore ++
+  new chipyard.config.AbstractConfig
+)
+
 class FourCoreRocketMemConfig extends Config(
   new freechips.rocketchip.subsystem.WithCoherentBusTopology ++
     new WithRocketDCacheScratchpad ++
@@ -83,3 +91,4 @@ class SmallSha3RocketConfig extends Config(
   new freechips.rocketchip.subsystem.WithL1DCacheWays(2) ++
   new freechips.rocketchip.subsystem.WithNSmallCores(1) ++
   new chipyard.config.AbstractConfig)
+

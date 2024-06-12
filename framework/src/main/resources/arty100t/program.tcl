@@ -1,6 +1,6 @@
 open_hw_manager
 connect_hw_server
-set hwtargets "localhost:3121/xilinx_tcf/Digilent/210319B7CAB8A"
+set hwtargets "localhost:3121/xilinx_tcf/Digilent/210319B269F6A"
 
 set code [catch {
    	open_hw_target $hwtargets
