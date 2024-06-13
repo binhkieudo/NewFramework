@@ -1,23 +1,18 @@
 package chipyard.fpga.arty100t
 
+import chipyard._
+import chipyard.harness._
 import chisel3._
 import chisel3.util._
 import freechips.rocketchip.diplomacy._
-import org.chipsalliance.cde.config.{Parameters}
+import freechips.rocketchip.subsystem.SystemBusKey
 import freechips.rocketchip.tilelink._
-import freechips.rocketchip.prci.{ClockBundle, ClockBundleParameters}
-import freechips.rocketchip.subsystem.{SystemBusKey}
-
-import sifive.fpgashells.shell.xilinx._
-import sifive.fpgashells.shell._
-import sifive.fpgashells.clocks.{ClockGroup, ClockSinkNode, PLLFactoryKey, ResetWrangler}
-import sifive.fpgashells.ip.xilinx.{IBUF, PowerOnResetFPGAOnly}
-
+import org.chipsalliance.cde.config.Parameters
+import sifive.blocks.devices.spi.{PeripherySPIKey, SPIPortIO}
 import sifive.blocks.devices.uart._
-
-import chipyard._
-import chipyard.harness._
-import chipyard.iobinders.{HasIOBinders}
+import sifive.fpgashells.clocks.{ClockGroup, ClockSinkNode, PLLFactoryKey, ResetWrangler}
+import sifive.fpgashells.shell._
+import sifive.fpgashells.shell.xilinx._
 
 class Arty100THarness(override implicit val p: Parameters) extends Arty100TShell {
   def dp = designParameters
@@ -36,6 +31,10 @@ class Arty100THarness(override implicit val p: Parameters) extends Arty100TShell
 
   val io_uart_bb = BundleBridgeSource(() => new UARTPortIO(dp(PeripheryUARTKey).headOption.getOrElse(UARTParams(0))))
   val uartOverlay = dp(UARTOverlayKey).head.place(UARTDesignInput(io_uart_bb))
+
+  /*** SDIO ***/
+  val io_spi_bb = BundleBridgeSource(() => (new SPIPortIO(dp(PeripherySPIKey).head)))
+  dp(SPIOverlayKey).head.place(SPIDesignInput(dp(PeripherySPIKey).head, io_spi_bb))
 
   val ddrOverlay = dp(DDROverlayKey).head.place(DDRDesignInput(dp(ExtTLMem).get.master.base, dutWrangler.node, harnessSysPLLNode)).asInstanceOf[DDRArtyPlacedOverlay]
   val ddrClient = TLClientNode(Seq(TLMasterPortParameters.v1(Seq(TLMasterParameters.v1(

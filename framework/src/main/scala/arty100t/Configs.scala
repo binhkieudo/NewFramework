@@ -7,8 +7,7 @@ import freechips.rocketchip.diplomacy._
 import freechips.rocketchip.subsystem._
 import freechips.rocketchip.tile.XLen
 import org.chipsalliance.cde.config._
-import sifive.blocks.devices.gpio.{GPIOParams, PeripheryGPIOKey}
-import sifive.blocks.devices.spi.{PeripherySPIFlashKey, PeripherySPIKey, SPIFlashParams, SPIParams}
+import sifive.blocks.devices.spi.{PeripherySPIKey, SPIParams}
 import sifive.blocks.devices.uart.{PeripheryUARTKey, UARTParams}
 import sifive.fpgashells.shell.DesignKey
 import testchipip.{CustomBootPinKey, SerialTLKey}
@@ -72,11 +71,7 @@ class WithDDR extends Config((site, here, up) => {
 class WithDefaultPeripherals extends Config((site, here, up) => {
   case PeripheryUARTKey => List(UARTParams(address = BigInt(0x64000000L)))
   case PeripherySPIKey => List(SPIParams(rAddress = BigInt(0x64001000L)))
-  case PeripherySPIFlashKey => List (SPIFlashParams(
-    rAddress = BigInt(0x64002000L),
-    fAddress = BigInt(0x90000000L),
-    fSize = BigInt(0x2000000)))
-  case PeripheryGPIOKey => List(GPIOParams(address = BigInt(0x64003000L), width = 24))
+//  case PeripheryGPIOKey => List(GPIOParams(address = BigInt(0x64002000L), width = 24))
 })
 
 class WithSystemModifications extends Config((site, here, up) => {
@@ -99,31 +94,6 @@ class WithSystemModifications extends Config((site, here, up) => {
   case SerialTLKey => None
 })
 
-//class WithArty100TTweaks extends Config(
-//  // Clock configs
-//  new chipyard.harness.WithAllClocksFromHarnessClockInstantiator ++
-//  new chipyard.harness.WithHarnessBinderClockFreqMHz(50) ++
-//  new chipyard.config.WithMemoryBusFrequency(50.0) ++
-//  new chipyard.config.WithSystemBusFrequency(50.0) ++
-//  new chipyard.config.WithPeripheryBusFrequency(50.0) ++
-//  new chipyard.harness.WithAllClocksFromHarnessClockInstantiator ++
-//  new chipyard.clocking.WithPassthroughClockGenerator ++
-//  // Harness Binder
-//  new WithArty100TUARTHarnessBinder ++
-//  new WithArty100TDDRTL ++
-//  new WithArty100TJTAG ++
-//  // Peripheris
-//  new WithUART ++
-//  new WithDebug ++
-//  new WithDTS ++
-//  new WithDDR ++
-//  // Other configurations
-//  new WithNoDesignKey ++
-//  new WithNoSerialTL ++
-//  new WithSimpleBootROM ++
-//  new chipyard.config.WithTLBackingMemory ++ // FPGA-shells converts the AXI to TL for us
-//  new freechips.rocketchip.subsystem.WithoutTLMonitors)
-
 class WithTinyArty100TTweaks extends Config(
   // Clock configs
   new chipyard.harness.WithAllClocksFromHarnessClockInstantiator ++
@@ -136,35 +106,18 @@ class WithTinyArty100TTweaks extends Config(
   // Harness Binder
   new WithArty100TUARTHarnessBinder ++
   new WithArty100TSPISDCardHarnessBinder ++
-  new WithArty100TFlashHarnessBinder ++
   new WithArty100TJTAGHarnessBinder ++
-  new WithArty100TGPIOHarnessBinder ++
-  new WithArty100TTSITieoff ++
+//  new WithArty100TGPIOHarnessBinder ++
+//  new WithArty100TTSITieoff ++
   // IO Binders
-  new WithGPIOIOPassthrough ++
+//  new WithGPIOIOPassthrough ++
   new WithUARTIOPassthrough ++
   new WithSPIIOPassthrough ++
-  new WithSPIFlashIOPassthrough ++
   new WithTLIOPassthrough ++
   // Other configurations
   new WithDefaultPeripherals ++
   new WithSystemModifications ++
   new freechips.rocketchip.subsystem.WithoutTLMonitors)
-
-//class SmallRocketArty100TConfig extends Config(
-//  new WithArty100TTweaks ++
-//  new chipyard.config.WithBroadcastManager ++ // no l2
-//  new chipyard.SmallRocketConfig)
-//
-//class SmallRocketGCArty100TConfig extends Config(
-//  new WithArty100TTweaks ++
-//  new chipyard.config.WithBroadcastManager ++ // no l2
-//  new chipyard.RocketGCConfig)
-//
-//class SmallSha3RocketArty100TConfig extends Config(
-//  new WithArty100TTweaks ++
-//  new chipyard.config.WithBroadcastManager ++ // no l2
-//  new chipyard.SmallSha3RocketConfig)
 
 class Arty100TTinyRocketConfig extends Config(
   new WithTinyArty100TTweaks ++

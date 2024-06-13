@@ -1,11 +1,10 @@
 package framework.fpga.arty100t
 
-import chisel3.{Bool, Clock, Input, Module, Wire}
-import freechips.rocketchip.diplomacy.{InModuleBody, LazyModule, LazyRawModuleImp, ValName}
+import chisel3.{Bool, Wire}
+import freechips.rocketchip.diplomacy.InModuleBody
 import org.chipsalliance.cde.config.Parameters
-import sifive.fpgashells.ip.xilinx.{IBUF, PowerOnResetFPGAOnly}
 import sifive.fpgashells.shell.xilinx.Series7Shell
-import sifive.fpgashells.shell.{CTSResetOverlayKey, CTSResetShellInput, ClockInputDesignInput, ClockInputOverlayKey, ClockInputShellInput, DDROverlayKey, DDRShellInput, DesignKey, GPIOOverlayKey, GPIOShellInput, JTAGDebugOverlayKey, JTAGDebugShellInput, LEDOverlayKey, LEDShellInput, SPIFlashOverlayKey, SPIFlashShellInput, SPIOverlayKey, SPIShellInput, UARTOverlayKey, UARTShellInput}
+import sifive.fpgashells.shell.{ClockInputOverlayKey, ClockInputShellInput, DDROverlayKey, DDRShellInput, GPIOOverlayKey, GPIOShellInput, JTAGDebugOverlayKey, JTAGDebugShellInput, SPIOverlayKey, SPIShellInput, UARTOverlayKey, UARTShellInput}
 
 abstract class Arty100TShellCustomOverlays()(implicit p: Parameters) extends Series7Shell {
   // System
@@ -17,7 +16,7 @@ abstract class Arty100TShellCustomOverlays()(implicit p: Parameters) extends Ser
   val jtag  = Overlay(JTAGDebugOverlayKey, new JTAGDebugArtyShellPlacer(this, JTAGDebugShellInput()))
   val uart  = Overlay(UARTOverlayKey, new UARTArtyShellPlacer(this, UARTShellInput()))
   val sdio  = Overlay(SPIOverlayKey, new SDIOArtyShellPlacer(this, SPIShellInput()))
-  val spi_flash = Overlay(SPIFlashOverlayKey, new SPIFlashArtyShellPlacer(this, SPIFlashShellInput()))
+//  val spi_flash = Overlay(SPIFlashOverlayKey, new SPIFlashArtyShellPlacer(this, SPIFlashShellInput()))
   val gpio  = Seq.tabulate(24)(i => {Overlay(GPIOOverlayKey, new GPIOArtyShellPlacer(this, GPIOShellInput()))})
 }
 

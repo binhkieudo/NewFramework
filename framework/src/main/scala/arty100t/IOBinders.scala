@@ -8,9 +8,9 @@ import freechips.rocketchip.diplomacy.{InModuleBody, Resource, ResourceAddress, 
 import freechips.rocketchip.subsystem.BaseSubsystem
 import freechips.rocketchip.tilelink.TLBundle
 import freechips.rocketchip.util.HeterogeneousBag
-import sifive.blocks.devices.spi.{FlashDevice, HasPeripherySPI, HasPeripherySPIFlash, HasPeripherySPIFlashModuleImp, HasPeripherySPIModuleImp, MMCDevice}
-import sifive.blocks.devices.uart.HasPeripheryUARTModuleImp
 import sifive.blocks.devices.gpio.HasPeripheryGPIOModuleImp
+import sifive.blocks.devices.spi.{HasPeripherySPI, HasPeripherySPIModuleImp, MMCDevice}
+import sifive.blocks.devices.uart.HasPeripheryUARTModuleImp
 
 class WithUARTIOPassthrough extends OverrideIOBinder({
   (system: HasPeripheryUARTModuleImp) => {
@@ -31,7 +31,7 @@ class WithSPIIOPassthrough extends OverrideLazyIOBinder({
 
     InModuleBody {
       system.asInstanceOf[BaseSubsystem].module match { case system: HasPeripherySPIModuleImp => {
-        val io_spi_pins_temp = system.spi.zipWithIndex.map { case (dio, i) => IO(dio.cloneType).suggestName(s"sdio_$i") }
+        val io_spi_pins_temp = system.spi.zipWithIndex.map { case (dio, i) => IO(dio.cloneType).suggestName(s"spi_$i") }
         (io_spi_pins_temp zip system.spi).map { case (io, sysio) =>
           io <> sysio
         }
@@ -41,24 +41,24 @@ class WithSPIIOPassthrough extends OverrideLazyIOBinder({
   }
 })
 
-class WithSPIFlashIOPassthrough extends OverrideLazyIOBinder({
-  (system: HasPeripherySPIFlash) => {
-    // attach resource to 2nd SPI
-    ResourceBinding {
-      Resource(new FlashDevice(system.tlQSpiNodes(0).device), "reg").bind(ResourceAddress(0))
-    }
-
-    InModuleBody {
-      system.asInstanceOf[BaseSubsystem].module match { case system: HasPeripherySPIFlashModuleImp => {
-        val io_spi_pins_temp = system.qspi.zipWithIndex.map { case (dio, i) => IO(dio.cloneType).suggestName(s"qspi_$i") }
-        (io_spi_pins_temp zip system.qspi).map { case (io, sysio) =>
-          io <> sysio
-        }
-        (io_spi_pins_temp, Nil)
-      } }
-    }
-  }
-})
+//class WithSPIFlashIOPassthrough extends OverrideLazyIOBinder({
+//  (system: HasPeripherySPIFlash) => {
+//    // attach resource to 2nd SPI
+//    ResourceBinding {
+//      Resource(new FlashDevice(system.tlQSpiNodes(0).device), "reg").bind(ResourceAddress(0))
+//    }
+//
+//    InModuleBody {
+//      system.asInstanceOf[BaseSubsystem].module match { case system: HasPeripherySPIFlashModuleImp => {
+//        val io_spi_pins_temp = system.qspi.zipWithIndex.map { case (dio, i) => IO(dio.cloneType).suggestName(s"qspi_$i") }
+//        (io_spi_pins_temp zip system.qspi).map { case (io, sysio) =>
+//          io <> sysio
+//        }
+//        (io_spi_pins_temp, Nil)
+//      } }
+//    }
+//  }
+//})
 
 class WithTLIOPassthrough extends OverrideIOBinder({
   (system: CanHaveMasterTLMemPort) => {
