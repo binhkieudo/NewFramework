@@ -1,22 +1,19 @@
 package framework.fpga.vc707
 
+import chipyard.example._
 import freechips.rocketchip.devices.debug.DebugModuleKey
 import freechips.rocketchip.devices.tilelink.BootROMLocated
 import freechips.rocketchip.diplomacy._
 import freechips.rocketchip.subsystem._
 import freechips.rocketchip.tile.XLen
 import org.chipsalliance.cde.config._
+import sifive.blocks.devices.gpio.{GPIOParams, PeripheryGPIOKey}
 import sifive.blocks.devices.spi.{PeripherySPIKey, SPIParams}
 import sifive.blocks.devices.uart.{PeripheryUARTKey, UARTParams}
 import sifive.fpgashells.shell.DesignKey
-import sifive.fpgashells.shell.xilinx.VC7074GDDRSize
-import testchipip.{SerialTLKey, WithNoCustomBootPin}
-
-import chipyard.example._
+import testchipip.{CustomBootPinKey, SerialTLKey, WithNoCustomBootPin}
 
 import scala.sys.process._
-import sifive.blocks.devices.gpio.PeripheryGPIOKey
-import sifive.blocks.devices.gpio.GPIOParams
 
 class WithSystemModifications extends Config((site, here, up) => {
   case DTSTimebase => BigInt{(1e6).toLong}
@@ -31,9 +28,11 @@ class WithSystemModifications extends Config((site, here, up) => {
     p.copy(hang = 0x10000, contentFileName = s"./framework/src/main/resources/bootROM/basic/build/sdboot.bin")
   }
   case DesignKey => (p: Parameters) => new SimpleLazyModule()(p)
+  case CustomBootPinKey => None
   case DebugModuleKey => up(DebugModuleKey).map{ debug =>
     debug.copy(clockGate = false)
   }
+  case SerialTLKey => None
 })
 
 class WithMTSystemModifications extends Config((site, here, up) => {
@@ -52,6 +51,10 @@ class WithMTSystemModifications extends Config((site, here, up) => {
   case DebugModuleKey => up(DebugModuleKey).map{ debug =>
     debug.copy(clockGate = false)
   }
+  case CustomBootPinKey => None
+  case ExtMem => up(ExtMem, site).map(x => x.copy(master = x.master.copy(
+    base = BigInt(0x80000000L),
+    size = site(VC7071GDDRSize)))) // set extmem
 })
 
 class WithNoSerialTL extends Config((site, here, up) => {
@@ -85,30 +88,27 @@ class WithDDR extends Config((site, here, up) => {
 class WithVC707Tweaks extends Config (
   // Clock configs
   new chipyard.harness.WithAllClocksFromHarnessClockInstantiator ++
-    new chipyard.clocking.WithPassthroughClockGenerator ++
-    new chipyard.config.WithMemoryBusFrequency(50.0) ++
-    new chipyard.config.WithSystemBusFrequency(50.0) ++
-    new chipyard.config.WithPeripheryBusFrequency(50.0) ++
-    new chipyard.harness.WithHarnessBinderClockFreqMHz(50) ++
-    new chipyard.config.WithPeripheryBusFrequency(50) ++
-    new chipyard.config.WithMemoryBusFrequency(50) ++
-    // Harness Binder
-    new WithVC707UARTHarnessBinder ++
-    new WithVC707SPISDCardHarnessBinder ++
-    new WithVC707JTAGHarnessBinder ++
-    new WithVC707DDRMemHarnessBinder ++
-    // IO Binders
-    new WithUARTIOPassthrough ++
-    new WithSPIIOPassthrough ++
-    new WithTLIOPassthrough ++
-    // Other configurations
-    new WithDefaultPeripherals ++
-    new chipyard.config.WithTLBackingMemory ++ // use TL backing memory
-    new WithNoSerialTL ++
-    new WithDDR ++
-    new WithSystemModifications ++
-    new WithNoCustomBootPin ++
-    new freechips.rocketchip.subsystem.WithoutTLMonitors
+  new chipyard.clocking.WithPassthroughClockGenerator ++
+  new chipyard.config.WithMemoryBusFrequency(100.0) ++
+  new chipyard.config.WithSystemBusFrequency(100.0) ++
+  new chipyard.config.WithPeripheryBusFrequency(100.0) ++
+  new chipyard.harness.WithHarnessBinderClockFreqMHz(100) ++
+  // Harness Binder
+  new WithVC707UARTHarnessBinder ++
+  new WithVC707SPISDCardHarnessBinder ++
+  new WithVC707JTAGHarnessBinder ++
+  new WithVC707DDRMemHarnessBinder ++
+  new WithVC707GPIOHarnessBinder ++
+  // IO Binders
+  new WithUARTIOPassthrough ++
+  new WithSPIIOPassthrough ++
+  new WithGPIOIOPassthrough ++
+  new WithTLIOPassthrough ++
+  // Other configurations
+  new chipyard.config.WithTLBackingMemory ++ // use TL backing memory
+  new WithDefaultPeripherals ++
+  new WithSystemModifications ++
+  new freechips.rocketchip.subsystem.WithoutTLMonitors
 )
 
 class WithVC707SerialMemTweaks extends Config (
@@ -181,8 +181,8 @@ class WithVC707AXITweaks extends Config (
   // Clock configs
   new chipyard.harness.WithAllClocksFromHarnessClockInstantiator ++
   new chipyard.clocking.WithPassthroughClockGenerator ++
-  new chipyard.config.WithMemoryBusFrequency(50.0) ++
-  new chipyard.config.WithSystemBusFrequency(50.0) ++
+  new chipyard.config.WithMemoryBusFrequency(200.0) ++
+  new chipyard.config.WithSystemBusFrequency(200.0) ++
   new chipyard.config.WithPeripheryBusFrequency(50.0) ++
   new chipyard.harness.WithHarnessBinderClockFreqMHz(50) ++
   new chipyard.config.WithPeripheryBusFrequency(50) ++
@@ -213,6 +213,10 @@ class SmallRocketVC707Config extends Config(
 
 class SmallRocketSerialMemVC707Config extends Config(
   new WithVC707SerialMemTweaks ++
+  new chipyard.MultiRocketConfig)
+
+class SmallRocketMCDDRVC707Config extends Config(
+  new WithVC707Tweaks ++
   new chipyard.MultiRocketConfig)
 
 class SmallRocketMTSerialMemVC707Config extends Config(

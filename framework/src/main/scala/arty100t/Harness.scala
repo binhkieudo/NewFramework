@@ -33,7 +33,7 @@ class Arty100TDDRHarness(override implicit val p: Parameters) extends Arty100TSh
   dutClock := dutWrangler.node := dutGroup := harnessSysPLL
 
   // ========= DDR =================
-  val ddrOverlay = dp(DDROverlayKey).head.place(DDRDesignInput(dp(ExtTLMem).get.master.base, dutWrangler.node, harnessSysPLLNode)).asInstanceOf[DDRArtyPlacedOverlay]
+  val ddrOverlay = dp(DDROverlayKey).head.place(DDRDesignInput(dp(ExtTLMem).get.master.base, dutWrangler.node, harnessSysPLL)).asInstanceOf[DDRArtyPlacedOverlay]
   val ddrClient = TLClientNode(Seq(TLMasterPortParameters.v1(Seq(TLMasterParameters.v1(
       name = "chip_ddr",
       sourceId = IdRange(0, 1 << dp(ExtTLMem).get.master.idBits)

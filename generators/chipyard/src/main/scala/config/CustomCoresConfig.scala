@@ -31,7 +31,7 @@ class SmallRocketConfig extends Config(
 
 class MultiRocketConfig extends Config(
   new WithRocketDCacheScratchpad ++ // 4-KB private memory
-//  new freechips.rocketchip.subsystem.WithNBanks (4) ++ // 4xbanks L2
+//  new freechips.rocketchip.subsystem.WithRV32 ++
   new freechips.rocketchip.subsystem.WithNSmallCores(4) ++         // four rocket-core
   new chipyard.config.AbstractConfig)
 

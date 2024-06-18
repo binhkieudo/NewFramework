@@ -33,18 +33,6 @@ class WithArty100TSPISDCardHarnessBinder extends OverrideHarnessBinder({
   }
 })
 
-/*** Flash ***/
-//class WithArty100TFlashHarnessBinder extends OverrideHarnessBinder({
-//  (system: HasPeripherySPIFlash, th: BaseModule, ports: Seq[SPIPortIO]) => {
-//    println("here qspi")
-//    println(ports)
-//    th match {
-//      //      case ath: VC707HarnessImp => vc707th.vc707Outer.io_spi_bb.bundle <> ports.head
-//      case ath: Arty100TwoDDRHarnessImp => ath.athOuter.io_flash_bb.bundle <> ports(0)
-//    }
-//  }
-//})
-
 /*** JTAG ***/
 class WithArty100TJTAGHarnessBinder extends OverrideHarnessBinder({
   (system: HasPeripheryDebug, th: BaseModule, ports: Seq[Data]) => {

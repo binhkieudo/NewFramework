@@ -3,20 +3,16 @@ package framework.fpga.vc707
 import chipyard.ExtTLMem
 import chipyard.harness.HasHarnessInstantiators
 import chisel3._
-import chisel3.util.log2Ceil
 import freechips.rocketchip.diplomacy.{BundleBridgeSource, IdRange, LazyModule, LazyRawModuleImp}
 import freechips.rocketchip.subsystem.SystemBusKey
-import freechips.rocketchip.tilelink.{TLBlockDuringReset, TLClientNode, TLMasterParameters, TLMasterPortParameters}
+import freechips.rocketchip.tilelink.{TLClientNode, TLMasterParameters, TLMasterPortParameters}
 import org.chipsalliance.cde.config.Parameters
+import sifive.blocks.devices.gpio.{GPIOPortIO, PeripheryGPIOKey}
 import sifive.blocks.devices.spi.{PeripherySPIKey, SPIPortIO}
-import sifive.blocks.devices.uart.{PeripheryUARTKey, UARTParams, UARTPortIO}
+import sifive.blocks.devices.uart.{PeripheryUARTKey, UARTPortIO}
 import sifive.fpgashells.clocks.{ClockGroup, ClockSinkNode, PLLFactoryKey, ResetWrangler}
 import sifive.fpgashells.ip.xilinx.{IBUF, PowerOnResetFPGAOnly}
-import sifive.fpgashells.shell.xilinx.{ChipLinkVC707PlacedOverlay, UARTVC707ShellPlacer, VC707Shell}
-import sifive.fpgashells.shell.{GPIOOverlayKey, ButtonDesignInput, ButtonOverlayKey, ClockInputDesignInput, ClockInputOverlayKey, DDRDesignInput, DDROverlayKey, JTAGDebugDesignInput, JTAGDebugOverlayKey, LEDDesignInput, LEDOverlayKey, SPIDesignInput, SPIOverlayKey, SwitchDesignInput, SwitchOverlayKey, UARTDesignInput, UARTOverlayKey, UARTShellInput}
-import sifive.blocks.devices.gpio.GPIOPortIO
-import sifive.blocks.devices.gpio.PeripheryGPIOKey
-import sifive.fpgashells.shell.GPIODesignInput
+import sifive.fpgashells.shell.{ClockInputDesignInput, ClockInputOverlayKey, DDRDesignInput, DDROverlayKey, GPIODesignInput, GPIOOverlayKey, JTAGDebugDesignInput, JTAGDebugOverlayKey, SPIDesignInput, SPIOverlayKey, UARTDesignInput, UARTOverlayKey}
 
 class VC707Harness(override implicit val p: Parameters) extends VC707ShellCustomOverlays { outer =>
 
@@ -50,6 +46,12 @@ class VC707Harness(override implicit val p: Parameters) extends VC707ShellCustom
   /*** SPI ***/
   val io_spi_bb = BundleBridgeSource(() => (new SPIPortIO(dp(PeripherySPIKey).head)))
   dp(SPIOverlayKey).head.place(SPIDesignInput(dp(PeripherySPIKey).head, io_spi_bb))
+
+  /*** GPIO ***/
+  val io_gpio_bb = dp(PeripheryGPIOKey).map(p => BundleBridgeSource(() => (new GPIOPortIO(p))))
+  (dp(GPIOOverlayKey) zip dp(PeripheryGPIOKey)).zipWithIndex.map { case ((placer, params), i) =>
+    placer.place(GPIODesignInput(params, io_gpio_bb(i)))
+  }
 
   /*** DDR ***/
   // Modify the last field of `DDRDesignInput` for 1GB RAM size
