@@ -52,9 +52,10 @@ class WithMTSystemModifications extends Config((site, here, up) => {
     debug.copy(clockGate = false)
   }
   case CustomBootPinKey => None
-  case ExtMem => up(ExtMem, site).map(x => x.copy(master = x.master.copy(
-    base = BigInt(0x80000000L),
-    size = site(VC7071GDDRSize)))) // set extmem
+  case ExtMem => None
+  // case ExtMem => up(ExtMem, site).map(x => x.copy(master = x.master.copy(
+  //   base = BigInt(0x80000000L),
+  //   size = site(VC7071GDDRSize)))) // set extmem
 })
 
 class WithNoSerialTL extends Config((site, here, up) => {
@@ -177,6 +178,33 @@ class WithVC707MTSerialMemTweaks extends Config (
     new freechips.rocketchip.subsystem.WithoutTLMonitors
 )
 
+class WithVC707MTOptimizedMemTweaks(freqMHz: Double = 100.0) extends Config (
+  // Clock configs
+  new chipyard.harness.WithAllClocksFromHarnessClockInstantiator ++
+  new chipyard.clocking.WithPassthroughClockGenerator ++
+  new chipyard.config.WithMemoryBusFrequency(freqMHz) ++
+  new chipyard.config.WithSystemBusFrequency(freqMHz) ++
+  new chipyard.config.WithPeripheryBusFrequency(freqMHz) ++
+  new chipyard.harness.WithHarnessBinderClockFreqMHz(freqMHz) ++
+  new chipyard.config.WithPeripheryBusFrequency(freqMHz) ++
+  new chipyard.config.WithMemoryBusFrequency(freqMHz) ++
+    // Harness Binder
+  new WithVC707UARTHarnessBinder ++
+  new WithVC707SPISDCardHarnessBinder ++
+  new WithVC707JTAGHarnessBinder ++
+  new WithVC707GPIOHarnessBinder ++
+  new WithTSITieoff ++
+    // IO Binders
+  new WithUARTIOPassthrough ++
+  new WithSPIIOPassthrough ++
+  new WithGPIOIOPassthrough ++
+    // Other configurations
+  new WithDefaultPeripherals ++
+  new WithNoCustomBootPin ++
+  new WithMTSystemModifications ++
+  new freechips.rocketchip.subsystem.WithoutTLMonitors
+)
+
 class WithVC707AXITweaks extends Config (
   // Clock configs
   new chipyard.harness.WithAllClocksFromHarnessClockInstantiator ++
@@ -224,6 +252,11 @@ class SmallRocketMTSerialMemVC707Config extends Config(
   new chipyard.config.WithBroadcastManager ++ // no l2
   new chipyard.MultiRocketConfig)
 
+  class SmallRocketMTOptimizedMemVC707Config extends Config(
+  new WithVC707MTOptimizedMemTweaks (100) ++
+  new chipyard.config.WithBroadcastManager ++ // no l2
+  new chipyard.FourCoreRocketFastConfig)
+
 class SmallRocketAXIVC707Config extends Config(
   new WithVC707AXITweaks ++
   new chipyard.config.WithBroadcastManager ++ // no l2
@@ -233,3 +266,4 @@ class SmallRocketAXITestVC707Config extends Config(
   new WithVC707AXITweaks ++
   new chipyard.config.WithBroadcastManager ++ // no l2
   new chipyard.SmallRocketAXITestConfig)  
+

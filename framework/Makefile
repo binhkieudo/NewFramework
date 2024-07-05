@@ -14,7 +14,7 @@ sim_name := none
 #########################################################################################
 # include shared variables
 #########################################################################################
-SUB_PROJECT ?= vc707_rocketsmalMCDDRmem
+SUB_PROJECT ?= vc707_MC
 
 #########################################################################################
 # Arty configuration
@@ -22,10 +22,25 @@ SUB_PROJECT ?= vc707_rocketsmalMCDDRmem
 ifeq ($(SUB_PROJECT),arty100t_rocketsmall)
 	# TODO: Fix with Arty
 	SBT_PROJECT       ?= framework
-	MODEL             ?= Arty100THarness
-	VLOG_MODEL        ?= Arty100THarness
+	MODEL             ?= Arty100TwoDDRHarness
+	VLOG_MODEL        ?= Arty100TwoDDRHarness
 	MODEL_PACKAGE     ?= framework.fpga.arty100t
 	CONFIG            ?= SmallRocketArty100TConfig
+	CONFIG_PACKAGE    ?= framework.fpga.arty100t
+	GENERATOR_PACKAGE ?= chipyard
+	TB                ?= none # unused
+	TOP               ?= ChipTop
+	BOARD             ?= arty_a7_100
+	FPGA_BRAND        ?= xilinx
+endif
+
+ifeq ($(SUB_PROJECT),arty100t_4rocketsmall)
+	# TODO: Fix with Arty
+	SBT_PROJECT       ?= framework
+	MODEL             ?= Arty100TwoDDRHarness
+	VLOG_MODEL        ?= Arty100TwoDDRHarness
+	MODEL_PACKAGE     ?= framework.fpga.arty100t
+	CONFIG            ?= Rocket4Arty100TConfig
 	CONFIG_PACKAGE    ?= framework.fpga.arty100t
 	GENERATOR_PACKAGE ?= chipyard
 	TB                ?= none # unused
@@ -159,6 +174,20 @@ ifeq ($(SUB_PROJECT),vc707_rocketAXITest)
 	VLOG_MODEL        ?= VC707woDDRHarness
 	MODEL_PACKAGE     ?= framework.fpga.vc707
 	CONFIG            ?= SmallRocketAXITestVC707Config
+	CONFIG_PACKAGE    ?= framework.fpga.vc707
+	GENERATOR_PACKAGE ?= chipyard
+	TB                ?= none # unused
+	TOP               ?= ChipTop
+	BOARD             ?= vc707
+	FPGA_BRAND        ?= xilinx
+endif
+
+ifeq ($(SUB_PROJECT),vc707_MC)
+	SBT_PROJECT       ?= framework
+	MODEL             ?= VC707woDDRHarness
+	VLOG_MODEL        ?= VC707woDDRHarness
+	MODEL_PACKAGE     ?= framework.fpga.vc707
+	CONFIG            ?= SmallRocketMTOptimizedMemVC707Config
 	CONFIG_PACKAGE    ?= framework.fpga.vc707
 	GENERATOR_PACKAGE ?= chipyard
 	TB                ?= none # unused

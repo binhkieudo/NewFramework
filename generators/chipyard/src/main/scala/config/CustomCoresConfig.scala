@@ -4,6 +4,11 @@ import org.chipsalliance.cde.config.{Config}
 import freechips.rocketchip.subsystem._
 
 import chipyard.example._
+import freechips.rocketchip.devices.tilelink.PLICAttachParams
+
+import freechips.rocketchip.devices.tilelink._
+import chipyard.clocking.{ChipyardPRCIControlKey, ChipyardPRCIControlParams}
+import freechips.rocketchip.devices.debug.{ExportDebug, DebugAttachParams}
 
 // random, lru, plru
 class WithL1DCacheReplacementPolicy(policy: String) extends Config((site, here, up) => {
@@ -23,6 +28,14 @@ class WithRocketDCacheScratchpad extends Config((site, here, up) => {
       dcache = tp.tileParams.dcache.map(_.copy(nSets = 64, nWays = 1, scratch = Some(0x40000000 + tp.tileParams.hartId * 0x1000)))
     )) // 4-KB/each
   }
+})
+
+class WithoutCBUS extends Config((site, here, up) => {
+  case PLICAttachKey => up(PLICAttachKey, site).copy(slaveWhere = SBUS)
+  case CLINTAttachKey => up(CLINTAttachKey, site).copy(slaveWhere = SBUS)
+  case ChipyardPRCIControlKey => up(ChipyardPRCIControlKey, site).copy(slaveWhere = SBUS)
+  case ExportDebug => up(ExportDebug, site).copy(slaveWhere = SBUS)
+  case ControlBusKey => None
 })
 
 class SmallRocketConfig extends Config(
@@ -63,23 +76,43 @@ class TinyRocketConig extends Config(
   new freechips.rocketchip.subsystem.WithIncoherentBusTopology ++ // use incoherent bus topology
   new freechips.rocketchip.subsystem.WithNBanks(0) ++             // remove L2$
   new freechips.rocketchip.subsystem.WithNoMemPort ++             // remove backing memory
+  new freechips.rocketchip.subsystem.WithNoSlavePort ++
+  new WithoutCBUS ++
+  new freechips.rocketchip.subsystem.WithoutMulDiv ++
   new freechips.rocketchip.subsystem.With1TinyCore ++
   new chipyard.config.AbstractConfig
 )
 
 class FourCoreRocketMemConfig extends Config(
+  new freechips.rocketchip.subsystem.WithNBanks(0) ++             // remove L2$
+  new freechips.rocketchip.subsystem.WithNoMemPort ++             // remove backing memory
   new freechips.rocketchip.subsystem.WithCoherentBusTopology ++
     new WithRocketDCacheScratchpad ++
     new testchipip.WithSbusScratchpad(
+      base=0x80000000L,
+      size = (1 << 10) * 32L,
+      banks=1) ++
+  new freechips.rocketchip.subsystem.WithRV32 ++
+  new freechips.rocketchip.subsystem.WithNSmallCores(4) ++
+  new chipyard.config.AbstractConfig)
+
+class FourCoreRocketFastConfig extends Config(
+  new freechips.rocketchip.subsystem.WithNBanks(0) ++             // remove L2$
+  new freechips.rocketchip.subsystem.WithNoMemPort ++             // remove backing memory
+  new freechips.rocketchip.subsystem.WithCoherentBusTopology ++
+  new WithRocketDCacheScratchpad ++
+  new testchipip.WithSbusScratchpad(
+      base=0x80000000L,
+      size = (1 << 10) * 64L,
+      banks=1) ++
+  new testchipip.WithCbusScratchpad (
       base=0x70000000L,
       size = (1 << 10) * 8L,
-      banks=1) ++
-    new freechips.rocketchip.subsystem.WithL1ICacheSets(sets=64) ++
-    new freechips.rocketchip.subsystem.WithL1ICacheWays(ways=1) ++
-    new freechips.rocketchip.subsystem.WithL1DCacheSets(sets=64) ++
-    new freechips.rocketchip.subsystem.WithL1DCacheWays(ways=1) ++
-    new freechips.rocketchip.subsystem.WithNSmallCores(4) ++
-    new chipyard.config.AbstractConfig)
+      banks=1
+  ) ++
+  new freechips.rocketchip.subsystem.WithFastMul(32) ++
+  new freechips.rocketchip.subsystem.WithFastICores(4) ++
+  new chipyard.config.AbstractConfig)
 
 class RocketGCConfig extends Config(
   new freechips.rocketchip.subsystem.WithFPUWithoutDivSqrt++

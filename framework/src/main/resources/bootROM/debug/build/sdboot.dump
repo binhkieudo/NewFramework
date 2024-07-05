@@ -1,0 +1,223 @@
+
+/home/binhkieudo/Workspace/NewFramework/framework/src/main/resources/bootROM/debug//build/sdboot.elf:     file format elf32-littleriscv
+
+
+Disassembly of section .text:
+
+00010000 <_prog_start>:
+  .section .sdata
+  .section .text.init
+  .option norvc
+  .globl _prog_start
+_prog_start:
+  csrr	a0, mcycle
+   10000:	b0002573          	csrr	a0,mcycle
+  add t0, t0, t1
+   10004:	006282b3          	add	t0,t0,t1
+  csrr	a1, mcycle
+   10008:	b00025f3          	csrr	a1,mcycle
+  sub s2, a1, a0
+   1000c:	40a58933          	sub	s2,a1,a0
+  li t0, 0x70000000
+   10010:	700002b7          	lui	t0,0x70000
+  sw s2, 0(t0)
+   10014:	0122a023          	sw	s2,0(t0) # 70000000 <_prog_start+0x6fff0000>
+  wfi
+   10018:	10500073          	wfi
+	...
+
+Disassembly of section .riscv.attributes:
+
+00000000 <.riscv.attributes>:
+   0:	2741                	.2byte	0x2741
+   2:	0000                	.2byte	0x0
+   4:	7200                	.2byte	0x7200
+   6:	7369                	.2byte	0x7369
+   8:	01007663          	bgeu	zero,a6,14 <_prog_start-0xffec>
+   c:	001d                	.2byte	0x1d
+   e:	0000                	.2byte	0x0
+  10:	7205                	.2byte	0x7205
+  12:	3376                	.2byte	0x3376
+  14:	6932                	.2byte	0x6932
+  16:	7032                	.2byte	0x7032
+  18:	5f30                	.2byte	0x5f30
+  1a:	326d                	.2byte	0x326d
+  1c:	3070                	.2byte	0x3070
+  1e:	615f 7032 0030      	.byte	0x5f, 0x61, 0x32, 0x70, 0x30, 0x00
+  24:	0108                	.2byte	0x108
+  26:	0b0a                	.2byte	0xb0a
+
+Disassembly of section .debug_line:
+
+00000000 <.debug_line>:
+   0:	0064                	.2byte	0x64
+   2:	0000                	.2byte	0x0
+   4:	0005                	.2byte	0x5
+   6:	0004                	.2byte	0x4
+   8:	002a                	.2byte	0x2a
+   a:	0000                	.2byte	0x0
+   c:	0101                	.2byte	0x101
+   e:	fb01                	.2byte	0xfb01
+  10:	0d0e                	.2byte	0xd0e
+  12:	0100                	.2byte	0x100
+  14:	0101                	.2byte	0x101
+  16:	0001                	.2byte	0x1
+  18:	0000                	.2byte	0x0
+  1a:	0001                	.2byte	0x1
+  1c:	0100                	.2byte	0x100
+  1e:	0101                	.2byte	0x101
+  20:	011f 0000 0000      	.byte	0x1f, 0x01, 0x00, 0x00, 0x00, 0x00
+  26:	0102                	.2byte	0x102
+  28:	021f 020f 0053      	.byte	0x1f, 0x02, 0x0f, 0x02, 0x53, 0x00
+  2e:	0000                	.2byte	0x0
+  30:	5300                	.2byte	0x5300
+  32:	0000                	.2byte	0x0
+  34:	0000                	.2byte	0x0
+  36:	0500                	.2byte	0x500
+  38:	0002                	.2byte	0x2
+  3a:	0100                	.2byte	0x100
+  3c:	1a00                	.2byte	0x1a00
+  3e:	04090103          	lb	sp,64(s2)
+  42:	0100                	.2byte	0x100
+  44:	04090103          	lb	sp,64(s2)
+  48:	0100                	.2byte	0x100
+  4a:	04090103          	lb	sp,64(s2)
+  4e:	0100                	.2byte	0x100
+  50:	04090103          	lb	sp,64(s2)
+  54:	0100                	.2byte	0x100
+  56:	04090103          	lb	sp,64(s2)
+  5a:	0100                	.2byte	0x100
+  5c:	04090103          	lb	sp,64(s2)
+  60:	0100                	.2byte	0x100
+  62:	0409                	.2byte	0x409
+  64:	0000                	.2byte	0x0
+  66:	0101                	.2byte	0x101
+
+Disassembly of section .debug_line_str:
+
+00000000 <.debug_line_str>:
+   0:	6d6f682f          	.4byte	0x6d6f682f
+   4:	2f65                	.2byte	0x2f65
+   6:	6962                	.2byte	0x6962
+   8:	686e                	.2byte	0x686e
+   a:	7565696b          	.4byte	0x7565696b
+   e:	6f64                	.2byte	0x6f64
+  10:	726f572f          	.4byte	0x726f572f
+  14:	6170736b          	.4byte	0x6170736b
+  18:	4e2f6563          	bltu	t5,sp,502 <_prog_start-0xfafe>
+  1c:	7765                	.2byte	0x7765
+  1e:	7246                	.2byte	0x7246
+  20:	6d61                	.2byte	0x6d61
+  22:	7765                	.2byte	0x7765
+  24:	2f6b726f          	jal	tp,b731a <_prog_start+0xa731a>
+  28:	7266                	.2byte	0x7266
+  2a:	6d61                	.2byte	0x6d61
+  2c:	7765                	.2byte	0x7765
+  2e:	2f6b726f          	jal	tp,b7324 <_prog_start+0xa7324>
+  32:	2f637273          	csrrci	tp,0x2f6,6
+  36:	616d                	.2byte	0x616d
+  38:	6e69                	.2byte	0x6e69
+  3a:	7365722f          	.4byte	0x7365722f
+  3e:	6372756f          	jal	a0,27e74 <_prog_start+0x17e74>
+  42:	7365                	.2byte	0x7365
+  44:	6f6f622f          	.4byte	0x6f6f622f
+  48:	5274                	.2byte	0x5274
+  4a:	642f4d4f          	.4byte	0x642f4d4f
+  4e:	6265                	.2byte	0x6265
+  50:	6775                	.2byte	0x6775
+  52:	6800                	.2byte	0x6800
+  54:	6165                	.2byte	0x6165
+  56:	2e64                	.2byte	0x2e64
+  58:	53 00             	Address 0x0000000000000058 is out of bounds.
+
+
+Disassembly of section .debug_info:
+
+00000000 <.debug_info>:
+   0:	0020                	.2byte	0x20
+   2:	0000                	.2byte	0x0
+   4:	0005                	.2byte	0x5
+   6:	0401                	.2byte	0x401
+   8:	0000                	.2byte	0x0
+   a:	0000                	.2byte	0x0
+   c:	0001                	.2byte	0x1
+   e:	0000                	.2byte	0x0
+  10:	0000                	.2byte	0x0
+  12:	0100                	.2byte	0x100
+  14:	1c00                	.2byte	0x1c00
+  16:	0000                	.2byte	0x0
+  18:	0000                	.2byte	0x0
+  1a:	00000007          	.4byte	0x7
+  1e:	005a                	.2byte	0x5a
+  20:	0000                	.2byte	0x0
+  22:	8001                	.2byte	0x8001
+
+Disassembly of section .debug_abbrev:
+
+00000000 <.debug_abbrev>:
+   0:	1101                	.2byte	0x1101
+   2:	1000                	.2byte	0x1000
+   4:	12011117          	auipc	sp,0x12011
+   8:	1b0e030f          	.4byte	0x1b0e030f
+   c:	250e                	.2byte	0x250e
+   e:	130e                	.2byte	0x130e
+  10:	0005                	.2byte	0x5
+	...
+
+Disassembly of section .debug_aranges:
+
+00000000 <.debug_aranges>:
+   0:	001c                	.2byte	0x1c
+   2:	0000                	.2byte	0x0
+   4:	0002                	.2byte	0x2
+   6:	0000                	.2byte	0x0
+   8:	0000                	.2byte	0x0
+   a:	0004                	.2byte	0x4
+   c:	0000                	.2byte	0x0
+   e:	0000                	.2byte	0x0
+  10:	0000                	.2byte	0x0
+  12:	0001                	.2byte	0x1
+  14:	001c                	.2byte	0x1c
+	...
+
+Disassembly of section .debug_str:
+
+00000000 <.debug_str>:
+   0:	6568                	.2byte	0x6568
+   2:	6461                	.2byte	0x6461
+   4:	532e                	.2byte	0x532e
+   6:	2f00                	.2byte	0x2f00
+   8:	6f68                	.2byte	0x6f68
+   a:	656d                	.2byte	0x656d
+   c:	6e69622f          	.4byte	0x6e69622f
+  10:	6b68                	.2byte	0x6b68
+  12:	6569                	.2byte	0x6569
+  14:	6475                	.2byte	0x6475
+  16:	6f572f6f          	jal	t5,72f0a <_prog_start+0x62f0a>
+  1a:	6b72                	.2byte	0x6b72
+  1c:	63617073          	csrci	0x636,2
+  20:	2f65                	.2byte	0x2f65
+  22:	654e                	.2byte	0x654e
+  24:	61724677          	.4byte	0x61724677
+  28:	656d                	.2byte	0x656d
+  2a:	6b726f77          	.4byte	0x6b726f77
+  2e:	6172662f          	.4byte	0x6172662f
+  32:	656d                	.2byte	0x656d
+  34:	6b726f77          	.4byte	0x6b726f77
+  38:	6372732f          	.4byte	0x6372732f
+  3c:	69616d2f          	.4byte	0x69616d2f
+  40:	2f6e                	.2byte	0x2f6e
+  42:	6572                	.2byte	0x6572
+  44:	72756f73          	csrrsi	t5,mhpmevent7h,10
+  48:	2f736563          	bltu	t1,s7,332 <_prog_start-0xfcce>
+  4c:	6f62                	.2byte	0x6f62
+  4e:	4f52746f          	jal	s0,27d42 <_prog_start+0x17d42>
+  52:	2f4d                	.2byte	0x2f4d
+  54:	6564                	.2byte	0x6564
+  56:	7562                	.2byte	0x7562
+  58:	4e470067          	jr	1252(a4)
+  5c:	2055                	.2byte	0x2055
+  5e:	5341                	.2byte	0x5341
+  60:	3220                	.2byte	0x3220
+  62:	332e                	.2byte	0x332e
+  64:	0039                	.2byte	0x39

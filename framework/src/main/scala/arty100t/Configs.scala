@@ -79,12 +79,12 @@ class WithSystemModifications extends Config((site, here, up) => {
   case BootROMLocated(x) => up(BootROMLocated(x), site).map{ p =>
     val freqMHz = (site(SystemBusKey).dtsFrequency.get / (1000 * 1000)).toLong
     // Make sure that the bootrom is always rebuilt
-    val clean = s"make -C framework/src/main/resources/bootROM/tinyBoot clean"
+    val clean = s"make -C framework/src/main/resources/bootROM/debug clean"
     require (clean.! == 0, "Failed to clean")
     // Build the bootromt
-    val make = s"make -C framework/src/main/resources/bootROM/tinyBoot XLEN=${site(XLen)} PBUS_CLK=${freqMHz}"
+    val make = s"make -C framework/src/main/resources/bootROM/debug XLEN=${site(XLen)} PBUS_CLK=${freqMHz}"
     require (make.! == 0, "Failed to build bootrom")
-    p.copy(hang = 0x10000, contentFileName = s"./framework/src/main/resources/bootROM/tinyBoot/build/sdboot.bin")
+    p.copy(hang = 0x10000, contentFileName = s"./framework/src/main/resources/bootROM/debug/build/sdboot.bin")
   }
   case DesignKey => (p: Parameters) => new SimpleLazyModule()(p)
   case DebugModuleKey => up(DebugModuleKey).map{ debug =>
@@ -123,4 +123,16 @@ class Arty100TTinyRocketConfig extends Config(
   new WithTinyArty100TTweaks ++
   new chipyard.config.WithBroadcastManager ++
   new chipyard.TinyRocketConig
+)
+
+class SmallRocketArty100TConfig extends Config(
+  new WithTinyArty100TTweaks ++
+  new chipyard.config.WithBroadcastManager ++
+  new chipyard.TinyRocketConig
+)
+
+class Rocket4Arty100TConfig extends Config(
+  new WithTinyArty100TTweaks ++
+  new chipyard.config.WithBroadcastManager ++
+  new chipyard.FourCoreRocketMemConfig
 )
