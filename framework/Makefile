@@ -14,7 +14,7 @@ sim_name := none
 #########################################################################################
 # include shared variables
 #########################################################################################
-SUB_PROJECT ?= vc707_MC
+SUB_PROJECT ?= vc707_TestCVA6
 
 #########################################################################################
 # Arty configuration
@@ -188,6 +188,34 @@ ifeq ($(SUB_PROJECT),vc707_MC)
 	VLOG_MODEL        ?= VC707woDDRHarness
 	MODEL_PACKAGE     ?= framework.fpga.vc707
 	CONFIG            ?= SmallRocketMTOptimizedMemVC707Config
+	CONFIG_PACKAGE    ?= framework.fpga.vc707
+	GENERATOR_PACKAGE ?= chipyard
+	TB                ?= none # unused
+	TOP               ?= ChipTop
+	BOARD             ?= vc707
+	FPGA_BRAND        ?= xilinx
+endif
+
+ifeq ($(SUB_PROJECT),vc707_TestRocket)
+	SBT_PROJECT       ?= framework
+	MODEL             ?= VC707woDDRHarness
+	VLOG_MODEL        ?= VC707woDDRHarness
+	MODEL_PACKAGE     ?= framework.fpga.vc707
+	CONFIG            ?= SmallRocketTestVC707Config
+	CONFIG_PACKAGE    ?= framework.fpga.vc707
+	GENERATOR_PACKAGE ?= chipyard
+	TB                ?= none # unused
+	TOP               ?= ChipTop
+	BOARD             ?= vc707
+	FPGA_BRAND        ?= xilinx
+endif
+
+ifeq ($(SUB_PROJECT),vc707_TestCVA6)
+	SBT_PROJECT       ?= framework
+	MODEL             ?= VC707Harness
+	VLOG_MODEL        ?= VC707Harness
+	MODEL_PACKAGE     ?= framework.fpga.vc707
+	CONFIG            ?= CVA6TestVC707Config
 	CONFIG_PACKAGE    ?= framework.fpga.vc707
 	GENERATOR_PACKAGE ?= chipyard
 	TB                ?= none # unused

@@ -10,10 +10,72 @@ Disassembly of section .text:
   .option norvc
   .globl _prog_start
 _prog_start:
-  li s1, BOOT_ADDR
-   10000:	700004b7          	lui	s1,0x70000
-  jr s1
-   10004:	00048067          	jr	s1 # 70000000 <_prog_start+0x6fff0000>
+  li t0, 1
+   10000:	00100293          	li	t0,1
+  li t0, 2
+   10004:	00200293          	li	t0,2
+  li t0, 3
+   10008:	00300293          	li	t0,3
+  li t0, 4
+   1000c:	00400293          	li	t0,4
+  li t0, 5
+   10010:	00500293          	li	t0,5
+  li t0, 6
+   10014:	00600293          	li	t0,6
+  li t0, 7
+   10018:	00700293          	li	t0,7
+  li t0, 8
+   1001c:	00800293          	li	t0,8
+  li t0, 9
+   10020:	00900293          	li	t0,9
+  li t0, 10
+   10024:	00a00293          	li	t0,10
+  li t0, 11
+   10028:	00b00293          	li	t0,11
+  li t0, 12
+   1002c:	00c00293          	li	t0,12
+  li t0, 13
+   10030:	00d00293          	li	t0,13
+  li t0, 14
+   10034:	00e00293          	li	t0,14
+  li t0, 15
+   10038:	00f00293          	li	t0,15
+  li t0, 16
+   1003c:	01000293          	li	t0,16
+  li t0, 17
+   10040:	01100293          	li	t0,17
+  li t0, 18
+   10044:	01200293          	li	t0,18
+  li t0, 19
+   10048:	01300293          	li	t0,19
+  li t0, 20
+   1004c:	01400293          	li	t0,20
+  li t0, 21
+   10050:	01500293          	li	t0,21
+  li t0, 22
+   10054:	01600293          	li	t0,22
+  li t0, 23
+   10058:	01700293          	li	t0,23
+  li t0, 24
+   1005c:	01800293          	li	t0,24
+  li t0, 25
+   10060:	01900293          	li	t0,25
+  li t0, 26
+   10064:	01a00293          	li	t0,26
+  li t0, 27
+   10068:	01b00293          	li	t0,27
+  li t0, 28
+   1006c:	01c00293          	li	t0,28
+  li t0, 29
+   10070:	01d00293          	li	t0,29
+  li t0, 30
+   10074:	01e00293          	li	t0,30
+  li t0, 31
+   10078:	01f00293          	li	t0,31
+  li t0, 32
+   1007c:	02000293          	li	t0,32
+  j _prog_start
+   10080:	f81ff06f          	j	10000 <_prog_start>
 	...
 
 Disassembly of section .riscv.attributes:
@@ -38,7 +100,7 @@ Disassembly of section .riscv.attributes:
 Disassembly of section .debug_line:
 
 0000000000000000 <.debug_line>:
-   0:	004a                	.2byte	0x4a
+   0:	0104                	.2byte	0x104
    2:	0000                	.2byte	0x0
    4:	0005                	.2byte	0x5
    6:	0008                	.2byte	0x8
@@ -69,9 +131,71 @@ Disassembly of section .debug_line:
   40:	1900                	.2byte	0x1900
   42:	04090103          	lb	sp,64(s2)
   46:	0100                	.2byte	0x100
-  48:	0409                	.2byte	0x409
-  4a:	0000                	.2byte	0x0
-  4c:	0101                	.2byte	0x101
+  48:	04090103          	lb	sp,64(s2)
+  4c:	0100                	.2byte	0x100
+  4e:	04090103          	lb	sp,64(s2)
+  52:	0100                	.2byte	0x100
+  54:	04090103          	lb	sp,64(s2)
+  58:	0100                	.2byte	0x100
+  5a:	04090103          	lb	sp,64(s2)
+  5e:	0100                	.2byte	0x100
+  60:	04090103          	lb	sp,64(s2)
+  64:	0100                	.2byte	0x100
+  66:	04090103          	lb	sp,64(s2)
+  6a:	0100                	.2byte	0x100
+  6c:	04090103          	lb	sp,64(s2)
+  70:	0100                	.2byte	0x100
+  72:	04090103          	lb	sp,64(s2)
+  76:	0100                	.2byte	0x100
+  78:	04090103          	lb	sp,64(s2)
+  7c:	0100                	.2byte	0x100
+  7e:	04090103          	lb	sp,64(s2)
+  82:	0100                	.2byte	0x100
+  84:	04090103          	lb	sp,64(s2)
+  88:	0100                	.2byte	0x100
+  8a:	04090103          	lb	sp,64(s2)
+  8e:	0100                	.2byte	0x100
+  90:	04090103          	lb	sp,64(s2)
+  94:	0100                	.2byte	0x100
+  96:	04090103          	lb	sp,64(s2)
+  9a:	0100                	.2byte	0x100
+  9c:	04090103          	lb	sp,64(s2)
+  a0:	0100                	.2byte	0x100
+  a2:	04090103          	lb	sp,64(s2)
+  a6:	0100                	.2byte	0x100
+  a8:	04090103          	lb	sp,64(s2)
+  ac:	0100                	.2byte	0x100
+  ae:	04090103          	lb	sp,64(s2)
+  b2:	0100                	.2byte	0x100
+  b4:	04090103          	lb	sp,64(s2)
+  b8:	0100                	.2byte	0x100
+  ba:	04090103          	lb	sp,64(s2)
+  be:	0100                	.2byte	0x100
+  c0:	04090103          	lb	sp,64(s2)
+  c4:	0100                	.2byte	0x100
+  c6:	04090103          	lb	sp,64(s2)
+  ca:	0100                	.2byte	0x100
+  cc:	04090103          	lb	sp,64(s2)
+  d0:	0100                	.2byte	0x100
+  d2:	04090103          	lb	sp,64(s2)
+  d6:	0100                	.2byte	0x100
+  d8:	04090103          	lb	sp,64(s2)
+  dc:	0100                	.2byte	0x100
+  de:	04090103          	lb	sp,64(s2)
+  e2:	0100                	.2byte	0x100
+  e4:	04090103          	lb	sp,64(s2)
+  e8:	0100                	.2byte	0x100
+  ea:	04090103          	lb	sp,64(s2)
+  ee:	0100                	.2byte	0x100
+  f0:	04090103          	lb	sp,64(s2)
+  f4:	0100                	.2byte	0x100
+  f6:	04090103          	lb	sp,64(s2)
+  fa:	0100                	.2byte	0x100
+  fc:	04090103          	lb	sp,64(s2)
+ 100:	0100                	.2byte	0x100
+ 102:	0409                	.2byte	0x409
+ 104:	0000                	.2byte	0x0
+ 106:	0101                	.2byte	0x101
 
 Disassembly of section .debug_line_str:
 
@@ -112,7 +236,7 @@ Disassembly of section .debug_line_str:
 Disassembly of section .debug_info:
 
 0000000000000000 <.debug_info>:
-   0:	0024                	.2byte	0x24
+   0:	0025                	.2byte	0x25
    2:	0000                	.2byte	0x0
    4:	0005                	.2byte	0x5
    6:	0801                	.2byte	0x801
@@ -124,12 +248,16 @@ Disassembly of section .debug_info:
   12:	0100                	.2byte	0x100
   14:	0000                	.2byte	0x0
   16:	0000                	.2byte	0x0
-  18:	0800                	.2byte	0x800
-  1a:	0000                	.2byte	0x0
+  18:	8400                	.2byte	0x8400
+  1a:	0001                	.2byte	0x1
   1c:	0000                	.2byte	0x0
-  1e:	00000007          	.4byte	0x7
-  22:	0000005b          	.4byte	0x5b
-  26:	8001                	.2byte	0x8001
+  1e:	0700                	.2byte	0x700
+  20:	0000                	.2byte	0x0
+  22:	5b00                	.2byte	0x5b00
+  24:	0000                	.2byte	0x0
+  26:	0100                	.2byte	0x100
+  28:	80              	Address 0x0000000000000028 is out of bounds.
+
 
 Disassembly of section .debug_abbrev:
 
@@ -158,7 +286,7 @@ Disassembly of section .debug_aranges:
   12:	0001                	.2byte	0x1
   14:	0000                	.2byte	0x0
   16:	0000                	.2byte	0x0
-  18:	0008                	.2byte	0x8
+  18:	0084                	.2byte	0x84
 	...
 
 Disassembly of section .debug_str:

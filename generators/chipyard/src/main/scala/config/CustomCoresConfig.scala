@@ -96,6 +96,8 @@ class FourCoreRocketMemConfig extends Config(
   new freechips.rocketchip.subsystem.WithNSmallCores(4) ++
   new chipyard.config.AbstractConfig)
 
+
+
 class FourCoreRocketFastConfig extends Config(
   new freechips.rocketchip.subsystem.WithNBanks(0) ++             // remove L2$
   new freechips.rocketchip.subsystem.WithNoMemPort ++             // remove backing memory
@@ -112,6 +114,35 @@ class FourCoreRocketFastConfig extends Config(
   ) ++
   new freechips.rocketchip.subsystem.WithFastMul(32) ++
   new freechips.rocketchip.subsystem.WithFastICores(4) ++
+  new chipyard.config.AbstractConfig)
+
+// These config is used for core evaluation
+class SingleCoreRocketConfig extends Config(
+  new freechips.rocketchip.subsystem.WithCoherentBusTopology ++
+  new testchipip.WithSbusScratchpad(
+      base=0x70000000L,
+      size = (1 << 10) * 128L,
+      banks=1) ++
+  new freechips.rocketchip.subsystem.WithFastMul(32) ++
+  new freechips.rocketchip.subsystem.WithFastICores(1) ++
+  new chipyard.config.AbstractConfig)
+
+class SingleCoreIbexConfig extends Config(
+  new freechips.rocketchip.subsystem.WithCoherentBusTopology ++
+  new testchipip.WithSbusScratchpad(
+      base=0x70000000L,
+      size = (1 << 10) * 128L,
+      banks=1) ++
+  new ibex.WithNIbexCores(1) ++
+  new chipyard.config.AbstractConfig)
+
+class SingleCVA6Config extends Config(
+  new freechips.rocketchip.subsystem.WithCoherentBusTopology ++
+  new testchipip.WithSbusScratchpad(
+      base=0x70000000L,
+      size = (1 << 10) * 128L,
+      banks=1) ++
+  new cva6.WithNCVA6Cores(1) ++
   new chipyard.config.AbstractConfig)
 
 class RocketGCConfig extends Config(
