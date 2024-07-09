@@ -209,32 +209,32 @@ int main(int argc, char **arv) {
     tl_instr_start = read_csr(instret);
     th_instr_start = read_csr(instreth);
     // Stage 0
-    // REG32(clint, CLINT_MSIP1) = CLINT_MSIPEN;
-    // REG32(clint, CLINT_MSIP2) = CLINT_MSIPEN;
-    // REG32(clint, CLINT_MSIP3) = CLINT_MSIPEN;
+    REG32(clint, CLINT_MSIP1) = CLINT_MSIPEN;
+    REG32(clint, CLINT_MSIP2) = CLINT_MSIPEN;
+    REG32(clint, CLINT_MSIP3) = CLINT_MSIPEN;
     s0_c0();
-    s0_c1();
-    s0_c2();
-    s0_c3();
+    // s0_c1();
+    // s0_c2();
+    // s0_c3();
 
     // Stage 1
     // REG32(clint, CLINT_MSIP2) = CLINT_MSIPEN;
     s1_c0();
-    s1_c2();
+    // s1_c2();
 
     // Stage 2
-    // REG32(clint, CLINT_MSIP1) = CLINT_MSIPEN;
-    // REG32(clint, CLINT_MSIP2) = CLINT_MSIPEN;
-    // REG32(clint, CLINT_MSIP3) = CLINT_MSIPEN;
+    REG32(clint, CLINT_MSIP1) = CLINT_MSIPEN;
+    REG32(clint, CLINT_MSIP2) = CLINT_MSIPEN;
+    REG32(clint, CLINT_MSIP3) = CLINT_MSIPEN;
     s2_c0();
-    s0_c1();
-    s0_c2();
-    s0_c3();
+    // s0_c1();
+    // s0_c2();
+    // s0_c3();
 
     // Stage 3
-    // REG32(clint, CLINT_MSIP2) = CLINT_MSIPEN;
+    REG32(clint, CLINT_MSIP2) = CLINT_MSIPEN;
     s3_c0();
-    s3_c2();
+    // s3_c2();
     t_end = read_csr(mcycle);
     tl_instr_end = read_csr(instret);
     th_instr_end = read_csr(instreth);

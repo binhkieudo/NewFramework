@@ -4,11 +4,9 @@
 #include "include/platform.h"
 #include "kprintf.h"
 
-static volatile uint32_t * const clint = (void *)(CLINT_CTRL_ADDR);
-
 #define REG32(p, i)	((p)[(i) >> 2])
 
-#define SIZE 64
+#define SIZE 32
 
 int main(int argc, char **arv) {
   

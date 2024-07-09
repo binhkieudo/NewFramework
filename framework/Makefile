@@ -14,7 +14,7 @@ sim_name := none
 #########################################################################################
 # include shared variables
 #########################################################################################
-SUB_PROJECT ?= vc707_TestCVA6
+SUB_PROJECT ?= vcu118_MCRocket_DDR
 
 #########################################################################################
 # Arty configuration
@@ -255,7 +255,7 @@ ifeq ($(SUB_PROJECT),vcu118_rocketsmalSerialmem)
 	FPGA_BRAND        ?= xilinx
 endif
 
-ifeq ($(SUB_PROJECT),vcu118_fourrocketSerialmem)
+ifeq ($(SUB_PROJECT),vcu118_MCRocket_DDR)
 	SBT_PROJECT       ?= framework
 	MODEL             ?= VCU118woDDRHarness
 	VLOG_MODEL        ?= VCU118woDDRHarness
