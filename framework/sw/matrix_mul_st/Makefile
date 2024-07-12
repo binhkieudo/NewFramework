@@ -8,8 +8,8 @@ BUILD_DIR := $(ROOT_DIR)build
 CC=$(RISCV)/bin/riscv64-unknown-elf-gcc
 OBJCOPY=$(RISCV)/bin/riscv64-unknown-elf-objcopy
 OBJDUMP=$(RISCV)/bin/riscv64-unknown-elf-objdump
-CFLAGS=-march=rv32imac -mcmodel=medany -Ofast -std=gnu11 -Wall -nostartfiles
-CFLAGS+= -fno-common -fno-builtin -g -DENTROPY=0 -mabi=ilp32 -DNONSMP_HART=0
+CFLAGS=-march=rv64gc -mcmodel=medany -Ofast -std=gnu11 -Wall -nostartfiles
+CFLAGS+= -fno-common -fno-builtin -g -DENTROPY=0 -mabi=lp64d -DNONSMP_HART=0
 CFLAGS+= -I $(ROOT_DIR)/include -I.
 LFLAGS=-static -L $(ROOT_DIR)/linker -T hello.elf.lds
 

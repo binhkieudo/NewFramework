@@ -12,6 +12,7 @@ static volatile uint32_t * const clint = (void *)(CLINT_CTRL_ADDR);
 #define HALF (SIZE/2)
 #define LENGTH (HALF*HALF)
 
+// Store in local
 uint8_t *a = (uint8_t *)0x40000000;
 uint8_t *b = (uint8_t *)0x40001000;
 uint8_t *c = (uint8_t *)0x40002000;
@@ -22,50 +23,42 @@ uint8_t *bg = (uint8_t *)0x40001400;
 uint8_t *ce = (uint8_t *)0x40002400;
 uint8_t *dg = (uint8_t *)0x40003400;
 
-uint8_t *e = (uint8_t *)0x80005000;
-uint8_t *f = (uint8_t *)0x80006000;
-uint8_t *g = (uint8_t *)0x80007000;
-uint8_t *h = (uint8_t *)0x80008000;
+uint8_t *e = (uint8_t *)0x70005000;
+uint8_t *f = (uint8_t *)0x70006000;
+uint8_t *g = (uint8_t *)0x70007000;
+uint8_t *h = (uint8_t *)0x70008000;
+
+uint8_t *mat_a = (uint8_t *)0x70000000;
+uint8_t *mat_b = (uint8_t *)0x70001000;
+uint8_t *mat_c = (uint8_t *)0x70002000;
 
 //============== Stage 0 ==================================
 void s0_c0() {
-  // for (int i = 0; i < HALF; i++)
-  //   for (int j = 0; j < HALF; j++)
-  //     for (int k = 0; k < HALF; k++)
-  //       ae[i*HALF + j] = a[i + k*HALF] + ae[k + j*HALF];
-  for (int i = 0; i < LENGTH; i ++)
+  for (int i = 0; i < HALF; i++)
     for (int j = 0; j < HALF; j++)
-      ae[i] += a[j] * e[j];
+      for (int k = 0; k < HALF; k++)
+        ae[i*HALF + j] = a[i + k*HALF] + e[k + j*HALF];
 }
 
 void s0_c1() {
-  // for (int i = 0; i < HALF; i++)
-  //   for (int j = 0; j < HALF; j++)
-  //     for (int k = 0; k < HALF; k++)
-  //       bg[i*HALF + j] += b[i + k*HALF] * g[k + j*HALF];
-  for (int i = 0; i < LENGTH; i ++)
+  for (int i = 0; i < HALF; i++)
     for (int j = 0; j < HALF; j++)
-      bg[i] += b[j] * g[j];
+      for (int k = 0; k < HALF; k++)
+        bg[i*HALF + j] += b[i + k*HALF] * g[k + j*HALF];
 }
 
 void s0_c2() {
-  // for (int i = 0; i < HALF; i++)
-  //   for (int j = 0; j < HALF; j++)
-  //     for (int k = 0; k < HALF; k++)
-  //       ce[i*HALF + j] += c[i + k*HALF] * e[k + j*HALF];
-  for (int i = 0; i < LENGTH; i ++)
+  for (int i = 0; i < HALF; i++)
     for (int j = 0; j < HALF; j++)
-      ce[i] += c[j] * e[j];
+      for (int k = 0; k < HALF; k++)
+        ce[i*HALF + j] += c[i + k*HALF] * e[k + j*HALF];
 }
 
 void s0_c3() {
-  // for (int i = 0; i < HALF; i++)
-  //   for (int j = 0; j < HALF; j++)
-  //     for (int k = 0; k < HALF; k++)
-  //       dg[i*HALF + j] += d[i + k*HALF] * g[k + j*HALF];
-  for (int i = 0; i < LENGTH; i ++)
-      for (int j = 0; j < HALF; j++)
-        dg[i] += d[j] * g[j];      
+  for (int i = 0; i < HALF; i++)
+    for (int j = 0; j < HALF; j++)
+      for (int k = 0; k < HALF; k++)
+        dg[i*HALF + j] += d[i + k*HALF] * g[k + j*HALF];  
 }
 
 // ============== Stage 1 ==================================
@@ -81,43 +74,39 @@ void s1_c2() {
 
 // ============== Stage 2 ==================================
 void s2_c0() {
-  // for (int i = 0; i < HALF; i++)
-  //   for (int j = 0; j < HALF; j++)
-  //     for (int k = 0; k < HALF; k++)
-  //       ae[i*HALF + j] += a[i + k*HALF] * f[k + j*HALF];
-  for (int i = 0; i < LENGTH; i ++)
-    for (int j = 0; j < HALF; j++)
-      ae[i] += a[j] * f[j];
+  for (int i = 0; i < HALF; i++)
+    for (int j = 0; j < HALF; j++) {
+      ae[i*HALF + j] = 0;
+      for (int k = 0; k < HALF; k++)
+        ae[i*HALF + j] += a[i + k*HALF] * f[k + j*HALF];
+    }
 }
 
 void s2_c1() {
-  // for (int i = 0; i < HALF; i++)
-  //   for (int j = 0; j < HALF; j++)
-  //     for (int k = 0; k < HALF; k++)
-  //       bg[i*HALF + j] += b[i + k*HALF] * h[k + j*HALF];
-  for (int i = 0; i < LENGTH; i ++)
-    for (int j = 0; j < HALF; j++)
-      bg[i] += b[j] * h[j];
+  for (int i = 0; i < HALF; i++)
+    for (int j = 0; j < HALF; j++) {
+      bg[i*HALF + j] = 0;
+      for (int k = 0; k < HALF; k++)
+        bg[i*HALF + j] += b[i + k*HALF] * h[k + j*HALF];
+    }
 }
 
 void s2_c2() {
-  // for (int i = 0; i < HALF; i++)
-  //   for (int j = 0; j < HALF; j++)
-  //     for (int k = 0; k < HALF; k++)
-  //       ce[i*HALF + j] += c[i + k*HALF] * f[k + j*HALF];
-  for (int i = 0; i < LENGTH; i ++)
-    for (int j = 0; j < HALF; j++)
-      ce[i] += c[j] * f[j];
+  for (int i = 0; i < HALF; i++)
+    for (int j = 0; j < HALF; j++) {
+      ce[i*HALF + j] = 0;
+      for (int k = 0; k < HALF; k++)
+        ce[i*HALF + j] += c[i + k*HALF] * f[k + j*HALF];
+    }
 }
 
 void s2_c3() {
-  // for (int i = 0; i < HALF; i++)
-  //   for (int j = 0; j < HALF; j++)
-  //     for (int k = 0; k < HALF; k++)
-  //       dg[i*HALF + j] += d[i + k*HALF] * h[k + j*HALF];
-  for (int i = 0; i < LENGTH; i ++)
-    for (int j = 0; j < HALF; j++)
-      dg[i] += d[j] * h[j];
+  for (int i = 0; i < HALF; i++)
+    for (int j = 0; j < HALF; j++) {
+      dg[i*HALF + j] = 0;
+      for (int k = 0; k < HALF; k++)
+        dg[i*HALF + j] += d[i + k*HALF] * h[k + j*HALF];
+    }
 }
 
 // ============== Stage 3 ==================================
@@ -131,127 +120,125 @@ void s3_c2() {
         h[i] = ce[i] + dg[i];
 }
 
+// ============== For normal parallel =======================
+void core0() {
+  for (int i = 0; i < 16; i = i + 1)
+    for (int j = 0; j < SIZE; j = j + 1)
+      for (int k = 0; k < SIZE; k  = k + 1)
+        mat_c[i*SIZE + j] += mat_a[i + k*SIZE] * mat_b[k*SIZE + j];
+}
+
+void core1() {
+  for (int i = 16; i < 32; i = i + 1)
+    for (int j = 0; j < SIZE; j = j + 1)
+      for (int k = 0; k < SIZE; k  = k + 1)
+        mat_c[i*SIZE + j] += mat_a[i + k*SIZE] * mat_b[k*SIZE + j];
+}
+void core2() {
+  for (int i = 32; i < 48; i = i + 1)
+    for (int j = 0; j < SIZE; j = j + 1)
+      for (int k = 0; k < SIZE; k  = k + 1)
+        mat_c[i*SIZE + j] += mat_a[i + k*SIZE] * mat_b[k*SIZE + j];
+}
+
+void core3() {
+  for (int i = 48; i < 64; i = i + 1)
+    for (int j = 0; j < SIZE; j = j + 1)
+      for (int k = 0; k < SIZE; k  = k + 1)
+        mat_c[i*SIZE + j] += mat_a[i + k*SIZE] * mat_b[k*SIZE + j];
+}
+
 int main(int argc, char **arv) {
   
   REG32(uart, UART_REG_TXCTRL) = UART_TXEN;
-
-  // uint64_t tl_start, tl_end;
-  // uint64_t th_start, th_end;
-  // uint64_t t_gap;
-  // uint64_t error_count = 0;
-  // // uint32_t mhartid = read_csr(mhartid);
-
-  // // kprintf("Hello world from core %l!!!\r\n", 48080);
-
-  // uint32_t a[SIZE][SIZE];
-  // uint32_t b[SIZE][SIZE];
-  // uint32_t c[SIZE][SIZE];
-
-  // for (uint32_t round = 0; round < 1; round++) {
-  //   for (uint32_t i = 0; i < SIZE; i = i + 1)
-  //     for (uint32_t j = 0; j < SIZE; j = j + 1) {
-  //       a[i][j] = i + j;
-  //       b[i][j] = i + j + 1;
-  //       c[i][j] = 0;
-  //     }
-
-  //   th_start = 0;
-  //   tl_start = read_csr(mcycle);
-  //   for (int i = 0; i < SIZE; i = i + 1)
-  //     for (int j = 0; j < SIZE; j = j + 1) {
-  //       // tmp = 0;
-  //       for (int k = 0; k < SIZE; k = k + 1) 
-  //         c[i][j] += a[i][k] * b[k][j];
-  //       // c[i][j] = a[i][j] + b[i][j];
-  //       // c[i][j] = tmp;
-  //     }
-  //   th_end = 0;
-  //   tl_end = read_csr(mcycle);
-
-  //   for (int i = 0; i < SIZE; i = i + 1)
-  //     for (int j = 0; j < SIZE; j = j + 1)
-  //       if (c[i][j] == 0) error_count++;
-
-  //   t_gap = tl_end - tl_start;
-
-  //   kprintf("Round = %l\r\n", round);
-  //   // kprintf("Time start: %x %x (cycles)\r\n", th_start, tl_start);
-  //   // kprintf("Time end: %x %x (cycles)\r\n", th_end, tl_end);
-  //   kprintf("Time spent: %l (cycles)\r\n", t_gap);
-  //   kprintf("Error: %l \r\n", error_count);
-  // }
-
-//================= Parallel =====================================
-  REG32(uart, UART_REG_TXCTRL) = UART_TXEN;
-
   uint32_t t_start, t_end;
-  uint32_t t_gap;
-  uint32_t tl_instr_start, th_instr_start, tl_instr_end, th_instr_end;
-  uint32_t error_count = 0;
+  uint32_t t_gap[4];
 
-  for (int i = 0; i < LENGTH; i++) {
-    a[i] = i % 256;
-    b[i] = i % 256;
-    c[i] = i % 256;
-    d[i] = i % 256;
-    e[i] = i % 256;
-    f[i] = i % 256;
-    g[i] = i % 256;
-    h[i] = i % 256;
+  uint32_t start[4];
+  uint32_t end[4];
 
-    ae[i] = 0;
-    bg[i] = 0;
-    ce[i] = 0;
-    dg[i] = 0;
-  }
+  kprintf("============= Naive ==================== \r\n");
+//================= Single thread =====================================
+  t_start = read_csr(mcycle);
+  for (int i = 0; i < SIZE; i = i + 1)
+    for (int j = 0; j < SIZE; j = j + 1)
+      for (int k = 0; k < SIZE; k = k + 1)
+        mat_c[i*SIZE + j] += mat_a[i + k*SIZE] * mat_b[k*SIZE + j];
+  t_end = read_csr(mcycle);
+  t_gap[0] = t_end - t_start;
 
+  kprintf("Time spent (single thread): %l (cycles)\r\n", t_gap[0]);
+  
+  for (int i = 0; i < SIZE; i = i + 1)
+    for (int j = 0; j < SIZE; j = j + 1)
+      *a = mat_c[i*SIZE + j];
+
+//================= Paralle ================================================
+  t_start = read_csr(mcycle);
+  REG32(clint, CLINT_MSIP1) = CLINT_MSIPEN;
+  REG32(clint, CLINT_MSIP2) = CLINT_MSIPEN;
+  REG32(clint, CLINT_MSIP3) = CLINT_MSIPEN;
+  core0();
+  t_end = read_csr(mcycle);
+  t_gap[1] = t_end - t_start;
+  kprintf("Time spent (multi-threaded): %l (cycles)\r\n", t_gap[1]);
+
+  kprintf("============= Strassen ==================== \r\n");
+//================= Devide and Conquer (Single thread) =====================
+  t_start = read_csr(mcycle);
+  s0_c0();
+  s0_c1();
+  s0_c2();
+  s0_c3();
+  s1_c0();
+  s1_c2();
+  s2_c0();
+  s2_c1();
+  s2_c2();
+  s2_c3();
+  s3_c0();
+  s3_c2();
+  t_end = read_csr(mcycle);
+  t_gap[2] = t_end - t_start;
+  kprintf("Time spent (single thread): %l (cycles)\r\n", t_gap[2]);
+
+//================= Devide and Conquer =====================================
     t_start = read_csr(mcycle);
-    tl_instr_start = read_csr(instret);
-    th_instr_start = read_csr(instreth);
+    start[0] = t_start;
     // Stage 0
     REG32(clint, CLINT_MSIP1) = CLINT_MSIPEN;
     REG32(clint, CLINT_MSIP2) = CLINT_MSIPEN;
     REG32(clint, CLINT_MSIP3) = CLINT_MSIPEN;
     s0_c0();
-    // s0_c1();
-    // s0_c2();
-    // s0_c3();
+    end[0] = read_csr(mcycle);
 
     // Stage 1
-    // REG32(clint, CLINT_MSIP2) = CLINT_MSIPEN;
+    start[1] = read_csr(mcycle);
+    REG32(clint, CLINT_MSIP2) = CLINT_MSIPEN;
     s1_c0();
-    // s1_c2();
+    end[1] = read_csr(mcycle);
 
     // Stage 2
+    start[2] = read_csr(mcycle);
     REG32(clint, CLINT_MSIP1) = CLINT_MSIPEN;
     REG32(clint, CLINT_MSIP2) = CLINT_MSIPEN;
     REG32(clint, CLINT_MSIP3) = CLINT_MSIPEN;
     s2_c0();
-    // s0_c1();
-    // s0_c2();
-    // s0_c3();
+    end[2] = read_csr(mcycle);
 
     // Stage 3
+    start[3] = read_csr(mcycle);
     REG32(clint, CLINT_MSIP2) = CLINT_MSIPEN;
     s3_c0();
-    // s3_c2();
+    end[3] = read_csr(mcycle);
     t_end = read_csr(mcycle);
-    tl_instr_end = read_csr(instret);
-    th_instr_end = read_csr(instreth);
+    t_gap[3] = t_end - t_start;
 
-    for (int i = 0; i < LENGTH; i = i + 1) {
-        if (e[i] == 0) error_count++;
-        if (f[i] == 0) error_count++;
-        if (g[i] == 0) error_count++;
-        if (h[i] == 0) error_count++;
-    }
-    
-    t_gap = t_end - t_start;
-
-    kprintf("Time spent: %l (cycles)\r\n", t_gap);
-    kprintf("Cycle start: %x %x (cycles)\r\n", th_instr_start, tl_instr_start);
-    kprintf("Cycle end: %x %x (cycles)\r\n", th_instr_end, tl_instr_end);
-    kprintf("Error: %l \r\n", error_count);
+    kprintf("Time spent (multi-threaded): %l (cycles)\r\n", t_gap[3]);
+    kprintf("Stage 0: %l (cycles)\r\n", end[0] - start[0]);
+    kprintf("Stage 1: %l (cycles)\r\n", end[1] - start[1]);
+    kprintf("Stage 2: %l (cycles)\r\n", end[2] - start[2]);
+    kprintf("Stage 3: %l (cycles)\r\n", end[3] - start[3]);
 
   return 0;
 }

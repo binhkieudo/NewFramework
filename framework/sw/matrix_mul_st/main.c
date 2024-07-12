@@ -6,7 +6,7 @@
 
 #define REG32(p, i)	((p)[(i) >> 2])
 
-#define SIZE 32
+#define SIZE 64
 
 int main(int argc, char **arv) {
   
@@ -19,12 +19,12 @@ int main(int argc, char **arv) {
 
   // kprintf("Hello world from core %l!!!\r\n", 48080);
 
-  uint32_t a[SIZE][SIZE];
-  uint32_t b[SIZE][SIZE];
-  uint32_t c[SIZE][SIZE];
+  uint8_t a[SIZE][SIZE];
+  uint8_t b[SIZE][SIZE];
+  uint8_t c[SIZE][SIZE];
 
-    for (uint32_t i = 0; i < SIZE; i = i + 1)
-      for (uint32_t j = 0; j < SIZE; j = j + 1) {
+    for (uint8_t i = 0; i < SIZE; i = i + 1)
+      for (uint8_t j = 0; j < SIZE; j = j + 1) {
         a[i][j] = i + j;
         b[i][j] = i + j + 1;
         c[i][j] = 0;

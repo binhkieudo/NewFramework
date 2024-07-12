@@ -27,13 +27,32 @@ class WithSystemModifications extends Config((site, here, up) => {
     p.copy(hang = 0x10000, contentFileName = s"./framework/src/main/resources/bootROM/MTBoot/build/sdboot.bin")
   }
   case DesignKey => (p: Parameters) => new SimpleLazyModule()(p)
-//  case ExtMem => up(ExtMem, site).map(x => x.copy(master = x.master.copy(
-//    base = BigInt(0x80000000L),
-//    size = site(VCU118DDRSize)))) // set extmem
   case DebugModuleKey => up(DebugModuleKey).map{ debug =>
     debug.copy(clockGate = false)
   }
-//  case SerialTLKey => None // remove serialized tl port
+  case CustomBootPinKey => None
+})
+
+class WithSystemDDRModifications extends Config((site, here, up) => {
+  case DTSTimebase => BigInt{(1e6).toLong}
+  case BootROMLocated(x) => up(BootROMLocated(x), site).map{ p =>
+    val freqMHz = (site(SystemBusKey).dtsFrequency.get / (1000 * 1000)).toLong
+    // Make sure that the bootrom is always rebuilt
+    val clean = s"make -C framework/src/main/resources/bootROM/MTBoot clean"
+    require (clean.! == 0, "Failed to clean")
+    // Build the bootrom
+    val make = s"make -C framework/src/main/resources/bootROM/MTBoot XLEN=${site(XLen)} PBUS_CLK=${freqMHz}"
+    require (make.! == 0, "Failed to build bootrom")
+    p.copy(hang = 0x10000, contentFileName = s"./framework/src/main/resources/bootROM/MTBoot/build/sdboot.bin")
+  }
+  case DesignKey => (p: Parameters) => new SimpleLazyModule()(p)
+  case ExtMem => up(ExtMem, site).map(x => x.copy(master = x.master.copy(
+    base = BigInt(0x80000000L),
+    size = site(VCU118DDRSize)))) // set extmem
+  case DebugModuleKey => up(DebugModuleKey).map{ debug =>
+    debug.copy(clockGate = false)
+  }
+  case SerialTLKey => None // remove serialized tl port
   case CustomBootPinKey => None
 })
 
@@ -52,16 +71,14 @@ class WithDDR extends Config((site, here, up) => {
     size = site(VCU118DDRSize)))) // set extmem
 })
 
-class WithVCU118Tweaks extends Config(
+class WithVCU118Tweaks(FreqMHz: Double = 150.0) extends Config(
   // Clock configs
   new chipyard.harness.WithAllClocksFromHarnessClockInstantiator ++
     new chipyard.clocking.WithPassthroughClockGenerator ++
-    new chipyard.config.WithMemoryBusFrequency(100.0) ++
-    new chipyard.config.WithSystemBusFrequency(100.0) ++
-    new chipyard.config.WithPeripheryBusFrequency(100.0) ++
-    new chipyard.harness.WithHarnessBinderClockFreqMHz(100) ++
-    new chipyard.config.WithPeripheryBusFrequency(100) ++
-    new chipyard.config.WithMemoryBusFrequency(100) ++
+    new chipyard.config.WithMemoryBusFrequency(FreqMHz) ++
+    new chipyard.config.WithSystemBusFrequency(FreqMHz) ++
+    new chipyard.config.WithPeripheryBusFrequency(FreqMHz) ++
+    new chipyard.harness.WithHarnessBinderClockFreqMHz(FreqMHz) ++
     // Harness Binder
     new WithVCU118UARTHarnessBinder ++
     new WithVCU118SPISDCardHarnessBinder ++
@@ -74,11 +91,11 @@ class WithVCU118Tweaks extends Config(
     // Other configurations
     new WithDefaultPeripherals ++
     new WithTLBackingMemory ++ // use TL backing memory
-    new WithSystemModifications ++
+    new WithSystemDDRModifications ++
     new WithoutTLMonitors
 )
 
-class WithVCU118SerialMemTweaks (FreqMhz: Double = 200.0) extends Config (
+class WithVCU118SerialMemTweaks (FreqMhz: Double = 150.0) extends Config (
   // clocking
   new chipyard.harness.WithAllClocksFromHarnessClockInstantiator ++
     new chipyard.clocking.WithPassthroughClockGenerator ++
@@ -97,10 +114,10 @@ class WithVCU118SerialMemTweaks (FreqMhz: Double = 200.0) extends Config (
     // other configuration
     new WithDefaultPeripherals ++
     new WithSystemModifications ++
-    new testchipip.WithSerialTLWidth(8) ++
+    new testchipip.WithSerialTLWidth(16) ++
     new testchipip.WithSerialTLMem(
-      base = BigInt(0x70000000L),
-      size = BigInt((1 << 10) * 4L),
+      base = BigInt(0x80000000L),
+      size = BigInt((1 << 10) * 128L),
       isMainMemory=true) ++
     new testchipip.WithSerialTLBackingMemory ++
     new freechips.rocketchip.subsystem.WithoutTLMonitors
@@ -115,8 +132,10 @@ class SmallRocketSerialMemVCU118Config extends Config(
   new WithVCU118SerialMemTweaks ++
     new chipyard.SmallRocketConfig)
 
-class FourCoreRocketVCU118Config extends Config(
-  new WithVCU118SerialMemTweaks ++
-  new chipyard.config.WithBroadcastManager ++ // no l2
+class FourCoreRocketDDRVCU118Config extends Config(
+  new WithVCU118Tweaks ++
   new chipyard.FourCoreRocketFastConfig)
 
+class FourCoreRocketSerialVCU118Config extends Config(
+  new WithVCU118SerialMemTweaks ++
+  new chipyard.FourCoreRocketFastConfig)

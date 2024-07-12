@@ -99,19 +99,12 @@ class FourCoreRocketMemConfig extends Config(
 
 
 class FourCoreRocketFastConfig extends Config(
-  new freechips.rocketchip.subsystem.WithNBanks(0) ++             // remove L2$
-  new freechips.rocketchip.subsystem.WithNoMemPort ++             // remove backing memory
   new freechips.rocketchip.subsystem.WithCoherentBusTopology ++
   new WithRocketDCacheScratchpad ++
   new testchipip.WithSbusScratchpad(
-      base=0x80000000L,
-      size = (1 << 10) * 64L,
-      banks=1) ++
-  new testchipip.WithCbusScratchpad (
       base=0x70000000L,
-      size = (1 << 10) * 8L,
-      banks=1
-  ) ++
+      size = (1 << 10) * 128L,
+      banks=1) ++
   new freechips.rocketchip.subsystem.WithFastMul(32) ++
   new freechips.rocketchip.subsystem.WithFastICores(4) ++
   new chipyard.config.AbstractConfig)

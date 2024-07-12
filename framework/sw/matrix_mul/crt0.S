@@ -23,10 +23,20 @@ _prog_start:
 _hart0:
   csrrw t0, mcycle, zero
   # csrw  instret, zero
-  li sp, (MEMORY_MEM_ADDR + 0xfff0)
+  li sp, 0x40000ff0
   call main
   wfi
 _hart1:
+  // Parallel
+  wfi
+  csrw mie, zero
+  li s1, 0
+  li t0, (CLINT_CTRL_ADDR + CLINT_MSIP1)
+  amoswap.w t1, s1, (t0)
+  li sp, 0x40001ff0
+  call core1
+  li s1, 1
+  csrw mie, s1
   wfi
   // Stage 0
   csrw mie, zero
@@ -47,8 +57,18 @@ _hart1:
   call s2_c1
   li s1, 1
   csrw mie, s1
-  wfi
+  j _hart1
 _hart2:
+  // Parallel
+  wfi
+  csrw mie, zero
+  li s1, 0
+  li t0, (CLINT_CTRL_ADDR + CLINT_MSIP2)
+  amoswap.w t1, s1, (t0)
+  li sp, 0x40002ff0
+  call core1
+  li s1, 1
+  csrw mie, s1
   wfi
   // Stage 0
   csrw mie, zero
@@ -89,8 +109,18 @@ _hart2:
   call s3_c2
   li s1, 1
   csrw mie, s1
-  wfi
+  j _hart2
 _hart3:
+  // Parallel
+  wfi
+  csrw mie, zero
+  li s1, 0
+  li t0, (CLINT_CTRL_ADDR + CLINT_MSIP3)
+  amoswap.w t1, s1, (t0)
+  li sp, 0x40003ff0
+  call core1
+  li s1, 1
+  csrw mie, s1
   wfi
   // Stage 0
   csrw mie, zero
@@ -111,6 +141,6 @@ _hart3:
   call s2_c3
   li s1, 1
   csrw mie, s1 
-  wfi
+  j _hart3
 _loopback:
   j _loopback
