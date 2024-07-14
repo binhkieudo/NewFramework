@@ -76,7 +76,7 @@ void s1_c2() {
 void s2_c0() {
   for (int i = 0; i < HALF; i++)
     for (int j = 0; j < HALF; j++) {
-      ae[i*HALF + j] = 0;
+      // ae[i*HALF + j] = 0;
       for (int k = 0; k < HALF; k++)
         ae[i*HALF + j] += a[i + k*HALF] * f[k + j*HALF];
     }
@@ -85,7 +85,7 @@ void s2_c0() {
 void s2_c1() {
   for (int i = 0; i < HALF; i++)
     for (int j = 0; j < HALF; j++) {
-      bg[i*HALF + j] = 0;
+      // bg[i*HALF + j] = 0;
       for (int k = 0; k < HALF; k++)
         bg[i*HALF + j] += b[i + k*HALF] * h[k + j*HALF];
     }
@@ -94,7 +94,7 @@ void s2_c1() {
 void s2_c2() {
   for (int i = 0; i < HALF; i++)
     for (int j = 0; j < HALF; j++) {
-      ce[i*HALF + j] = 0;
+      // ce[i*HALF + j] = 0;
       for (int k = 0; k < HALF; k++)
         ce[i*HALF + j] += c[i + k*HALF] * f[k + j*HALF];
     }
@@ -103,7 +103,7 @@ void s2_c2() {
 void s2_c3() {
   for (int i = 0; i < HALF; i++)
     for (int j = 0; j < HALF; j++) {
-      dg[i*HALF + j] = 0;
+      // dg[i*HALF + j] = 0;
       for (int k = 0; k < HALF; k++)
         dg[i*HALF + j] += d[i + k*HALF] * h[k + j*HALF];
     }
@@ -122,27 +122,27 @@ void s3_c2() {
 
 // ============== For normal parallel =======================
 void core0() {
-  for (int i = 0; i < 16; i = i + 1)
+  for (int i = 0; i < SIZE/4; i = i + 1)
     for (int j = 0; j < SIZE; j = j + 1)
       for (int k = 0; k < SIZE; k  = k + 1)
         mat_c[i*SIZE + j] += mat_a[i + k*SIZE] * mat_b[k*SIZE + j];
 }
 
 void core1() {
-  for (int i = 16; i < 32; i = i + 1)
+  for (int i = SIZE/4; SIZE/2; i = i + 1)
     for (int j = 0; j < SIZE; j = j + 1)
       for (int k = 0; k < SIZE; k  = k + 1)
         mat_c[i*SIZE + j] += mat_a[i + k*SIZE] * mat_b[k*SIZE + j];
 }
 void core2() {
-  for (int i = 32; i < 48; i = i + 1)
+  for (int i = SIZE/2; i < (SIZE/2+SIZE/4); i = i + 1)
     for (int j = 0; j < SIZE; j = j + 1)
       for (int k = 0; k < SIZE; k  = k + 1)
         mat_c[i*SIZE + j] += mat_a[i + k*SIZE] * mat_b[k*SIZE + j];
 }
 
 void core3() {
-  for (int i = 48; i < 64; i = i + 1)
+  for (int i = (SIZE/2+SIZE/4); i < SIZE; i = i + 1)
     for (int j = 0; j < SIZE; j = j + 1)
       for (int k = 0; k < SIZE; k  = k + 1)
         mat_c[i*SIZE + j] += mat_a[i + k*SIZE] * mat_b[k*SIZE + j];
@@ -151,24 +151,29 @@ void core3() {
 int main(int argc, char **arv) {
   
   REG32(uart, UART_REG_TXCTRL) = UART_TXEN;
-  uint32_t t_start, t_end;
-  uint32_t t_gap[4];
+  uint64_t t_start, t_end;
+  uint64_t t_gap[4];
+  uint64_t instr_start, instr_end;
+  uint64_t instr_gap;
 
-  uint32_t start[4];
-  uint32_t end[4];
+  uint64_t start[4];
+  uint64_t end[4];
 
-  kprintf("============= Naive ==================== \r\n");
+  kprintf("============= Naive %l ==================== \r\n", SIZE);
 //================= Single thread =====================================
   t_start = read_csr(mcycle);
+  instr_start = read_csr(minstret);
   for (int i = 0; i < SIZE; i = i + 1)
     for (int j = 0; j < SIZE; j = j + 1)
       for (int k = 0; k < SIZE; k = k + 1)
         mat_c[i*SIZE + j] += mat_a[i + k*SIZE] * mat_b[k*SIZE + j];
   t_end = read_csr(mcycle);
+  instr_end = read_csr(minstret);
   t_gap[0] = t_end - t_start;
+  instr_gap = instr_end - instr_start;
 
   kprintf("Time spent (single thread): %l (cycles)\r\n", t_gap[0]);
-  
+  kprintf("Instruction: %l\r\n", instr_gap);
   for (int i = 0; i < SIZE; i = i + 1)
     for (int j = 0; j < SIZE; j = j + 1)
       *a = mat_c[i*SIZE + j];
@@ -183,9 +188,10 @@ int main(int argc, char **arv) {
   t_gap[1] = t_end - t_start;
   kprintf("Time spent (multi-threaded): %l (cycles)\r\n", t_gap[1]);
 
-  kprintf("============= Strassen ==================== \r\n");
+  kprintf("============= Strassen %l ==================== \r\n", SIZE);
 //================= Devide and Conquer (Single thread) =====================
   t_start = read_csr(mcycle);
+  instr_start = read_csr(minstret);
   s0_c0();
   s0_c1();
   s0_c2();
@@ -199,8 +205,11 @@ int main(int argc, char **arv) {
   s3_c0();
   s3_c2();
   t_end = read_csr(mcycle);
+  instr_end = read_csr(minstret);
   t_gap[2] = t_end - t_start;
+  instr_gap = instr_end - instr_start;
   kprintf("Time spent (single thread): %l (cycles)\r\n", t_gap[2]);
+  kprintf("Instruction: %l\r\n", instr_gap);
 
 //================= Devide and Conquer =====================================
     t_start = read_csr(mcycle);

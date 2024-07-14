@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "platform.h": "c",
+        "uart.h": "c",
+        "stdint.h": "c"
+    }
+}

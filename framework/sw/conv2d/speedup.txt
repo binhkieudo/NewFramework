@@ -1,0 +1,16 @@
+Input size/Kernel size = 128/4 ===========
+Instr (single): 1329915
+Time spent (single): 3439488 (cycles)
+Time spent (multi): 873728 (cycles)
+Input size/Kernel size = 128/8 ===========
+Instr (single): 4319735
+Time spent (single): 11581775 (cycles)
+Time spent (multi): 3177560 (cycles)
+Input size/Kernel size = 128/16 ===========
+Instr (single): 15886598
+Time spent (single): 43059873 (cycles)
+Time spent (multi): 11660914 (cycles)
+Input size/Kernel size = 128/32 ===========
+Instr (single): 78650426                                           
+Time spent (single): 165655514 (cycles)                            
+Time spent (multi): 47590906 (cycles)

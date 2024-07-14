@@ -1,0 +1,48 @@
+============= Naive 8 ====================                         
+Time spent (single thread): 32324 (cycles)                         
+Instruction: 6444                                                  
+Time spent (multi-threaded): 7578 (cycles)                         
+============= Strassen 8 ====================                      
+Time spent (single thread): 40940 (cycles)                         
+Instruction: 6290                                                  
+Time spent (multi-threaded): 7395 (cycles)                         
+Stage 0: 2885 (cycles)                                             
+Stage 1: 643 (cycles)                                              
+Stage 2: 3176 (cycles)                                             
+Stage 3: 687 (cycles)                                              
+============= Naive 16 ====================                        
+Time spent (single thread): 247612 (cycles)                        
+Instruction: 50271                                                 
+Time spent (multi-threaded): 64662 (cycles)                        
+============= Strassen 16 ====================                     
+Time spent (single thread): 290543 (cycles)                        
+Instruction: 53720                                                 
+Time spent (multi-threaded): 51186 (cycles)                        
+Stage 0: 21749 (cycles)                                            
+Stage 1: 3148 (cycles)                                             
+Stage 2: 22930 (cycles)                                            
+Stage 3: 3334 (cycles)                                             
+============= Naive 32 ====================                        
+Time spent (single thread): 2036081 (cycles)                       
+Instruction: 496942                                                
+Time spent (multi-threaded): 485057 (cycles)                       
+============= Strassen 32 ====================                     
+Time spent (single thread): 2250531 (cycles)                       
+Instruction: 406451                                                
+Time spent (multi-threaded): 380012 (cycles)                       
+Stage 0: 170942 (cycles)                                           
+Stage 1: 12550 (cycles)                                            
+Stage 2: 183177 (cycles)                                           
+Stage 3: 13339 (cycles)                                            
+============= Naive 64 ====================                        
+Time spent (single thread): 15225460 (cycles)                      
+Instruction: 3953166                                               
+Time spent (multi-threaded): 4134107 (cycles)                      
+============= Strassen 64 ====================                     
+Time spent (single thread): 17820396 (cycles)                      
+Instruction: 3966614                                               
+Time spent (multi-threaded): 3202560 (cycles)                      
+Stage 0: 1480938 (cycles)                                          
+Stage 1: 53276 (cycles)                                            
+Stage 2: 1612004 (cycles)                                          
+Stage 3: 56338 (cycles) 

@@ -1,0 +1,28 @@
+Start...
+TEST LENGTH 1024 ===========
+Instr (single): 12296
+Time spent (single): 22553 (cycles)
+Instr (single): 49178
+Time spent (quad): 86115 (cycles)
+Time spent (parallel): 20519 (cycles)
+Start...
+TEST LENGTH 2048 ===========
+Instr (single): 28680
+Time spent (single): 49177 (cycles)
+Instr (single): 114714
+Time spent (quad): 188494 (cycles)
+Time spent (parallel): 41005 (cycles)                              
+Start...                                                           
+TEST LENGTH 512 ===========                                        
+Instr (single): 6152                                               
+Time spent (single): 11289 (cycles)                                
+Instr (single): 24602                                              
+Time spent (quad): 44109 (cycles)                                  
+Time spent (parallel): 9772 (cycles)                               
+Start...                                                           
+TEST LENGTH 256 ===========                                        
+Instr (single): 3080                                               
+Time spent (single): 5381 (cycles)                                 
+Instr (single): 12314                                              
+Time spent (quad): 22085 (cycles)                                  
+Time spent (parallel): 5164 (cycles)

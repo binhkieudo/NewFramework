@@ -22,7 +22,7 @@ _prog_start:
   j _loopback
 _hart0:
   csrrw t0, mcycle, zero
-  # csrw  instret, zero
+  csrrw  t0, minstret, zero
   li sp, 0x40000ff0
   call main
   wfi
