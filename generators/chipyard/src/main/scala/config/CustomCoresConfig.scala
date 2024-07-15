@@ -9,6 +9,50 @@ import freechips.rocketchip.devices.tilelink.PLICAttachParams
 import freechips.rocketchip.devices.tilelink._
 import chipyard.clocking.{ChipyardPRCIControlKey, ChipyardPRCIControlParams}
 import freechips.rocketchip.devices.debug.{ExportDebug, DebugAttachParams}
+import freechips.rocketchip.tile._
+import freechips.rocketchip.rocket._
+
+class WithFastICores(
+  n: Int,
+  overrideIdOffset: Option[Int] = None,
+  crossing: RocketCrossingParams = RocketCrossingParams()
+) extends Config((site, here, up) => {
+  case XLen => 64
+  case TilesLocated(InSubsystem) => {
+    val prev = up(TilesLocated(InSubsystem), site)
+    val idOffset = overrideIdOffset.getOrElse(prev.size)
+    val med = RocketTileParams(
+      core = RocketCoreParams(
+        fpu = Some(FPUParams(
+          divSqrt = false
+        )),
+        mulDiv = Some(MulDivParams(
+          mulUnroll = 32,
+          mulEarlyOut = true,
+          divEarlyOut = true))
+      ),
+      btb = None,
+      dcache = Some(DCacheParams(
+        rowBits = site(SystemBusKey).beatBits,
+        nSets = 64,
+        nWays = 1,
+        nTLBSets = 1,
+        nTLBWays = 4,
+        nMSHRs = 0,
+        blockBytes = site(CacheBlockBytes))),
+      icache = Some(ICacheParams(
+        rowBits = site(SystemBusKey).beatBits,
+        nSets = 64,
+        nWays = 1,
+        nTLBSets = 1,
+        nTLBWays = 4,
+        blockBytes = site(CacheBlockBytes))))
+    List.tabulate(n)(i => RocketTileAttachParams(
+      med.copy(hartId = i + idOffset),
+      crossing
+    )) ++ prev
+  }
+})
 
 // random, lru, plru
 class WithL1DCacheReplacementPolicy(policy: String) extends Config((site, here, up) => {
@@ -103,10 +147,9 @@ class FourCoreRocketFastConfig extends Config(
   new WithRocketDCacheScratchpad ++
   new testchipip.WithSbusScratchpad(
       base=0x70000000L,
-      size = (1 << 10) * 128L,
+      size = (1 << 10) * 256L,
       banks=1) ++
-  new freechips.rocketchip.subsystem.WithFastMul(32) ++
-  new freechips.rocketchip.subsystem.WithFastICores(4) ++
+  new WithFastICores(8) ++
   new chipyard.config.AbstractConfig)
 
 // These config is used for core evaluation
@@ -116,8 +159,7 @@ class SingleCoreRocketConfig extends Config(
       base=0x70000000L,
       size = (1 << 10) * 128L,
       banks=1) ++
-  new freechips.rocketchip.subsystem.WithFastMul(32) ++
-  new freechips.rocketchip.subsystem.WithFastICores(1) ++
+  new WithFastICores(1) ++
   new chipyard.config.AbstractConfig)
 
 class SingleCoreIbexConfig extends Config(

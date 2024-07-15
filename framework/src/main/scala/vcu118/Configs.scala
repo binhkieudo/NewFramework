@@ -71,7 +71,7 @@ class WithDDR extends Config((site, here, up) => {
     size = site(VCU118DDRSize)))) // set extmem
 })
 
-class WithVCU118Tweaks(FreqMHz: Double = 150.0) extends Config(
+class WithVCU118Tweaks(FreqMHz: Double = 100.0) extends Config(
   // Clock configs
   new chipyard.harness.WithAllClocksFromHarnessClockInstantiator ++
     new chipyard.clocking.WithPassthroughClockGenerator ++

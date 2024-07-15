@@ -1,24 +1,25 @@
 
-/home/binhkieudo/Workspace/NewFramework/framework/src/main/resources/bootROM/MTBoot//build/sdboot.elf:     file format elf32-littleriscv
+/home/binhkieudo/Workspace/NewFramework/framework/src/main/resources/bootROM/MTBoot//build/sdboot.elf:     file format elf64-littleriscv
 
 
 Disassembly of section .text:
 
-00010000 <_prog_start>:
+0000000000010000 <_prog_start>:
 
   .section .text.init
   .option norvc
   .globl _prog_start
 _prog_start:
   li s0, 0x80000000
-   10000:	80000437          	lui	s0,0x80000
+   10000:	0010041b          	addiw	s0,zero,1
+   10004:	01f41413          	slli	s0,s0,0x1f
   jr s0
-   10004:	00040067          	jr	s0 # 80000000 <_sp+0xfff00000>
+   10008:	00040067          	jr	s0
 	...
 
 Disassembly of section .riscv.attributes:
 
-00000000 <.riscv.attributes>:
+0000000000000000 <.riscv.attributes>:
    0:	2341                	.2byte	0x2341
    2:	0000                	.2byte	0x0
    4:	7200                	.2byte	0x7200
@@ -27,8 +28,8 @@ Disassembly of section .riscv.attributes:
    c:	0019                	.2byte	0x19
    e:	0000                	.2byte	0x0
   10:	7205                	.2byte	0x7205
-  12:	3376                	.2byte	0x3376
-  14:	6932                	.2byte	0x6932
+  12:	3676                	.2byte	0x3676
+  14:	6934                	.2byte	0x6934
   16:	7032                	.2byte	0x7032
   18:	5f30                	.2byte	0x5f30
   1a:	326d                	.2byte	0x326d
@@ -37,11 +38,11 @@ Disassembly of section .riscv.attributes:
 
 Disassembly of section .debug_line:
 
-00000000 <.debug_line>:
-   0:	0046                	.2byte	0x46
+0000000000000000 <.debug_line>:
+   0:	004a                	.2byte	0x4a
    2:	0000                	.2byte	0x0
    4:	0005                	.2byte	0x5
-   6:	0004                	.2byte	0x4
+   6:	0008                	.2byte	0x8
    8:	002a                	.2byte	0x2a
    a:	0000                	.2byte	0x0
    c:	0101                	.2byte	0x101
@@ -61,19 +62,21 @@ Disassembly of section .debug_line:
   30:	5400                	.2byte	0x5400
   32:	0000                	.2byte	0x0
   34:	0000                	.2byte	0x0
-  36:	0500                	.2byte	0x500
+  36:	0900                	.2byte	0x900
   38:	0002                	.2byte	0x2
   3a:	0100                	.2byte	0x100
-  3c:	1900                	.2byte	0x1900
-  3e:	04090103          	lb	sp,64(s2)
-  42:	0100                	.2byte	0x100
-  44:	0409                	.2byte	0x409
-  46:	0000                	.2byte	0x0
-  48:	0101                	.2byte	0x101
+  3c:	0000                	.2byte	0x0
+  3e:	0000                	.2byte	0x0
+  40:	1900                	.2byte	0x1900
+  42:	08090103          	lb	sp,128(s2)
+  46:	0100                	.2byte	0x100
+  48:	0409                	.2byte	0x409
+  4a:	0000                	.2byte	0x0
+  4c:	0101                	.2byte	0x101
 
 Disassembly of section .debug_line_str:
 
-00000000 <.debug_line_str>:
+0000000000000000 <.debug_line_str>:
    0:	6d6f682f          	.4byte	0x6d6f682f
    4:	2f65                	.2byte	0x2f65
    6:	6962                	.2byte	0x6962
@@ -109,27 +112,29 @@ Disassembly of section .debug_line_str:
 
 Disassembly of section .debug_info:
 
-00000000 <.debug_info>:
-   0:	0020                	.2byte	0x20
+0000000000000000 <.debug_info>:
+   0:	0024                	.2byte	0x24
    2:	0000                	.2byte	0x0
    4:	0005                	.2byte	0x5
-   6:	0401                	.2byte	0x401
+   6:	0801                	.2byte	0x801
    8:	0000                	.2byte	0x0
    a:	0000                	.2byte	0x0
    c:	0001                	.2byte	0x1
    e:	0000                	.2byte	0x0
   10:	0000                	.2byte	0x0
   12:	0100                	.2byte	0x100
-  14:	0800                	.2byte	0x800
+  14:	0000                	.2byte	0x0
   16:	0000                	.2byte	0x0
-  18:	0000                	.2byte	0x0
-  1a:	00000007          	.4byte	0x7
-  1e:	0000005b          	.4byte	0x5b
-  22:	8001                	.2byte	0x8001
+  18:	0c00                	.2byte	0xc00
+  1a:	0000                	.2byte	0x0
+  1c:	0000                	.2byte	0x0
+  1e:	00000007          	.4byte	0x7
+  22:	0000005b          	.4byte	0x5b
+  26:	8001                	.2byte	0x8001
 
 Disassembly of section .debug_abbrev:
 
-00000000 <.debug_abbrev>:
+0000000000000000 <.debug_abbrev>:
    0:	1101                	.2byte	0x1101
    2:	1000                	.2byte	0x1000
    4:	12011117          	auipc	sp,0x12011
@@ -141,23 +146,25 @@ Disassembly of section .debug_abbrev:
 
 Disassembly of section .debug_aranges:
 
-00000000 <.debug_aranges>:
-   0:	001c                	.2byte	0x1c
+0000000000000000 <.debug_aranges>:
+   0:	002c                	.2byte	0x2c
    2:	0000                	.2byte	0x0
    4:	0002                	.2byte	0x2
    6:	0000                	.2byte	0x0
    8:	0000                	.2byte	0x0
-   a:	0004                	.2byte	0x4
+   a:	0008                	.2byte	0x8
    c:	0000                	.2byte	0x0
    e:	0000                	.2byte	0x0
   10:	0000                	.2byte	0x0
   12:	0001                	.2byte	0x1
-  14:	0008                	.2byte	0x8
+  14:	0000                	.2byte	0x0
+  16:	0000                	.2byte	0x0
+  18:	000c                	.2byte	0xc
 	...
 
 Disassembly of section .debug_str:
 
-00000000 <.debug_str>:
+0000000000000000 <.debug_str>:
    0:	6f62                	.2byte	0x6f62
    2:	532e746f          	jal	s0,e7534 <_prog_start+0xd7534>
    6:	2f00                	.2byte	0x2f00
