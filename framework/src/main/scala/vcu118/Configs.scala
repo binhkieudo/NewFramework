@@ -114,7 +114,7 @@ class WithVCU118SerialMemTweaks (FreqMhz: Double = 150.0) extends Config (
     // other configuration
     new WithDefaultPeripherals ++
     new WithSystemModifications ++
-    new testchipip.WithSerialTLWidth(16) ++
+    new testchipip.WithSerialTLWidth(32) ++
     new testchipip.WithSerialTLMem(
       base = BigInt(0x80000000L),
       size = BigInt((1 << 10) * 128L),

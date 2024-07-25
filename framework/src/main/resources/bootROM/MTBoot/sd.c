@@ -4,20 +4,19 @@
 #include <platform.h>
 
 #include "common.h"
-#include "smp.h"
 
 #define DEBUG
 #include "kprintf.h"
 
 // Total payload in B
-#define PAYLOAD_SIZE_B (4 << 10) // default: 1MiB
+#define PAYLOAD_SIZE_B (30 << 20) // default: 30MiB
 // A sector is 512 bytes, so (1 << 11) * 512B = 1 MiB
 #define SECTOR_SIZE_B 512
 // Payload size in # of sectors
 #define PAYLOAD_SIZE (PAYLOAD_SIZE_B / SECTOR_SIZE_B)
 
 // The sector at which the BBL partition starts
-#define BBL_PARTITION_START_SECTOR 2048
+#define BBL_PARTITION_START_SECTOR 34
 
 #ifndef TL_CLK
 #error Must define TL_CLK
@@ -88,7 +87,6 @@ static void sd_poweron(void)
 	REG32(spi, SPI_REG_CSMODE) = SPI_CSMODE_AUTO;
 }
 
-// Go Idle state 8'b0100_0000
 static int sd_cmd0(void)
 {
 	int rc;
@@ -98,7 +96,6 @@ static int sd_cmd0(void)
 	return rc;
 }
 
-// Check voltage range 8'b0100_1000
 static int sd_cmd8(void)
 {
 	int rc;
@@ -112,14 +109,12 @@ static int sd_cmd8(void)
 	return rc;
 }
 
-// Leading command of ACMD<n> command 8'b0111_0111
 static void sd_cmd55(void)
 {
 	sd_cmd(0x77, 0, 0x65);
 	sd_cmd_end();
 }
 
-// Initiate initialization process 8'b0110_1001
 static int sd_acmd41(void)
 {
 	uint8_t r;
@@ -131,7 +126,6 @@ static int sd_acmd41(void)
 	return (r != 0x00);
 }
 
-// Read OCR 8'b0111_1010
 static int sd_cmd58(void)
 {
 	int rc;
@@ -145,7 +139,6 @@ static int sd_cmd58(void)
 	return rc;
 }
 
-// 	Change R/W block size. 8'b0101_0000
 static int sd_cmd16(void)
 {
 	int rc;
@@ -178,14 +171,13 @@ static int copy(void)
 
 	dputs("CMD18");
 
-//	kprintf("LOADING 0x%xB PAYLOAD\r\n", PAYLOAD_SIZE_B);
+	kprintf("LOADING 0x%xB PAYLOAD\r\n", PAYLOAD_SIZE_B);
 	kprintf("LOADING  ");
 
 	// TODO: Speed up SPI freq. (breaks between these two values)
 	//REG32(spi, SPI_REG_SCKDIV) = (F_CLK / 16666666UL);
 	REG32(spi, SPI_REG_SCKDIV) = (F_CLK / 5000000UL);
-	// Read multiple block 8'b0101_0010
-	if (sd_cmd(0x52, BBL_PARTITION_START_SECTOR, 0x51) != 0x00) {
+	if (sd_cmd(0x52, BBL_PARTITION_START_SECTOR, 0xE1) != 0x00) {
 		sd_cmd_end();
 		return 1;
 	}
@@ -218,32 +210,29 @@ static int copy(void)
 	} while (--i > 0);
 	sd_cmd_end();
 
-	// 	Stop to read data (CMD12) 8'b0100_1100
 	sd_cmd(0x4C, 0, 0x01);
 	sd_cmd_end();
 	kputs("\b ");
 	return rc;
 }
 
-int main(int mhartid, char** dump)
+int main(void)
 {
 	REG32(uart, UART_REG_TXCTRL) = UART_TXEN;
 
-	if (mhartid == 0) {
-		kputs("");
-		kputs("Core 0: ZERO STAGE BOOT..");
-	 	sd_poweron();
-	 	if (sd_cmd0() ||
-	 		sd_cmd8() ||
-	 		sd_acmd41() ||
-	 		sd_cmd58() ||
-	 		sd_cmd16() ||
-	 		copy()) {
-	 		kputs("ERROR");
-	 		return 1;
-	 	}
-	 	kputs("FINISH");
-	 }
+	kputs("BOOT INIT...");
+	sd_poweron();
+	if (sd_cmd0() ||
+	    sd_cmd8() ||
+	    sd_acmd41() ||
+	    sd_cmd58() ||
+	    sd_cmd16() ||
+	    copy()) {
+		kputs("ERROR");
+		return 1;
+	}
+
+	kputs("BOOT SUCCESS");
 
 	__asm__ __volatile__ ("fence.i" : : : "memory");
 

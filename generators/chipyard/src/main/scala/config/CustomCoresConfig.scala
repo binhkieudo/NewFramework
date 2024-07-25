@@ -11,21 +11,23 @@ import chipyard.clocking.{ChipyardPRCIControlKey, ChipyardPRCIControlParams}
 import freechips.rocketchip.devices.debug.{ExportDebug, DebugAttachParams}
 import freechips.rocketchip.tile._
 import freechips.rocketchip.rocket._
+import freechips.rocketchip.diplomacy.SynchronousCrossing
 
 class WithFastICores(
   n: Int,
   overrideIdOffset: Option[Int] = None,
   crossing: RocketCrossingParams = RocketCrossingParams()
 ) extends Config((site, here, up) => {
-  case XLen => 64
+  case XLen => 32
   case TilesLocated(InSubsystem) => {
     val prev = up(TilesLocated(InSubsystem), site)
     val idOffset = overrideIdOffset.getOrElse(prev.size)
     val med = RocketTileParams(
       core = RocketCoreParams(
-        fpu = Some(FPUParams(
-          divSqrt = false
-        )),
+        // fpu = Some(FPUParams(
+        //   divSqrt = false
+        // )),
+        fpu = None,
         mulDiv = Some(MulDivParams(
           mulUnroll = 32,
           mulEarlyOut = true,
@@ -54,6 +56,41 @@ class WithFastICores(
   }
 })
 
+class WithTinyCore extends Config((site, here, up) => {
+  case XLen => 32
+  case TilesLocated(InSubsystem) => {
+    val tiny = RocketTileParams(
+      core = RocketCoreParams(
+        useVM = false,
+        fpu = None,
+        mulDiv = Some(MulDivParams(mulUnroll = 8))),
+      btb = None,
+      dcache = Some(DCacheParams(
+        rowBits = site(SystemBusKey).beatBits,
+        nSets = 256, // 16Kb scratchpad
+        nWays = 1,
+        nTLBSets = 1,
+        nTLBWays = 4,
+        nMSHRs = 0,
+        blockBytes = site(CacheBlockBytes),
+        scratch = Some(0x80000000L))),
+      icache = Some(ICacheParams(
+        rowBits = site(SystemBusKey).beatBits,
+        nSets = 64,
+        nWays = 1,
+        nTLBSets = 1,
+        nTLBWays = 4,
+        blockBytes = site(CacheBlockBytes)))
+    )
+    List(RocketTileAttachParams(
+      tiny,
+      RocketCrossingParams(
+        crossingType = SynchronousCrossing(),
+        master = TileMasterPortParams())
+    ))
+  }
+})
+
 // random, lru, plru
 class WithL1DCacheReplacementPolicy(policy: String) extends Config((site, here, up) => {
   case TilesLocated(InSubsystem) => up(TilesLocated(InSubsystem), site) map {
@@ -65,6 +102,7 @@ class WithL1DCacheReplacementPolicy(policy: String) extends Config((site, here, 
     case t => t
   }
 })
+
 
 class WithRocketDCacheScratchpad extends Config((site, here, up) => {
   case TilesLocated(InSubsystem) => up(TilesLocated(InSubsystem), site) map {
@@ -121,9 +159,8 @@ class TinyRocketConig extends Config(
   new freechips.rocketchip.subsystem.WithNBanks(0) ++             // remove L2$
   new freechips.rocketchip.subsystem.WithNoMemPort ++             // remove backing memory
   new freechips.rocketchip.subsystem.WithNoSlavePort ++
-  new WithoutCBUS ++
   new freechips.rocketchip.subsystem.WithoutMulDiv ++
-  new freechips.rocketchip.subsystem.With1TinyCore ++
+  new WithTinyCore ++
   new chipyard.config.AbstractConfig
 )
 
@@ -140,16 +177,14 @@ class FourCoreRocketMemConfig extends Config(
   new freechips.rocketchip.subsystem.WithNSmallCores(4) ++
   new chipyard.config.AbstractConfig)
 
-
-
 class FourCoreRocketFastConfig extends Config(
   new freechips.rocketchip.subsystem.WithCoherentBusTopology ++
   new WithRocketDCacheScratchpad ++
   new testchipip.WithSbusScratchpad(
       base=0x70000000L,
-      size = (1 << 10) * 256L,
+      size = (1 << 10) * 128L,
       banks=1) ++
-  new WithFastICores(8) ++
+  new WithFastICores(4) ++
   new chipyard.config.AbstractConfig)
 
 // These config is used for core evaluation
