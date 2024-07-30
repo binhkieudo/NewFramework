@@ -149,6 +149,9 @@ class JTAGDebugVCU118PlacedOverlay(val shell: VCU118ShellCustomOverlays, name: S
   extends JTAGDebugXilinxPlacedOverlay(name, designInput, shellInput)
 {
   shell { InModuleBody {
+    // val pin_locations = Seq("N28", "M30", "N30", "P30", "P29")
+    // val pins      = Seq(io.jtag_TDI, io.jtag_TMS, io.jtag_TCK, io.jtag_TDO, io.srst_n)
+
     val pin_locations = Seq("AV15", "AY14", "AY15", "AW15", "N28")
     val pins      = Seq(io.jtag_TCK, io.jtag_TMS, io.jtag_TDI, io.jtag_TDO, io.srst_n)
 
@@ -179,12 +182,22 @@ class SDIOVCU118PlacedOverlay(val shell: VCU118ShellCustomOverlays, name: String
   extends SDIOXilinxPlacedOverlay(name, designInput, shellInput)
 {
   shell { InModuleBody {
-    val packagePinsWithPackageIOs = Seq(("AV16", IOPin(io.spi_clk)),
-      ("AU16", IOPin(io.spi_cs)),
-      ("AT15", IOPin(io.spi_dat(0))),
-      ("M30", IOPin(io.spi_dat(1))),
-      ("N30", IOPin(io.spi_dat(2))),
-      ("AT16", IOPin(io.spi_dat(3))))
+    // val packagePinsWithPackageIOs = Seq(
+    //   ("AV15", IOPin(io.spi_clk)),    // 4
+    //   ("AY15", IOPin(io.spi_cs)),     // 2
+    //   ("AW15", IOPin(io.spi_dat(0))), // 3
+    //   ("AV16", IOPin(io.spi_dat(1))), // 7
+    //   ("AU16", IOPin(io.spi_dat(2))), // 8
+    //   ("AY14", IOPin(io.spi_dat(3)))) // 1
+
+    val packagePinsWithPackageIOs = Seq(
+        ("AV16", IOPin(io.spi_dat(3))),
+        ("AU16", IOPin(io.spi_cs)),
+        ("AT15", IOPin(io.spi_dat(0))),
+        ("AT16", IOPin(io.spi_clk)),
+        ("M30", IOPin(io.spi_dat(1))),
+        ("N30", IOPin(io.spi_dat(2)))
+      )
 
     packagePinsWithPackageIOs foreach { case (pin, io) => {
       shell.xdc.addPackagePin(io, pin)

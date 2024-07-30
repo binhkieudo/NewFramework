@@ -32,10 +32,38 @@ _hart2_clear:
   amoswap.w t1, t1, (t0)
   j _exit
 _hart3_clear:
+  li s1, 3
+  bne s0, s1, _hart4_clear
   li t0, (CLINT_CTRL_ADDR + CLINT_MSIP3)
   li t1, 0
   amoswap.w t1, t1, (t0)
   j _exit
+_hart4_clear:
+  li s1, 4
+  bne s0, s1, _hart5_clear
+  li t0, (CLINT_CTRL_ADDR + CLINT_MSIP4)
+  li t1, 0
+  amoswap.w t1, t1, (t0)
+  j _exit
+_hart5_clear:
+  li s1, 5
+  bne s0, s1, _hart6_clear
+  li t0, (CLINT_CTRL_ADDR + CLINT_MSIP5)
+  li t1, 0
+  amoswap.w t1, t1, (t0)
+  j _exit
+_hart6_clear:
+  li s1, 6
+  bne s0, s1, _hart7_clear
+  li t0, (CLINT_CTRL_ADDR + CLINT_MSIP6)
+  li t1, 0
+  amoswap.w t1, t1, (t0)
+  j _exit
+_hart7_clear:
+  li t0, (CLINT_CTRL_ADDR + CLINT_MSIP7)
+  li t1, 0
+  amoswap.w t1, t1, (t0)
+  j _exit  
 _boot: // only perform by hart0
   li sp, (CORE0_PRIVATE_MEM + 0xFF0)
   csrr a0, mhartid
@@ -48,6 +76,18 @@ _boot: // only perform by hart0
   li t1, 1
   amoswap.w t1, t1, (t0)
   li t0, (CLINT_CTRL_ADDR + CLINT_MSIP3)
+  li t1, 1
+  amoswap.w t1, t1, (t0)
+  li t0, (CLINT_CTRL_ADDR + CLINT_MSIP4)
+  li t1, 1
+  amoswap.w t1, t1, (t0)
+  li t0, (CLINT_CTRL_ADDR + CLINT_MSIP5)
+  li t1, 1
+  amoswap.w t1, t1, (t0)
+  li t0, (CLINT_CTRL_ADDR + CLINT_MSIP6)
+  li t1, 1
+  amoswap.w t1, t1, (t0)
+  li t0, (CLINT_CTRL_ADDR + CLINT_MSIP7)
   li t1, 1
   amoswap.w t1, t1, (t0)
 _exit:

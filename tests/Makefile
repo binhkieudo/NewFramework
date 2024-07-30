@@ -17,11 +17,11 @@ SIZE = $(PREFIX)size
 #################################
 
 # SoC Settings
-ARCH = rv64imafd
+ARCH = rv64gc
 ABI = lp64d
 ARCHFLAGS = -march=$(ARCH) -mabi=$(ABI)
 
-CFLAGS  = -std=gnu99 -O0 -fno-common -fno-builtin-printf -Wall -Wno-unused-but-set-variable
+CFLAGS  = -std=gnu11 -O2 -fno-common -fno-builtin-printf -Wall -Wno-unused-but-set-variable
 CFLAGS += $(ARCHFLAGS)
 LDFLAGS = -static
 

@@ -19,7 +19,7 @@ void kputs(const char *s)
 	kputc('\n');
 }
 
-void kprintf(const char *fmt, ...)
+void mprintf(const char *fmt, ...)
 {
 	va_list vl;
 	bool is_format, is_long, is_char;

@@ -95,7 +95,7 @@ class WithVCU118Tweaks(FreqMHz: Double = 100.0) extends Config(
     new WithoutTLMonitors
 )
 
-class WithVCU118SerialMemTweaks (FreqMhz: Double = 150.0) extends Config (
+class WithVCU118SerialMemTweaks (FreqMhz: Double = 100.0) extends Config (
   // clocking
   new chipyard.harness.WithAllClocksFromHarnessClockInstantiator ++
     new chipyard.clocking.WithPassthroughClockGenerator ++
@@ -117,7 +117,7 @@ class WithVCU118SerialMemTweaks (FreqMhz: Double = 150.0) extends Config (
     new testchipip.WithSerialTLWidth(32) ++
     new testchipip.WithSerialTLMem(
       base = BigInt(0x80000000L),
-      size = BigInt((1 << 10) * 128L),
+      size = BigInt((1 << 10) * 256L),
       isMainMemory=true) ++
     new testchipip.WithSerialTLBackingMemory ++
     new freechips.rocketchip.subsystem.WithoutTLMonitors

@@ -1,5 +1,9 @@
 // See LICENSE.Sifive for license details.
 #include <stdint.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+#include <riscv-pk/encoding.h>
 
 #include <platform.h>
 
@@ -80,7 +84,7 @@ static inline void sd_cmd_end(void)
 static void sd_poweron(void)
 {
 	long i;
-	REG32(spi, SPI_REG_SCKDIV) = (F_CLK / 300000UL);
+	REG32(spi, SPI_REG_SCKDIV) = (F_CLK / 500000UL);
 	REG32(spi, SPI_REG_CSMODE) = SPI_CSMODE_OFF;
 	for (i = 10; i > 0; i--) {
 		sd_dummy();
@@ -183,7 +187,7 @@ static int copy(void)
 
 	// TODO: Speed up SPI freq. (breaks between these two values)
 	//REG32(spi, SPI_REG_SCKDIV) = (F_CLK / 16666666UL);
-	REG32(spi, SPI_REG_SCKDIV) = (F_CLK / 5000000UL);
+	REG32(spi, SPI_REG_SCKDIV) = (F_CLK / 500000UL);
 	// Read multiple block 8'b0101_0010
 	if (sd_cmd(0x52, BBL_PARTITION_START_SECTOR, 0x51) != 0x00) {
 		sd_cmd_end();
@@ -225,9 +229,11 @@ static int copy(void)
 	return rc;
 }
 
-int main(int mhartid, char** dump)
+int main(int argc, char** dump)
 {
 	REG32(uart, UART_REG_TXCTRL) = UART_TXEN;
+
+	int mhartid = read_csr(mhartid);
 
 	if (mhartid == 0) {
 		kputs("");

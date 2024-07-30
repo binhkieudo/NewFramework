@@ -33,8 +33,21 @@ void kprintf(const char *fmt, ...)
 		if (is_format) {
 			switch (c) {
 			case 'l':
-				is_long = true;
-				continue;
+				unsigned long n;
+				n = va_arg(vl, unsigned long);
+				char c[64];
+				for (int i = 0; i < 64; i ++) c[i] = 0;
+				if (n == 0) {
+					kputc ('0');
+					break;
+				}
+				for (;n != 0;) {
+					for (int i = 63; i > 0; i--) c[i] = c[i-1];
+					c[0] = '0' + (n%10);
+					n = n / 10;
+				}
+				for (int i = 0; c[i] != 0; i++) kputc(c[i]);
+				break;
 			case 'h':
 				is_char = true;
 				continue;

@@ -119,12 +119,10 @@ class WithVC707SerialMemTweaks extends Config (
   // Clock configs
   new chipyard.harness.WithAllClocksFromHarnessClockInstantiator ++
     new chipyard.clocking.WithPassthroughClockGenerator ++
-    new chipyard.config.WithMemoryBusFrequency(50.0) ++
-    new chipyard.config.WithSystemBusFrequency(50.0) ++
-    new chipyard.config.WithPeripheryBusFrequency(50.0) ++
-    new chipyard.harness.WithHarnessBinderClockFreqMHz(50) ++
-    new chipyard.config.WithPeripheryBusFrequency(50) ++
-    new chipyard.config.WithMemoryBusFrequency(50) ++
+    new chipyard.config.WithMemoryBusFrequency(100.0) ++
+    new chipyard.config.WithSystemBusFrequency(100.0) ++
+    new chipyard.config.WithPeripheryBusFrequency(100.0) ++
+    new chipyard.harness.WithHarnessBinderClockFreqMHz(100) ++
     // Harness Binder
     new WithVC707UARTHarnessBinder ++
     new WithVC707SPISDCardHarnessBinder ++
@@ -137,7 +135,6 @@ class WithVC707SerialMemTweaks extends Config (
     new WithGPIOIOPassthrough ++
     // Other configurations
     new WithDefaultPeripherals ++
-    new WithNoCustomBootPin ++
     new WithSystemModifications ++
     new testchipip.WithSerialTLWidth(8) ++
     new testchipip.WithSerialTLMem(
@@ -151,32 +148,32 @@ class WithVC707SerialMemTweaks extends Config (
 class WithVC707MTSerialMemTweaks extends Config (
   // Clock configs
   new chipyard.harness.WithAllClocksFromHarnessClockInstantiator ++
-    new chipyard.clocking.WithPassthroughClockGenerator ++
-    new chipyard.config.WithMemoryBusFrequency(100.0) ++
-    new chipyard.config.WithSystemBusFrequency(100.0) ++
-    new chipyard.config.WithPeripheryBusFrequency(100.0) ++
-    new chipyard.harness.WithHarnessBinderClockFreqMHz(100.0) ++
-    // Harness Binder
-    new WithVC707UARTHarnessBinder ++
-    new WithVC707SPISDCardHarnessBinder ++
-    new WithVC707JTAGHarnessBinder ++
-    new WithVC707GPIOHarnessBinder ++
-    new WithTSITieoff ++
-    // IO Binders
-    new WithUARTIOPassthrough ++
-    new WithSPIIOPassthrough ++
-    new WithGPIOIOPassthrough ++
-    // Other configurations
-    new WithDefaultPeripherals ++
-    new WithNoCustomBootPin ++
-    new WithMTSystemModifications ++
-    new testchipip.WithSerialTLWidth(8) ++
-    new testchipip.WithSerialTLMem(
-      base = BigInt(0x80000000L),
-      size = BigInt((1 << 10) * 4L),
-      isMainMemory=true) ++
-    new testchipip.WithSerialTLBackingMemory ++
-    new freechips.rocketchip.subsystem.WithoutTLMonitors
+  new chipyard.clocking.WithPassthroughClockGenerator ++
+  new chipyard.config.WithMemoryBusFrequency(100.0) ++
+  new chipyard.config.WithSystemBusFrequency(100.0) ++
+  new chipyard.config.WithPeripheryBusFrequency(100.0) ++
+  new chipyard.harness.WithHarnessBinderClockFreqMHz(100.0) ++
+  // Harness Binder
+  new WithVC707UARTHarnessBinder ++
+  new WithVC707SPISDCardHarnessBinder ++
+  new WithVC707JTAGHarnessBinder ++
+  new WithVC707GPIOHarnessBinder ++
+  new WithTSITieoff ++
+  // IO Binders
+  new WithUARTIOPassthrough ++
+  new WithSPIIOPassthrough ++
+  new WithGPIOIOPassthrough ++
+  // Other configurations
+  new WithDefaultPeripherals ++
+  new WithNoCustomBootPin ++
+  new WithMTSystemModifications ++
+  new testchipip.WithSerialTLWidth(8) ++
+  new testchipip.WithSerialTLMem(
+    base = BigInt(0x80000000L),
+    size = BigInt((1 << 10) * 128L),
+    isMainMemory=true) ++
+  new testchipip.WithSerialTLBackingMemory ++
+  new freechips.rocketchip.subsystem.WithoutTLMonitors
 )
 
 class WithVC707MTOptimizedMemTweaks(freqMHz: Double = 100.0) extends Config (
@@ -250,8 +247,7 @@ class SmallRocketMCDDRVC707Config extends Config(
 
 class SmallRocketMTSerialMemVC707Config extends Config(
   new WithVC707MTSerialMemTweaks ++
-  new chipyard.config.WithBroadcastManager ++ // no l2
-  new chipyard.MultiRocketConfig)
+  new chipyard.FourCoreRocketFastConfig)
 
 class SmallRocketMTOptimizedMemVC707Config extends Config(
   new WithVC707MTOptimizedMemTweaks (100) ++

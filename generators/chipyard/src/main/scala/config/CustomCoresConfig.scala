@@ -18,15 +18,38 @@ class WithFastICores(
   overrideIdOffset: Option[Int] = None,
   crossing: RocketCrossingParams = RocketCrossingParams()
 ) extends Config((site, here, up) => {
-  case XLen => 32
+  case XLen => 64
   case TilesLocated(InSubsystem) => {
     val prev = up(TilesLocated(InSubsystem), site)
     val idOffset = overrideIdOffset.getOrElse(prev.size)
-    val med = RocketTileParams(
+    val corefull = RocketTileParams(
       core = RocketCoreParams(
-        // fpu = Some(FPUParams(
-        //   divSqrt = false
-        // )),
+        fpu = Some(FPUParams(
+          divSqrt = false
+        )),
+        mulDiv = Some(MulDivParams(
+          mulUnroll = 32,
+          mulEarlyOut = true,
+          divEarlyOut = true))
+      ),
+      btb = None,
+      dcache = Some(DCacheParams(
+        rowBits = site(SystemBusKey).beatBits,
+        nSets = 64,
+        nWays = 1,
+        nTLBSets = 1,
+        nTLBWays = 4,
+        nMSHRs = 0,
+        blockBytes = site(CacheBlockBytes))),
+      icache = Some(ICacheParams(
+        rowBits = site(SystemBusKey).beatBits,
+        nSets = 64,
+        nWays = 1,
+        nTLBSets = 1,
+        nTLBWays = 4,
+        blockBytes = site(CacheBlockBytes))))
+    val corehalf = RocketTileParams(
+      core = RocketCoreParams(
         fpu = None,
         mulDiv = Some(MulDivParams(
           mulUnroll = 32,
@@ -49,10 +72,12 @@ class WithFastICores(
         nTLBSets = 1,
         nTLBWays = 4,
         blockBytes = site(CacheBlockBytes))))
-    List.tabulate(n)(i => RocketTileAttachParams(
-      med.copy(hartId = i + idOffset),
-      crossing
-    )) ++ prev
+    List.tabulate(n)(i => 
+      if (i == 0)
+        RocketTileAttachParams( corefull.copy(hartId = i + idOffset), crossing)
+      else
+        RocketTileAttachParams( corehalf.copy(hartId = i + idOffset), crossing)
+    ) ++ prev
   }
 })
 
@@ -164,19 +189,6 @@ class TinyRocketConig extends Config(
   new chipyard.config.AbstractConfig
 )
 
-class FourCoreRocketMemConfig extends Config(
-  new freechips.rocketchip.subsystem.WithNBanks(0) ++             // remove L2$
-  new freechips.rocketchip.subsystem.WithNoMemPort ++             // remove backing memory
-  new freechips.rocketchip.subsystem.WithCoherentBusTopology ++
-    new WithRocketDCacheScratchpad ++
-    new testchipip.WithSbusScratchpad(
-      base=0x80000000L,
-      size = (1 << 10) * 32L,
-      banks=1) ++
-  new freechips.rocketchip.subsystem.WithRV32 ++
-  new freechips.rocketchip.subsystem.WithNSmallCores(4) ++
-  new chipyard.config.AbstractConfig)
-
 class FourCoreRocketFastConfig extends Config(
   new freechips.rocketchip.subsystem.WithCoherentBusTopology ++
   new WithRocketDCacheScratchpad ++
@@ -184,7 +196,7 @@ class FourCoreRocketFastConfig extends Config(
       base=0x70000000L,
       size = (1 << 10) * 128L,
       banks=1) ++
-  new WithFastICores(4) ++
+  new WithFastICores(8) ++
   new chipyard.config.AbstractConfig)
 
 // These config is used for core evaluation

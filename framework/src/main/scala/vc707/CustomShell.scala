@@ -15,8 +15,6 @@ abstract class VC707ShellCustomOverlays()(implicit p: Parameters) extends Series
 
   // Peripheries
   val ddr       = Overlay(DDROverlayKey, new DDRVC707ShellPlacer(this, DDRShellInput()))
-  val led       = Seq.tabulate(8)(i => Overlay(LEDOverlayKey, new LEDVC707ShellPlacer(this,
-    LEDShellInput(color = "red", number = i))(valName = ValName(s"led_$i"))))
   val jtag      = Overlay(JTAGDebugOverlayKey, new JTAGDebugVC707ShellPlacer(this, JTAGDebugShellInput()))
   val uart      = Overlay(UARTOverlayKey, new UARTVC707ShellPlacer(this, UARTShellInput()))
   val sdio      = Overlay(SPIOverlayKey, new SDIOVC707ShellPlacer(this, SPIShellInput()))

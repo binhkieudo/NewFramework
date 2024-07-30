@@ -112,11 +112,12 @@ class JTAGDebugVC707PlacedOverlay(val shell: VC707ShellCustomOverlays, name: Str
     shell.sdc.addClock("JTCK", IOPin(io.jtag_TCK), 10)
     shell.sdc.addGroup(clocks = Seq("JTCK"))
     shell.xdc.clockDedicatedRouteFalse(IOPin(io.jtag_TCK))
-    val packagePinsWithPackageIOs = Seq(("AR38", IOPin(io.jtag_TCK)),
+    val packagePinsWithPackageIOs = Seq(
+      ("AN40", IOPin(io.jtag_TDI)),
       ("AR39", IOPin(io.jtag_TMS)),
-      ("AT42", IOPin(io.jtag_TDI)),
-      ("AR42", IOPin(io.srst_n)),
-      ("AN40", IOPin(io.jtag_TDO)))
+      ("AR38", IOPin(io.jtag_TCK)),
+      ("AT42", IOPin(io.jtag_TDO)),
+      ("AR42", IOPin(io.srst_n)))
     packagePinsWithPackageIOs foreach { case (pin, io) => {
       shell.xdc.addPackagePin(io, pin)
       shell.xdc.addIOStandard(io, "LVCMOS18")
@@ -136,7 +137,8 @@ class SDIOVC707PlacedOverlay(val shell: VC707ShellCustomOverlays, name: String, 
   extends SDIOXilinxPlacedOverlay(name, designInput, shellInput)
 {
   shell { InModuleBody {
-    val packagePinsWithPackageIOs = Seq(("AN30", IOPin(io.spi_clk)),
+    val packagePinsWithPackageIOs = Seq(
+      ("AN30", IOPin(io.spi_clk)),
       ("AP30", IOPin(io.spi_cs)),
       ("AR30", IOPin(io.spi_dat(0))),
       ("AU31", IOPin(io.spi_dat(1))),

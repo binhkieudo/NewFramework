@@ -4,6 +4,7 @@
 
 #include "include/platform.h"
 #include <stdint.h>
+#include <stdio.h>
 
 #define REG32(p, i)	((p)[(i) >> 2])
 
@@ -36,7 +37,7 @@ static inline void kputc(char c)
 }
 
 extern void kputs(const char *);
-extern void kprintf(const char *, ...);
+extern void mprintf(const char *, ...);
 
 #ifdef DEBUG
 #define dprintf(s, ...)	kprintf((s), ##__VA_ARGS__)

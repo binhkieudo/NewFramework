@@ -9,6 +9,11 @@
 #define CLINT_MSIP1         0x0004
 #define CLINT_MSIP2         0x0008
 #define CLINT_MSIP3         0x000c
+#define CLINT_MSIP4         0x0010
+#define CLINT_MSIP5         0x0014
+#define CLINT_MSIP6         0x0018
+#define CLINT_MSIP7         0x001c
+
 #define CLINT_MSIP_size     0x4
 #define CLINT_MTIMECMP      0x4000
 #define CLINT_MTIMECMP_size 0x8

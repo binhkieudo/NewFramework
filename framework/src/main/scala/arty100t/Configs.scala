@@ -134,5 +134,5 @@ class SmallRocketArty100TConfig extends Config(
 class Rocket4Arty100TConfig extends Config(
   new WithTinyArty100TTweaks ++
   new chipyard.config.WithBroadcastManager ++
-  new chipyard.FourCoreRocketMemConfig
+  new chipyard.FourCoreRocketFastConfig
 )
