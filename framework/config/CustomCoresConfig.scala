@@ -1,1 +1,1 @@
-/home/binhkieudo/Workspace/NewFramework/generators/chipyard/src/main/scala/config/CustomCoresConfig.scala
+/home/binhkieudo/Workspace/tmp/NewFramework/generators/chipyard/src/main/scala/config/CustomCoresConfig.scala
