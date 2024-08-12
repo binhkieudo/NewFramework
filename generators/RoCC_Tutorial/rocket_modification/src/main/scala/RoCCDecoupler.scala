@@ -20,46 +20,43 @@ class RoCCDecouplerIO (xLen: Int = 64)(implicit p: Parameters) extends Bundle{
 class RoCCDecoupler (xLen: Int = 64)(implicit p: Parameters) extends Module {
   val io = IO(new RoCCDecouplerIO())
 
+  val opcode = io.rocc_io.cmd.bits.inst.opcode
+  val address = 
+    if (opcode == 0x2b) io.rocc_io.cmd.bits.rs3
+    else io.rocc_io.cmd.bits.rs1
   // Process cmd
+  io.controller_io.rocc_req_addr    := io.rocc_io.cmd.bits.rs3
+  io.controller_io.rocc_req_wrdata  := io.rocc_io.cmd.bits.rs1
+  io.controller_io.rocc_req_rd      := io.rocc_io.cmd.bits.inst.rd
   io.controller_io.rocc_req_cmd     := io.rocc_io.cmd.bits.inst.opcode
   io.controller_io.rocc_req_valid   := io.rocc_io.cmd.valid
+  io.rocc_io.cmd.ready              := io.controller_io.rocc_req_ready
 
-  val cmd_rd  = RegNext(io.rocc_io.cmd.bits.inst.rd)
-  val cmd_vld = RegNext(io.rocc_io.cmd.valid)
   // Process response
-  io.rocc_io.cmd.ready      := true.B
-  io.rocc_io.resp.bits.rd   := cmd_rd
-  io.rocc_io.resp.bits.data := 0.U
-  io.rocc_io.resp.valid     := cmd_vld
+  io.rocc_io.resp.bits.rd   := io.controller_io.rocc_resp_rd
+  io.rocc_io.resp.bits.data := io.controller_io.rocc_resp_data
+  io.rocc_io.resp.valid     := io.controller_io.rocc_resp_valid
 
-  val mem_vld = RegNext(io.rocc_io.mem.req.ready)
-
-  // Cache request
-  io.rocc_io.mem.req.valid          := mem_vld && io.controller_io.mem_resp_valid
-  io.rocc_io.mem.req.bits.addr      := "h00800044D8".U
-  io.rocc_io.mem.req.bits.tag       := "h0B".U
-  io.rocc_io.mem.req.bits.cmd       := M_XRD
-  io.rocc_io.mem.req.bits.size      := "b11".U
-  io.rocc_io.mem.req.bits.data      := 0.U
-  io.rocc_io.mem.req.bits.mask      := 0.U
-  // Cache response
-  io.controller_io.mem_req_wrdata  := io.rocc_io.mem.resp.bits.data
-  io.controller_io.mem_req_datavld := io.rocc_io.mem.resp.valid
-  io.controller_io.mem_req_valid   := io.rocc_io.mem.req.ready
-
-  // Disable specific request features
+  // Disable memory request
+  io.rocc_io.mem.req.valid          := false.B
+  io.rocc_io.mem.req.bits.addr      := 0.U
+  io.rocc_io.mem.req.bits.tag       := 0.U
+  io.rocc_io.mem.req.bits.cmd       := 0.U
+  io.rocc_io.mem.req.bits.size      := 0.U
   io.rocc_io.mem.req.bits.signed    := false.B
-  io.rocc_io.mem.req.bits.dprv      := "b11".U
+  io.rocc_io.mem.req.bits.dprv      := 0.U
   io.rocc_io.mem.req.bits.dv        := false.B
   io.rocc_io.mem.req.bits.phys      := false.B
   io.rocc_io.mem.req.bits.no_alloc  := false.B
   io.rocc_io.mem.req.bits.no_xcpt   := false.B
+  io.rocc_io.mem.req.bits.data      := 0.U
+  io.rocc_io.mem.req.bits.mask      := 0.U
   // Memory response
   io.rocc_io.mem.s1_kill            := false.B
   io.rocc_io.mem.s1_data.data       := 0.U
   io.rocc_io.mem.s1_data.mask       := 0.U
   io.rocc_io.mem.s2_kill            := false.B
-  io.rocc_io.mem.keep_clock_enabled := false.B
+  io.rocc_io.mem.keep_clock_enabled := true.B
 
   // Set the other flags
   io.rocc_io.busy       := false.B

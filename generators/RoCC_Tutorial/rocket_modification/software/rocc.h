@@ -26,18 +26,27 @@
   (rs2                << (7+5+3+5))     |             \
   (EXTRACT(funct, 7, 0) << (7+5+3+5+5))
 
-// Standard macro that passes rd, rs1, and rs2 via registers
-#define ROCC_INSTRUCTION_DSS(X, rd, rs1, rs2, funct) \
-	ROCC_INSTRUCTION_R_R_R(X, rd, rs1, rs2, funct, 10, 11, 12)
+#define CUSTOMM(X, funct5, funct3, rs1, rs2, funct2, rs3) \
+  CUSTOMX_OPCODE(X)                     |             \
+  (funct5             << (7))           |             \
+  (funct3             << (7+5))         |             \
+  (rs1                << (7+5+3))       |             \
+  (rs2                << (7+5+3+5))     |             \
+  (funct2             << (7+5+3+5+5))   |             \
+  (EXTRACT(rs3, 5, 0) << (7+5+3+5+5+2))
 
-#define ROCC_INSTRUCTION_DS(X, rd, rs1, funct) \
-	ROCC_INSTRUCTION_R_R_I(X, rd, rs1, 0, funct, 10, 11)
+// Standard macro that passes rd, rs1, and rs2 via registers
+#define ROCC_INSTRUCTION_DS(X, rd, rs3) \
+	ROCC_INSTRUCTION_R_R_I(X, rd, rs3, 0, 10, 11)
 
 #define ROCC_INSTRUCTION_D(X, rd, funct) \
 	ROCC_INSTRUCTION_R_I_I(X, rd, 0, 0, funct, 10)
 
 #define ROCC_INSTRUCTION_SS(X, rs1, rs2, funct) \
 	ROCC_INSTRUCTION_I_R_R(X, 0, rs1, rs2, funct, 11, 12)
+
+#define ROCC_INSTRUCTION_SSS(rs1, rs2, rs3) \
+	ROCC_INSTRUCTION_R_R_R(1, rs1, rs2, rs3, 7, 0, 0, 10, 11, 12)
 
 #define ROCC_INSTRUCTION_S(X, rs1, funct) \
 	ROCC_INSTRUCTION_I_R_I(X, 0, rs1, 0, funct, 11)
@@ -47,23 +56,21 @@
 
 // rd, rs1, and rs2 are data
 // rd_n, rs_1, and rs2_n are the register numbers to use
-#define ROCC_INSTRUCTION_R_R_R(X, rd, rs1, rs2, funct, rd_n, rs1_n, rs2_n) { \
-    register uint64_t rd_  asm ("x" # rd_n);                                 \
+#define ROCC_INSTRUCTION_R_R_R(X, rs1, rs2, rs3, funct3, funct2, funct5, rs1_n, rs2_n, rs3_n) { \
+    register uint64_t rs3_ asm ("x" # rs3_n) = (uint64_t) rs3;               \
     register uint64_t rs1_ asm ("x" # rs1_n) = (uint64_t) rs1;               \
     register uint64_t rs2_ asm ("x" # rs2_n) = (uint64_t) rs2;               \
     asm volatile (                                                           \
-        ".word " STR(CUSTOMX(X, 1, 1, 1, rd_n, rs1_n, rs2_n, funct)) "\n\t"  \
-        : "=r" (rd_)                                                         \
-        : [_rs1] "r" (rs1_), [_rs2] "r" (rs2_));                             \
-    rd = rd_;                                                                \
+        ".word " STR(CUSTOMM(X, funct5, funct3, rs1_n, rs2_n, funct2, rs3_n)) "\n\t"  \
+        :: [_rs1] "r" (rs1_), [_rs2] "r" (rs2_), [_rs3] "r" (rs3_));          \
   }
 
-#define ROCC_INSTRUCTION_R_R_I(X, rd, rs1, rs2, funct, rd_n, rs1_n) {     \
+#define ROCC_INSTRUCTION_R_R_I(X, rd, rs3, funct, rd_n, rs3_n) {     \
     register uint64_t rd_  asm ("x" # rd_n);                              \
-    register uint64_t rs1_ asm ("x" # rs1_n) = (uint64_t) rs1;            \
+    register uint64_t rs3_ asm ("x" # rs3_n) = (uint64_t) rs3;            \
     asm volatile (                                                        \
-        ".word " STR(CUSTOMX(X, 1, 1, 0, rd_n, rs1_n, rs2, funct)) "\n\t" \
-        : "=r" (rd_) : [_rs1] "r" (rs1_));                                \
+        ".word " STR(CUSTOMM(X, rd_n, 6, 0, 0, 0, rs3_n)) "\n\t" \
+        : "=r" (rd_) : [_rs1] "r" (rs3_));                                \
     rd = rd_;                                                             \
   }
 
@@ -94,5 +101,6 @@
     asm volatile (                                                       \
         ".word " STR(CUSTOMX(X, 0, 0, 0, rd, rs1, rs2, funct)) "\n\t" ); \
   }
+
 
 #endif  // SRC_MAIN_C_ACCUMULATOR_H
