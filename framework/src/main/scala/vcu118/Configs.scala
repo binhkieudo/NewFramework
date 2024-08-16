@@ -114,7 +114,7 @@ class WithVCU118SerialMemTweaks (FreqMhz: Double = 100.0) extends Config (
     // other configuration
     new WithDefaultPeripherals ++
     new WithSystemModifications ++
-    new testchipip.WithSerialTLWidth(32) ++
+    new testchipip.WithSerialTLWidth(8) ++
     new testchipip.WithSerialTLMem(
       base = BigInt(0x80000000L),
       size = BigInt((1 << 10) * 256L),
@@ -139,3 +139,8 @@ class FourCoreRocketDDRVCU118Config extends Config(
 class FourCoreRocketSerialVCU118Config extends Config(
   new WithVCU118SerialMemTweaks ++
   new chipyard.FourCoreRocketFastConfig)
+
+class FourCorePrivateChannelConfig extends Config(
+  new WithVCU118SerialMemTweaks ++
+  new chipyard.config.WithBroadcastManager ++ // no l2
+  new chipyard.FourCoreWithPNConfig)

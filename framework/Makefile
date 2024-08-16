@@ -14,7 +14,7 @@ sim_name := none
 #########################################################################################
 # include shared variables
 #########################################################################################
-SUB_PROJECT ?= vcu118_MCRocket_Serial
+SUB_PROJECT ?= vcu118_Final
 
 #########################################################################################
 # Arty configuration
@@ -282,6 +282,21 @@ ifeq ($(SUB_PROJECT),vcu118_MCRocket_Serial)
 	BOARD             ?= vcu118
 	FPGA_BRAND        ?= xilinx
 endif
+
+ifeq ($(SUB_PROJECT),vcu118_Final)
+	SBT_PROJECT       ?= framework
+	MODEL             ?= VCU118woDDRHarness
+	VLOG_MODEL        ?= VCU118woDDRHarness
+	MODEL_PACKAGE     ?= framework.fpga.vcu118
+	CONFIG            ?= FourCorePrivateChannelConfig
+	CONFIG_PACKAGE    ?= framework.fpga.vcu118
+	GENERATOR_PACKAGE ?= chipyard
+	TB                ?= none # unused
+	TOP               ?= ChipTop
+	BOARD             ?= vcu118
+	FPGA_BRAND        ?= xilinx
+endif
+
 ################### End my configurations #################################################
 
 include $(base_dir)/variables.mk

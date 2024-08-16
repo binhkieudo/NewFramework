@@ -194,9 +194,24 @@ class FourCoreRocketFastConfig extends Config(
   new WithRocketDCacheScratchpad ++
   new testchipip.WithSbusScratchpad(
       base=0x70000000L,
-      size = (1 << 10) * 128L,
+      size = (1 << 10) * 32L,
       banks=1) ++
-  new WithFastICores(8) ++
+  new WithFastICores(4) ++
+  new chipyard.config.AbstractConfig)
+
+class FourCoreWithPNConfig extends Config(
+  new freechips.rocketchip.subsystem.WithCoherentBusTopology ++
+  new tut_4.WithTut04RoccAccel ++
+  new WithRocketDCacheScratchpad ++
+  new testchipip.WithPbusScratchpad(
+      base=0x60003000L,
+      size = (1 << 10) * 4L,
+      banks=1) ++
+  new testchipip.WithSbusScratchpad(
+      base=0x70000000L,
+      size = (1 << 10) * 32L,
+      banks=1) ++
+  new WithFastICores(4) ++
   new chipyard.config.AbstractConfig)
 
 // These config is used for core evaluation

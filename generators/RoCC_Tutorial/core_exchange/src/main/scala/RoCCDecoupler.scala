@@ -1,9 +1,10 @@
-package tut_3
+package tut_4
 
 import chisel3._
-import freechips.rocketchip.rocket._
 import freechips.rocketchip.tile.RoCCIO
 import org.chipsalliance.cde.config.Parameters
+
+
 
 class RoCCDecouplerIO (xLen: Int = 64)(implicit p: Parameters) extends Bundle{
   // Control signals
@@ -21,10 +22,10 @@ class RoCCDecoupler (xLen: Int = 64)(implicit p: Parameters) extends Module {
   val io = IO(new RoCCDecouplerIO())
 
   // Process cmd
-  io.controller_io.rocc_req_addr    := io.rocc_io.cmd.bits.rs2
   io.controller_io.rocc_req_wrdata  := io.rocc_io.cmd.bits.rs1
   io.controller_io.rocc_req_rd      := io.rocc_io.cmd.bits.inst.rd
   io.controller_io.rocc_req_cmd     := io.rocc_io.cmd.bits.inst.opcode
+  io.controller_io.rocc_req_funct   := io.rocc_io.cmd.bits.inst.funct
   io.controller_io.rocc_req_valid   := io.rocc_io.cmd.valid
   io.rocc_io.cmd.ready              := io.controller_io.rocc_req_ready
 
