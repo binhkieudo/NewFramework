@@ -7,7 +7,7 @@
 _prog_start:
   li s2, 0x8  
   csrw mie, s2
-  li sp, 0x70002ff0
+  li sp, 0x8ffffff0
   csrr a0, mhartid
   call main
   li s1, MEMORY_MEM_ADDR

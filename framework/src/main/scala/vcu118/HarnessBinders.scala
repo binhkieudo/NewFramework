@@ -19,7 +19,6 @@ class WithVCU118UARTHarnessBinder extends OverrideHarnessBinder({
   (system: HasPeripheryUARTModuleImp, th: BaseModule, ports: Seq[UARTPortIO]) => {
     th match {
       case vcu118th: VCU118HarnessImp => vcu118th.vcu118Outer.io_uart_bb.bundle <> ports.head
-      case vcu118th: VCU118woDDRHarnessImp => vcu118th.vcu118Outer.io_uart_bb.bundle <> ports.head
     }
   }
 })
@@ -29,7 +28,6 @@ class WithVCU118SPISDCardHarnessBinder extends OverrideHarnessBinder({
   (system: HasPeripherySPI, th: BaseModule, ports: Seq[SPIPortIO]) => {
     th match {
       case vcu118th: VCU118HarnessImp => vcu118th.vcu118Outer.io_spi_bb.bundle <> ports.head
-      case vcu118th: VCU118woDDRHarnessImp => vcu118th.vcu118Outer.io_spi_bb.bundle <> ports.head
     }
   }
 })
@@ -41,14 +39,6 @@ class WithVCU118JTAGHarnessBinder extends OverrideHarnessBinder({
       case jtagIO: JTAGChipIO =>
         th match {
           case vcu118th: VCU118HarnessImp => {
-            val jtagModule = vcu118th.vcu118Outer.jtagModule
-            jtagModule.TDO.data := jtagIO.TDO
-            jtagModule.TDO.driven := true.B
-            jtagIO.TCK := jtagModule.TCK
-            jtagIO.TMS := jtagModule.TMS
-            jtagIO.TDI := jtagModule.TDI
-          }
-          case vcu118th: VCU118woDDRHarnessImp => {
             val jtagModule = vcu118th.vcu118Outer.jtagModule
             jtagModule.TDO.data := jtagIO.TDO
             jtagModule.TDO.driven := true.B
@@ -77,18 +67,18 @@ class WithVCU118DDRMemHarnessBinder extends OverrideHarnessBinder({
   }
 })
 
-/*** Tie off TSI ***/
-class WithTSITieoff extends OverrideHarnessBinder ({
-  (system: CanHavePeripheryTLSerial, th: BaseModule, ports: Seq[ClockedIO[SerialIO]]) => {
-    th match {
-      case vcu118th: VCU118woDDRHarnessImp => {
-        ports.map({ port =>
-          val bits = port.bits
-          port.clock := vcu118th.harnessBinderClock
-          val ram = TSIHarness.connectRAM(system.serdesser.get, bits, vcu118th.harnessBinderReset)
-          TSIHarness.tieoff(ram.module.io.tsi)
-        })
-      }
-    }
-  }
-})
+// /*** Tie off TSI ***/
+// class WithTSITieoff extends OverrideHarnessBinder ({
+//   (system: CanHavePeripheryTLSerial, th: BaseModule, ports: Seq[ClockedIO[SerialIO]]) => {
+//     th match {
+//       case vcu118th: VCU118woDDRHarnessImp => {
+//         ports.map({ port =>
+//           val bits = port.bits
+//           port.clock := vcu118th.harnessBinderClock
+//           val ram = TSIHarness.connectRAM(system.serdesser.get, bits, vcu118th.harnessBinderReset)
+//           TSIHarness.tieoff(ram.module.io.tsi)
+//         })
+//       }
+//     }
+//   }
+// })

@@ -235,6 +235,8 @@ int main(int argc, char** dump)
 
 	int mhartid = read_csr(mhartid);
 
+	kputs("Hello world from boot room...\r\n");
+
 	if (mhartid == 0) {
 		kputs("");
 		kputs("Core 0: ZERO STAGE BOOT..");

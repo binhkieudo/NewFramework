@@ -50,7 +50,7 @@ class RefClockVCU118ShellPlacer(shell: VCU118ShellCustomOverlays, val shellInput
 /* =============================================================
 ============================ DDR =============================
 ===============================================================*/
-case object VCU118DDRSize extends Field[BigInt](0x40000000L * 2) // 2GB
+case object VCU118DDRSize extends Field[BigInt](0x40000000L << 1) // 2GB
 class DDRVCU118PlacedOverlay(val shell: VCU118ShellCustomOverlays, name: String, val designInput: DDRDesignInput, val shellInput: DDRShellInput)
   extends DDRPlacedOverlay[XilinxVCU118MIGPads](name, designInput, shellInput)
 {
@@ -155,6 +155,9 @@ class JTAGDebugVCU118PlacedOverlay(val shell: VCU118ShellCustomOverlays, name: S
     val pin_locations = Seq("AV15", "AY14", "AY15", "AW15", "N28")
     val pins      = Seq(io.jtag_TCK, io.jtag_TMS, io.jtag_TDI, io.jtag_TDO, io.srst_n)
 
+    // val pin_locations = Seq("L31", "M31", "R29", "P29", "N28")
+    // val pins      = Seq(io.jtag_TCK, io.jtag_TMS, io.jtag_TDI, io.jtag_TDO, io.srst_n)
+
     shell.sdc.addClock("JTCK", IOPin(io.jtag_TCK), 10)
     shell.sdc.addGroup(clocks = Seq("JTCK"))
     shell.xdc.clockDedicatedRouteFalse(IOPin(io.jtag_TCK))
@@ -182,22 +185,22 @@ class SDIOVCU118PlacedOverlay(val shell: VCU118ShellCustomOverlays, name: String
   extends SDIOXilinxPlacedOverlay(name, designInput, shellInput)
 {
   shell { InModuleBody {
-    // val packagePinsWithPackageIOs = Seq(
-    //   ("AV15", IOPin(io.spi_clk)),    // 4
-    //   ("AY15", IOPin(io.spi_cs)),     // 2
-    //   ("AW15", IOPin(io.spi_dat(0))), // 3
-    //   ("AV16", IOPin(io.spi_dat(1))), // 7
-    //   ("AU16", IOPin(io.spi_dat(2))), // 8
-    //   ("AY14", IOPin(io.spi_dat(3)))) // 1
-
     val packagePinsWithPackageIOs = Seq(
-        ("AV16", IOPin(io.spi_dat(3))),
-        ("AU16", IOPin(io.spi_cs)),
-        ("AT15", IOPin(io.spi_dat(0))),
-        ("AT16", IOPin(io.spi_clk)),
-        ("M30", IOPin(io.spi_dat(1))),
-        ("N30", IOPin(io.spi_dat(2)))
-      )
+      ("AV16", IOPin(io.spi_dat(3))), // 1
+      ("AU16", IOPin(io.spi_cs)),     // 2
+      ("AT15", IOPin(io.spi_dat(0))), // 3
+      ("AT16", IOPin(io.spi_clk)),    // 4
+      ("M30", IOPin(io.spi_dat(1))), // 7
+      ("N30", IOPin(io.spi_dat(2)))) // 8
+
+    // val packagePinsWithPackageIOs = Seq(
+    //     ("AY14", IOPin(io.spi_dat(3))),
+    //     ("AY15", IOPin(io.spi_cs)),
+    //     ("AW15", IOPin(io.spi_dat(0))),
+    //     ("AV15", IOPin(io.spi_clk)),
+    //     ("AV16", IOPin(io.spi_dat(1))),
+    //     ("AU16", IOPin(io.spi_dat(2)))
+    //   )
 
     packagePinsWithPackageIOs foreach { case (pin, io) => {
       shell.xdc.addPackagePin(io, pin)

@@ -1,7 +1,0 @@
-verilog xil_defaultlib --include "../../../ipstatic" \
-"../../../../project.gen/sources_1/ip/harnessSysPLL/harnessSysPLL_clk_wiz.v" \
-"../../../../project.gen/sources_1/ip/harnessSysPLL/harnessSysPLL.v" \
-
-verilog xil_defaultlib "glbl.v"
-
-nosort

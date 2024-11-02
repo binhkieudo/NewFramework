@@ -14,8 +14,6 @@ abstract class VCU118ShellCustomOverlays()(implicit p: Parameters) extends Ultra
 
   // Peripheries
   val ddr       = Overlay(DDROverlayKey, new DDRVCU118ShellPlacer(this, DDRShellInput()))
-  val led       = Seq.tabulate(8)(i => Overlay(LEDOverlayKey, new LEDVCU118ShellPlacer(this,
-    LEDShellInput(color = "red", number = i))(valName = ValName(s"led_$i"))))
   val jtag      = Overlay(JTAGDebugOverlayKey, new JTAGDebugVCU118ShellPlacer(this, JTAGDebugShellInput()))
   val uart      = Overlay(UARTOverlayKey, new UARTVCU118ShellPlacer(this, UARTShellInput()))
   val sdio      = Overlay(SPIOverlayKey, new SDIOVCU118ShellPlacer(this, SPIShellInput()))

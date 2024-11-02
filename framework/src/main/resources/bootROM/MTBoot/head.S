@@ -65,9 +65,10 @@ _hart7_clear:
   amoswap.w t1, t1, (t0)
   j _exit  
 _boot: // only perform by hart0
-  li sp, (CORE0_PRIVATE_MEM + 0xFF0)
+  li sp, (MEMORY_MEM_ADDR + 0xffff000)
   csrr a0, mhartid
   call main
+  j _exit
   // After booting, wake other hart from first sleep
   li t0, (CLINT_CTRL_ADDR + CLINT_MSIP1)
   li t1, 1
