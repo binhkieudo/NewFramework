@@ -72,6 +72,8 @@ do
         --skip | -s)
             shift
             SKIP_LIST+=(${1}) ;;
+        --skip-marshal)
+            SKIP_LIST+=(8 9) ;;
         * )
             error "invalid option $1"
             usage 1 ;;
