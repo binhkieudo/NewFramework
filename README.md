@@ -26,6 +26,19 @@ Then install conda-lock for "base" environment
 conda install -n base conda-lock=1.4
 ```
 
+Install additional dependencies
+
+```shell
+sudo apt-get install libguestfs-tools
+```
+
+Add read privileges to the kernel
+
+```shell
+sudo chmod +r /boot/vmlinuz-*
+reboot
+```
+
 ## Build chipyard enviroment
 
 Active coda first
