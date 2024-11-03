@@ -49,7 +49,7 @@ conda activate
 Then build the related tools
 
 ```shell
-echo y | ./build-setup.sh -s 9 -s 8 riscv-tools
+echo y | ./build-setup.sh riscv-tools
 ```
 
 ## Active chipyard environment
