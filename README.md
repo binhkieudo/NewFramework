@@ -106,6 +106,8 @@ by
 rom.array() //++ subsystem.dtb.contents
 ```
 
+(Note: do not remove dtb from BootROM in case you would like to boot linux).
+
 Enter framework folder
 ```shell
 cd framework
