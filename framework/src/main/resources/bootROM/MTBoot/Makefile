@@ -17,7 +17,7 @@ CFLAGS+= -fno-common -g -DENTROPY=0 -DNONSMP_HART=0
 CFLAGS+= -I $(ROOT_DIR)/include -I.
 LFLAGS=-static -nostdlib -L $(ROOT_DIR)/linker -T sdboot.elf.lds
 
-PBUS_CLK ?= 100000000 # default to 1MHz but really should be overridden
+PBUS_CLK ?= 1000000 # default to 1MHz but really should be overridden
 
 default: elf bin dump
 

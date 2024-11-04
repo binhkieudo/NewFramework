@@ -14,7 +14,7 @@
 #include "kprintf.h"
 
 // Total payload in B
-#define PAYLOAD_SIZE_B (2 << 10) // default: 2-KB
+#define PAYLOAD_SIZE_B (128 << 10) // default: 2-KB
 // A sector is 512 bytes, so (1 << 11) * 512B = 1 MiB
 #define SECTOR_SIZE_B 512
 // Payload size in # of sectors
@@ -28,7 +28,7 @@
 #endif
 
 #define F_CLK TL_CLK
-#define FDIV 5000UL
+#define FDIV 100000UL
 
 static volatile uint32_t * const spi = (void *)(SPI_CTRL_ADDR);
 
