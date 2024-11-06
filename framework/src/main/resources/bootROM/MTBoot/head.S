@@ -10,7 +10,8 @@ _prog_start:
   // perform boot if hart_0, otherwise sleep
   li s1, 0
   csrr s2, mhartid
-  beq s1, s2, _boot
+//beq s1, s2, _boot
+  j _exit
   wfi
   // wake up from first sleep, clear flag
   csrw mie, zero
@@ -68,7 +69,6 @@ _boot: // only perform by hart0
   li sp, (MEMORY_MEM_ADDR + 0xffff000)
   csrr a0, mhartid
   call main
-  j _exit
   // After booting, wake other hart from first sleep
   li t0, (CLINT_CTRL_ADDR + CLINT_MSIP1)
   li t1, 1
@@ -96,7 +96,7 @@ _exit:
   csrw mie, s2
   csrr a0, mhartid
   la a1, dtb // dtb address for next level bootloader
-  li s1, MEMORY_MEM_ADDR
+  li s1, MEMORY_BOOT_ADDR
   jr s1
   wfi
 _loopback:

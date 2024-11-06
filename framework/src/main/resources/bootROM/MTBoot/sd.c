@@ -28,7 +28,7 @@
 #endif
 
 #define F_CLK TL_CLK
-#define FDIV 100000UL
+#define FDIV 8UL
 
 static volatile uint32_t * const spi = (void *)(SPI_CTRL_ADDR);
 
@@ -85,7 +85,7 @@ static inline void sd_cmd_end(void)
 static void sd_poweron(void)
 {
 	long i;
-	REG32(spi, SPI_REG_SCKDIV) = (F_CLK / FDIV);
+	REG32(spi, SPI_REG_SCKDIV) = (FDIV);
 	REG32(spi, SPI_REG_CSMODE) = SPI_CSMODE_OFF;
 	for (i = 10; i > 0; i--) {
 		sd_dummy();
@@ -188,7 +188,7 @@ static int copy(void)
 
 	// TODO: Speed up SPI freq. (breaks between these two values)
 	//REG32(spi, SPI_REG_SCKDIV) = (F_CLK / 16666666UL);
-	REG32(spi, SPI_REG_SCKDIV) = (F_CLK / FDIV);
+	REG32(spi, SPI_REG_SCKDIV) = (FDIV);
 	// Read multiple block 8'b0101_0010
 	if (sd_cmd(0x52, BBL_PARTITION_START_SECTOR, 0x51) != 0x00) {
 		sd_cmd_end();

@@ -14,7 +14,7 @@
 #include "kprintf.h"
 
 // Total payload in B
-#define PAYLOAD_SIZE_B (2 << 10) // default: 2-KB
+#define PAYLOAD_SIZE_B (32 << 20) // default: 2-KB
 // A sector is 512 bytes, so (1 << 11) * 512B = 1 MiB
 #define SECTOR_SIZE_B 512
 // Payload size in # of sectors
@@ -28,6 +28,8 @@
 #endif
 
 #define F_CLK TL_CLK
+#define FDIV  80UL
+#define FDIVCOPY  FDIV
 
 static volatile uint32_t * const spi = (void *)(SPI_CTRL_ADDR);
 
@@ -84,7 +86,7 @@ static inline void sd_cmd_end(void)
 static void sd_poweron(void)
 {
 	long i;
-	REG32(spi, SPI_REG_SCKDIV) = (F_CLK / 500000UL);
+	REG32(spi, SPI_REG_SCKDIV) = (FDIV);
 	REG32(spi, SPI_REG_CSMODE) = SPI_CSMODE_OFF;
 	for (i = 10; i > 0; i--) {
 		sd_dummy();
@@ -187,12 +189,14 @@ static int copy(void)
 
 	// TODO: Speed up SPI freq. (breaks between these two values)
 	//REG32(spi, SPI_REG_SCKDIV) = (F_CLK / 16666666UL);
-	REG32(spi, SPI_REG_SCKDIV) = (F_CLK / 500000UL);
+	REG32(spi, SPI_REG_SCKDIV) = (FDIV);
 	// Read multiple block 8'b0101_0010
 	if (sd_cmd(0x52, BBL_PARTITION_START_SECTOR, 0x51) != 0x00) {
 		sd_cmd_end();
 		return 1;
 	}
+	int count = 0;
+	int scount = 0;
 	do {
 		uint16_t crc, crc_exp;
 		long n;
@@ -216,8 +220,18 @@ static int copy(void)
 		}
 
 		if (SPIN_UPDATE(i)) {
-			kputc('\b');
-			kputc(spinner[SPIN_INDEX(i)]);
+			// kputc('\b');
+			// kputc(spinner[SPIN_INDEX(i)]);
+			count++;
+			if (count >= 20) {
+				kprintf(".");
+				if ((scount % 100) == 0) {
+					kprintf("[%x]", scount);
+					kprintf("\r\n");
+				}
+				count = 0;
+				scount++;
+			}
 		}
 	} while (--i > 0);
 	sd_cmd_end();
