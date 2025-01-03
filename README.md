@@ -26,7 +26,8 @@ Note:
 - In this example, all custom instruction opcodes are accepted. You can modify the opcode for multiple accelerators.
 - rs1 is used to store the address of source array.
 - rs2 is used to store the address of destination array.
-- funct7 is used to assign offset.
+- funct7 is used to assign offset. In this example, the offset is 30. You can change it with different values.
+- All DMEM interface controller is written in Verilog ("generators/RoCC_Tutorial/RoCCMem/src/main/resources/vsrc/DMemTop.v"). You can modify this Verilog file for your own design.
 
 ### Simulation
 1. Compile the software in "generators/RoCC_Tutorial/RoCCMem/software"
