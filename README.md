@@ -34,8 +34,7 @@ Note:
 2. Change directory to "sims/verilator", then run:
 
 ```shell
-make -j`nproc` run-binary CONFIG=DMEMRocketConfig BINARY=/home/binhkieudo/Workspace/RoCC_De
-mo/NewFramework/generators/RoCC_Tutorial/RoCCMem/software/main.riscv LOADMEM=1
+make -j`nproc` run-binary CONFIG=DMEMRocketConfig BINARY=<absolute path to NewFramework>/generators/RoCC_Tutorial/RoCCMem/software/main.riscv LOADMEM=1
 ```
 ### Build hardware
 1. Change the directory to "framework"
