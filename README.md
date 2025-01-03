@@ -15,7 +15,7 @@ The template includes:
 
 ### How it works?
 
-1. RoCC Accel. access fetches the source array from memory through DMEM.
+1. RoCC Accel. fetches the source array from memory through DMEM.
 2. RoCC Accel. adds each element in the source array with offset (funct7 in this example).
 3. RoCC Accel. store results to the destination array.
 
