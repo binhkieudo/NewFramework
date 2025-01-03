@@ -54,32 +54,57 @@ class WithDDR extends Config((site, here, up) => {
   case ExtMem => up(ExtMem, site).map(x => x.copy(master = x.master.copy(size = site(ArtyDDRSize)))) // set extmem
 })
 
-class WithArty100TTweaks extends Config(
+// class WithArty100TTweaks extends Config(
+//   // Clock configs
+//   new chipyard.harness.WithAllClocksFromHarnessClockInstantiator ++
+//   new chipyard.harness.WithHarnessBinderClockFreqMHz(50) ++
+//   new chipyard.config.WithMemoryBusFrequency(50.0) ++
+//   new chipyard.config.WithSystemBusFrequency(50.0) ++
+//   new chipyard.config.WithPeripheryBusFrequency(50.0) ++
+//   new chipyard.harness.WithAllClocksFromHarnessClockInstantiator ++
+//   new chipyard.clocking.WithPassthroughClockGenerator ++
+//   // Harness Binder
+//   new WithArty100TUART ++
+//   new WithArty100TDDRTL ++
+//   new WithArty100TJTAG ++
+//   // Peripheris
+//   new WithUART ++
+//   new WithDebug ++
+//   new WithDTS ++
+//   new WithDDR ++
+//   // Other configurations
+//   new WithNoDesignKey ++
+//   new WithNoSerialTL ++
+//   new WithSimpleBootROM ++
+//   new chipyard.config.WithTLBackingMemory ++ // FPGA-shells converts the AXI to TL for us
+//   new freechips.rocketchip.subsystem.WithoutTLMonitors)
+
+class WithArty100TTinyTweaks extends Config(
   // Clock configs
   new chipyard.harness.WithAllClocksFromHarnessClockInstantiator ++
   new chipyard.harness.WithHarnessBinderClockFreqMHz(50) ++
-  new chipyard.config.WithMemoryBusFrequency(50.0) ++
   new chipyard.config.WithSystemBusFrequency(50.0) ++
   new chipyard.config.WithPeripheryBusFrequency(50.0) ++
-  new chipyard.harness.WithAllClocksFromHarnessClockInstantiator ++
   new chipyard.clocking.WithPassthroughClockGenerator ++
   // Harness Binder
   new WithArty100TUART ++
-  new WithArty100TDDRTL ++
   new WithArty100TJTAG ++
   // Peripheris
   new WithUART ++
   new WithDebug ++
   new WithDTS ++
-  new WithDDR ++
   // Other configurations
   new WithNoDesignKey ++
   new WithNoSerialTL ++
   new WithSimpleBootROM ++
-  new chipyard.config.WithTLBackingMemory ++ // FPGA-shells converts the AXI to TL for us
   new freechips.rocketchip.subsystem.WithoutTLMonitors)
 
-class SmallRocketArty100TConfig extends Config(
-  new WithArty100TTweaks ++
+// class SmallRocketArty100TConfig extends Config(
+//   new WithArty100TTweaks ++
+//   new chipyard.config.WithBroadcastManager ++ // no l2
+//   new chipyard.RocketConfig)
+
+class RoCCMemArty100TConfig extends Config(
+  new WithArty100TTinyTweaks ++
   new chipyard.config.WithBroadcastManager ++ // no l2
-  new chipyard.RocketConfig)
+  new chipyard.TinyRocketRoCCMemConfig)  

@@ -1,1 +1,1 @@
-/home/binhkieudo/Workspace/RISC-V/NewFramework/generators/chipyard/src/main/scala/config/RoCCTutorialConfig.scala
+/home/binhkieudo/Workspace/RoCC_Demo/NewFramework/generators/chipyard/src/main/scala/config/RoCCTutorialConfig.scala

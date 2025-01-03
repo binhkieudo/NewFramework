@@ -14,18 +14,18 @@ sim_name := none
 #########################################################################################
 # include shared variables
 #########################################################################################
-SUB_PROJECT ?= vcu118_rocketsmall
+SUB_PROJECT ?= arty100t_rocc
 
 #########################################################################################
 # My configuration
 #########################################################################################
-ifeq ($(SUB_PROJECT),arty100t_rocketsmall)
+ifeq ($(SUB_PROJECT),arty100t_rocc)
 	# TODO: Fix with Arty
 	SBT_PROJECT       ?= framework
-	MODEL             ?= Arty100THarness
-	VLOG_MODEL        ?= Arty100THarness
+	MODEL             ?= Arty100WoDRAMTHarness
+	VLOG_MODEL        ?= Arty100WoDRAMTHarness
 	MODEL_PACKAGE     ?= framework.fpga.arty100t
-	CONFIG            ?= SmallRocketArty100TConfig
+	CONFIG            ?= RoCCMemArty100TConfig
 	CONFIG_PACKAGE    ?= framework.fpga.arty100t
 	GENERATOR_PACKAGE ?= chipyard
 	TB                ?= none # unused
@@ -33,6 +33,21 @@ ifeq ($(SUB_PROJECT),arty100t_rocketsmall)
 	BOARD             ?= arty_a7_100
 	FPGA_BRAND        ?= xilinx
 endif
+
+# ifeq ($(SUB_PROJECT),arty100t_rocketsmall)
+# 	# TODO: Fix with Arty
+# 	SBT_PROJECT       ?= framework
+# 	MODEL             ?= Arty100THarness
+# 	VLOG_MODEL        ?= Arty100THarness
+# 	MODEL_PACKAGE     ?= framework.fpga.arty100t
+# 	CONFIG            ?= SmallRocketArty100TConfig
+# 	CONFIG_PACKAGE    ?= framework.fpga.arty100t
+# 	GENERATOR_PACKAGE ?= chipyard
+# 	TB                ?= none # unused
+# 	TOP               ?= ChipTop
+# 	BOARD             ?= arty_a7_100
+# 	FPGA_BRAND        ?= xilinx
+# endif
 
 ifeq ($(SUB_PROJECT),vc707_rocketsmall)
 	SBT_PROJECT       ?= framework
