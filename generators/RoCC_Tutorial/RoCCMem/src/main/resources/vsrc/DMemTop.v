@@ -70,13 +70,17 @@ module DMemTop (
         nstate = S_IDLE;
         case (state)
             S_IDLE: nstate = req_valid? S_READ: S_IDLE;
+            // Firstly read necessary data then store in buffer
             S_READ:
                 if (rdptr[5]) nstate = S_WAITREAD;
                 else nstate = (!dmem_req_ready)? S_WAIT: S_READ;
             S_WAITREAD: nstate = &buffer_vld? S_GET: S_WAITREAD;
+            // You can apply your accelerator in the two following states
+            // results then write back to buffer
             S_GET     : nstate = S_PROCESS;
             S_PROCESS: // process data in this step
                 nstate = rdptr[5]? S_WRITE: S_PROCESS;
+            // Write results in buffer to destination addresses
             S_WRITE:
                 if (wrptr[5]) nstate = S_DONE;
                 else nstate = (!dmem_req_ready)? S_WAIT: S_WRITE;
